@@ -1,6 +1,8 @@
+package view;
+
 import javax.swing.*;
 
-public class AlterarHorarioSessao {
+public class JanelaAlterarHorarioSessao extends JFrame {
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JComboBox comboBox2;
