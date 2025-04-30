@@ -7,4 +7,7 @@ public class JanelaAdicionarFilme extends JFrame{
     private JComboBox comboBox1;
     private JButton adicionarButton;
     private JButton cancelarButton;
+    private JSpinner spinner1;
+    private JSpinner spinner2;
+    private JTextArea Sinopse;
 }
