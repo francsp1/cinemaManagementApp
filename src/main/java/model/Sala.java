@@ -10,6 +10,7 @@ public class Sala {
     private TipoSala tipoSala;
     private TipoSistemaSom tipoSistemaSom;
     private String nome;
+    private boolean isAtivo;
 
     public Sala(int numeroFilas, int numeroLugaresPorFila, int numeroSala, TipoSala tipoSala, TipoSistemaSom tipoSistemaSom, String nome) {
         this.numeroFilas = numeroFilas;
@@ -21,11 +22,12 @@ public class Sala {
         this.tipoSala = tipoSala;
         this.tipoSistemaSom = tipoSistemaSom;
         this.nome = nome;
+        this.isAtivo = true;
     }
 
     @Override
     public String toString() {
-        return "Sala " + numeroSala + " (Nome: " + nome + ")" + " - Tipo de Sala: " + tipoSala + ", Sistema de Som: " + tipoSistemaSom;
+        return "Sala " + numeroSala + " (Nome: " + nome + ")" + " | - Tipo de Sala: " + tipoSala + ", | Sistema de Som: " + tipoSistemaSom + " | Estado: " + (isAtivo ? "Ativo" : "Inativo");
     }
 
 }
