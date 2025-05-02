@@ -1,6 +1,5 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -12,11 +11,12 @@ public enum DadosApp {
     private ArrayList<Sala> salas = new ArrayList<>();
 
     private DadosApp() {
-        salasExemplo();
+        adicionarSalasExemplo();
     }
 
-    private void salasExemplo() {
-        Sala sala1 = new Sala(5, 5, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
+    private void adicionarSalasExemplo() {
+        Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
+        sala1.setEstado(false);
         Sala sala2 = new Sala(5, 5, 2, TipoSala.TRES_D, TipoSistemaSom.DOLBY_ATMOS, "Sala 3D");
         Sala sala3 = new Sala(5, 5, 3, TipoSala.IMAX, TipoSistemaSom.NORMAL, "Sala IMAX");
         Sala sala4 = new Sala(5, 5, 4, TipoSala.IMAX, TipoSistemaSom.DOLBY_ATMOS, "Sala VIP");
@@ -27,6 +27,7 @@ public enum DadosApp {
         salas.add(sala3);
         salas.add(sala4);
         salas.add(sala5);
+
     }
 
     public ArrayList<Sala> getSalas() {
