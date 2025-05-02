@@ -24,8 +24,8 @@ public class JanelaAdicionarSala extends JFrame {
     private JLabel lblEstadoSala;
     private JComboBox cmbEstadoSala;
     private JPanel pnlConfiguracaoSala;
-    private JTextField númeroDeFilasTextField;
-    private JTextField textField1;
+    private JTextField txtNumeroFilas;
+    private JTextField txtNumeroLugaresFila;
 
     public static void main(String[] args) {
         JanelaAdicionarSala janela = new JanelaAdicionarSala();
