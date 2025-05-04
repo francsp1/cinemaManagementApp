@@ -25,7 +25,7 @@ public class Sala {
 
     @Override
     public String toString() {
-        return "Sala " + numeroSala + " (Nome: " + nome + ")" + " | - Tipo de Sala: " + tipoSala + ", | Sistema de Som: " + tipoSistemaSom + " | Estado: " + (isAtiva ? "Ativa" : "Inativa");
+        return "Sala " + numeroSala + " (Nome: " + nome + ")" + " | Tipo de Sala: " + tipoSala + " | Sistema de Som: " + tipoSistemaSom + " | Estado: " + (isAtiva ? "Ativa" : "Inativa");
     }
 
     public String getNome() {

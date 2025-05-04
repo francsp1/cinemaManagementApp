@@ -6,10 +6,11 @@ import model.TipoSistemaSom;
 import javax.swing.*;
 
 public class JanelaAdicionarSala extends JFrame {
+    private JFrame parentFrame;
     private JPanel pnlAdicionarSala;
     private JButton btnAdicionarSala;
     private JButton btnCancelar;
-    private JScrollPane sclPnAdicionarSala;
+    private JScrollPane sclAdicionarSala;
     private JLabel lblNumeroSala;
     private JTextField txtNumeroSala;
     private JTextField txtNomeSala;
@@ -28,11 +29,12 @@ public class JanelaAdicionarSala extends JFrame {
     private JTextField txtNumeroLugaresFila;
 
     public static void main(String[] args) {
-        JanelaAdicionarSala janela = new JanelaAdicionarSala();
+        JanelaAdicionarSala janela = new JanelaAdicionarSala(null);
     }
 
-    public JanelaAdicionarSala() {
+    public JanelaAdicionarSala(JFrame parentFrame) {
         super("Adicionar Sala");
+        this.parentFrame = parentFrame;
         setContentPane(pnlAdicionarSala);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();

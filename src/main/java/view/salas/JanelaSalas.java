@@ -6,20 +6,22 @@ import model.Sala;
 import javax.swing.*;
 
 public class JanelaSalas extends JFrame {
-
+    private JFrame parentFrame;
     private JPanel pnlSalas;
     private JButton btnSair;
-    private JButton btnDetalhes;
     private JScrollPane sclPnSalas;
     private JList lstSalas;
     private JButton btnAdicionarSala;
+    private JButton btnDetalesSala;
+    private JButton btnSessoesSala;
 
     public static void main(String[] args) {
-        JanelaSalas janela = new JanelaSalas();
+        JanelaSalas janela = new JanelaSalas(null);
     }
 
-    public JanelaSalas() {
+    public JanelaSalas(JFrame parentFrame) {
         super("Lista de Salas");
+        this.parentFrame = parentFrame;
         setContentPane(pnlSalas);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();

@@ -8,6 +8,7 @@ import model.TipoSistemaSom;
 import javax.swing.*;
 
 public class JanelaDetalhesSala extends JFrame {
+    private JFrame parentFrame;
     private JPanel pnlDetalhesSala;
     private JButton btnGuardar;
     private JButton btnCancelar;
@@ -34,11 +35,12 @@ public class JanelaDetalhesSala extends JFrame {
     private JPanel pnlConfiguracaoSala;
 
     public static void main(String[] args) {
-        JanelaDetalhesSala janela = new JanelaDetalhesSala(DadosApp.INSTANCIA.getSalas().getFirst());
+        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getFirst());
     }
 
-    public JanelaDetalhesSala(Sala sala) {
+    public JanelaDetalhesSala(JFrame parentFrame, Sala sala) {
         super("Detalhes da Sala " + sala.getNumeroSala());
+        this.parentFrame = parentFrame;
         setContentPane(pnlDetalhesSala);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();

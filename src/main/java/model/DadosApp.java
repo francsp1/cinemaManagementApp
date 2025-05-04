@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public enum DadosApp {
     INSTANCIA;
 
-    private ArrayList<Sala> salas = new ArrayList<>();
+    private final ArrayList<Sala> salas = new ArrayList<>();
 
-    private DadosApp() {
+    DadosApp() {
         adicionarSalasExemplo();
     }
 
