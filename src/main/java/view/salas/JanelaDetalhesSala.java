@@ -33,6 +33,7 @@ public class JanelaDetalhesSala extends JFrame {
     private JLabel lblEstadoSala;
     private JComboBox cmbEstadoSala;
     private JPanel pnlConfiguracaoSala;
+    private JButton btnSessoesSala;
 
     public static void main(String[] args) {
         JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getFirst());
