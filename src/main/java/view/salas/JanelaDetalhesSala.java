@@ -36,6 +36,7 @@ public class JanelaDetalhesSala extends JFrame {
 
     public static void main(String[] args) {
         JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getFirst());
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaDetalhesSala(JFrame parentFrame, Sala sala) {
@@ -44,6 +45,7 @@ public class JanelaDetalhesSala extends JFrame {
         setContentPane(pnlDetalhesSala);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+        setLocationRelativeTo(null);
 
         preencherDetalhesSala(sala);
 

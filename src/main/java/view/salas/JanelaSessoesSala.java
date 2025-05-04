@@ -12,6 +12,7 @@ public class JanelaSessoesSala extends JFrame {
 
     public static void main(String[] args) {
         JanelaSessoesSala janela = new JanelaSessoesSala(null);
+        janela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public JanelaSessoesSala(JFrame parentFrame) {
@@ -20,6 +21,7 @@ public class JanelaSessoesSala extends JFrame {
         setContentPane(pnlSessoesSala);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+        setLocationRelativeTo(null);
 
         preencherListaSessoes();
 

@@ -30,6 +30,7 @@ public class JanelaAdicionarSala extends JFrame {
 
     public static void main(String[] args) {
         JanelaAdicionarSala janela = new JanelaAdicionarSala(null);
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaAdicionarSala(JFrame parentFrame) {
@@ -38,6 +39,7 @@ public class JanelaAdicionarSala extends JFrame {
         setContentPane(pnlAdicionarSala);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+        setLocationRelativeTo(null);
 
         preencherCampos();
 

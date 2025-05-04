@@ -17,6 +17,7 @@ public class JanelaSalas extends JFrame {
 
     public static void main(String[] args) {
         JanelaSalas janela = new JanelaSalas(null);
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaSalas(JFrame parentFrame) {
@@ -25,6 +26,7 @@ public class JanelaSalas extends JFrame {
         setContentPane(pnlSalas);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+        setLocationRelativeTo(null);
 
         preencherListaSalas();
 
