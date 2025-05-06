@@ -8,6 +8,8 @@ public class JanelaEstatisticas {
     private JPanel mainPanel;
     private JTable table1;
     private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JList list1;
 
     public JanelaEstatisticas() {
         String[] columnNames = {"Posição no TOP", "Filme", "Realizador"};
