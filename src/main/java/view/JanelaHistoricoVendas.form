@@ -29,22 +29,6 @@
           </component>
         </children>
       </grid>
-      <component id="366dd" class="javax.swing.JButton" binding="ordenarPorPreçoButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Ordenar por preço"/>
-        </properties>
-      </component>
-      <component id="524f1" class="javax.swing.JButton" binding="ordenarPorDataButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Ordenar por data"/>
-        </properties>
-      </component>
       <scrollpane id="a0101">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -58,6 +42,25 @@
           </component>
         </children>
       </scrollpane>
+      <component id="a5568" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Ordenar por:"/>
+        </properties>
+      </component>
+      <component id="6df95" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="Data"/>
+            <item value="Preço"/>
+          </model>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
