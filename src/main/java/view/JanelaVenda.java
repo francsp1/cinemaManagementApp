@@ -20,6 +20,8 @@ public class JanelaVenda extends JFrame {
     private JButton adicionarProdutoButton;
     private JButton removerProdutoButton;
     private JPanel mainPanel;
+    private JComboBox comboBox2;
+    private JButton cancelarOperaçãoButton;
 
     public JanelaVenda() {
         String[] columnNames = {"Produto", "Quantidade"};
