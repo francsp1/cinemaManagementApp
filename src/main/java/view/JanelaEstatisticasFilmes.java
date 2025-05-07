@@ -3,15 +3,15 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaEstatisticas {
+public class JanelaEstatisticasFilmes {
 
     private JPanel mainPanel;
     private JTable table1;
-    private JComboBox comboBox2;
     private JList list1;
     private JComboBox comboBox1;
+    private JComboBox comboBox2;
 
-    public JanelaEstatisticas() {
+    public JanelaEstatisticasFilmes() {
         String[] columnNames = {"Posição no TOP", "Filme", "Realizador"};
         String[] filmes = {"O Senhor dos Anéis", "Matrix", "Pulp Fiction", "Interstellar", "Inception"};
         String[] realizadores = {"Peter Jackson", "Lana Wachowski", "Quentin Tarantino", "Christopher Nolan", "Christopher Nolan"};
@@ -41,7 +41,7 @@ public class JanelaEstatisticas {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Estatísticas");
             frame.setSize(800, 400);
-            frame.setContentPane(new JanelaEstatisticas().getMainPanel());
+            frame.setContentPane(new JanelaEstatisticasFilmes().getMainPanel());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         });
