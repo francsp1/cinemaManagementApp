@@ -11,4 +11,5 @@ public class JanelaAlterarHorarioSessao extends JFrame {
     private JSpinner spinner4;
     private JButton confirmarButton;
     private JButton cancelarButton;
+    private JSpinner spinner5;
 }

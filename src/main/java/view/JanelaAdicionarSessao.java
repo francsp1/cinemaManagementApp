@@ -11,6 +11,7 @@ public class JanelaAdicionarSessao extends JFrame{
     private JSpinner spinner4;
     private JButton adicionarButton;
     private JButton cancelarButton;
+    private JSpinner spinner5;
 
 
 }
