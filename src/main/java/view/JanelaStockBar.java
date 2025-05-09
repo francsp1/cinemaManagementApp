@@ -23,7 +23,7 @@ public class JanelaStockBar extends JFrame{
             data[i][1] = stock[i];
         }
 
-        String[] colunasHistorico = {"Produto", "Quantidade", "Data", "Valor (€)"};
+        String[] colunasHistorico = {"Fornecedor", "Nr Fatura", "Data", "Valor (€)"};
         Object[][] historico = {
                 {"Coca-Cola", 3, "30/04/2025", 4.50},
                 {"Pepsi", 1, "29/04/2025", 1.20},
