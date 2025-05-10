@@ -3,8 +3,6 @@ package model;
 public class Funcionario {
     private String nome;
     private String cartaoCidadao;
-    private String numeroContribuinte;
-    private String numeroSegurancaSocial;
     private String email;
     private String morada;
     private String telemovel;
