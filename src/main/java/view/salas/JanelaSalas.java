@@ -10,7 +10,7 @@ public class JanelaSalas extends JFrame {
     private JFrame parentFrame;
     private JPanel pnlSalas;
     private JButton btnSair;
-    private JScrollPane sclPnSalas;
+    private JScrollPane sclSalas;
     private JList lstSalas;
     private JButton btnAdicionarSala;
     private JButton btnDetalesSala;
