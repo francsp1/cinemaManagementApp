@@ -13,15 +13,14 @@ public class JanelaVenda extends JFrame {
     private JComboBox opSessao;
     private JComboBox comboBox1;
     private JButton adicionarBilheteButton;
-    private JButton removerBilheteButton;
     private JTable tabelaProdutos;
     private JButton escolherButton;
     private JTextField textField1;
     private JButton adicionarProdutoButton;
-    private JButton removerProdutoButton;
     private JPanel mainPanel;
     private JComboBox comboBox2;
     private JButton cancelarOperaçãoButton;
+    private JButton removerLinhaButton;
 
     public JanelaVenda() {
         String[] columnNames = {"Produto", "Quantidade"};
