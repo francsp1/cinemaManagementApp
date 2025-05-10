@@ -1,6 +1,5 @@
 package view.salas;
 
-import model.Sala;
 import model.TipoSala;
 import model.TipoSistemaSom;
 
@@ -11,7 +10,7 @@ public class JanelaAdicionarSala extends JFrame {
     private JFrame parentFrame;
     private JPanel pnlAdicionarSala;
     private JButton btnAdicionarSala;
-    private JButton btnCancelar;
+    private JButton btnSair;
     private JScrollPane sclAdicionarSala;
     private JLabel lblNumeroSala;
     private JTextField txtNomeSala;
@@ -51,6 +50,8 @@ public class JanelaAdicionarSala extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
+        btnSair.addActionListener(this::btnSairActionPerformed);
+
         preencherCampos();
 
         setVisible(true);
@@ -88,6 +89,10 @@ public class JanelaAdicionarSala extends JFrame {
                 botao.setText((char) ('A' + linha) + "" + (coluna + 1));
             }
         }
+    }
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
     }
 
 }
