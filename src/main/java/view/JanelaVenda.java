@@ -23,22 +23,22 @@ public class JanelaVenda extends JFrame {
     private JButton removerLinhaButton;
 
     public JanelaVenda() {
-        String[] columnNames = {"Produto", "Quantidade"};
+        String[] columnNames = {"Produto"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-        String[] stock = {"0", "0", "1"};
-        Object[][] data = new Object[products.length][2];  // Inicializa com o tamanho necessário
 
+        // Create a 2D Object array for the rows
+        Object[][] data = new Object[products.length][1];
         for (int i = 0; i < products.length; i++) {
-            data[i][0] = products[i];
-            data[i][1] = stock[i];
+            data[i][0] = products[i]; // Set each product in the only column
         }
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
+                return false; // Make cells non-editable
             }
         };
+
         tabelaProdutos.setModel(model);
 
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
