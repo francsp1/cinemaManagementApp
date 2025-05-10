@@ -2,7 +2,6 @@ package view;
 
 import model.DadosApp;
 import model.Funcionario;
-import model.Sala;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +13,7 @@ public class JanelaFuncionarios extends JFrame {
     private JList lstFuncionarios;
     private JButton btnAdicionarFuncionario;
     private JButton btnSair;
+    private JButton verDetalhesEditarFuncionarioButton;
 
     public static void main(String[] args) {
         JanelaFuncionarios janela = new JanelaFuncionarios(null);

@@ -10,34 +10,17 @@ public class Funcionario {
     private String password;
     private boolean isGestor;
 
-    public Funcionario(String nome, String username, String password, boolean isAdmin, String cartaoCidadao, String numeroContribuinte, String numeroSegurancaSocial, String email, String morada, String telemovel) {
+    public Funcionario(String nome, String cartaoCidadao, String email, String morada, String telemovel, String username, String password, boolean isGestor) {
         this.nome = nome;
-        this.username = username;
-        this.password = password;
-        this.isGestor = isAdmin;
         this.cartaoCidadao = cartaoCidadao;
-        this.numeroContribuinte = numeroContribuinte;
-        this.numeroSegurancaSocial = numeroSegurancaSocial;
         this.email = email;
         this.morada = morada;
         this.telemovel = telemovel;
+        this.username = username;
+        this.password = password;
+        this.isGestor = isGestor;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public boolean isGestor() {
-        return isGestor;
-    }
 
     @Override
     public String toString() {
