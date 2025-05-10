@@ -6,12 +6,13 @@ import model.TipoSala;
 import model.TipoSistemaSom;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class JanelaDetalhesSala extends JFrame {
     private JFrame parentFrame;
     private JPanel pnlDetalhesSala;
     private JButton btnGuardar;
-    private JButton btnCancelar;
+    private JButton btnSair;
     private JScrollPane sclPnDetalhesSala;
     private JLabel lblNumeroSala;
     private JTextField txtNumeroSala;
@@ -34,9 +35,10 @@ public class JanelaDetalhesSala extends JFrame {
     private JComboBox cmbEstadoSala;
     private JPanel pnlConfiguracaoSala;
     private JButton btnSessoesSala;
+    private JLabel lblConfiguracaoSala;
 
     public static void main(String[] args) {
-        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getFirst());
+        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast());
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -47,6 +49,8 @@ public class JanelaDetalhesSala extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+
+        btnSair.addActionListener(this::btnSairActionPerformed);
 
         preencherDetalhesSala(sala);
 
@@ -74,6 +78,31 @@ public class JanelaDetalhesSala extends JFrame {
         cmbTipoSistemaSom.setSelectedItem(sala.getTipoSistemaSom());
 
         cmbEstadoSala.setSelectedItem(sala.isAtiva() ? "Ativa" : "Inativa");
+
+        desenharConfiguracaoSala(sala);
     }
 
+    private void desenharConfiguracaoSala(Sala sala) {
+        //pnlConfiguracaoSala.removeAll();
+
+        var nrLinhas = sala.getNumeroFilas();
+        var nrColunas = sala.getNumeroLugaresPorFila();
+
+        var botoes = new JButton[nrLinhas][nrColunas];
+
+        pnlConfiguracaoSala.setLayout(new GridLayout(nrLinhas, nrColunas));
+
+        // Criar e adicionar os botões à janela
+        for (int linha = 0; linha < nrLinhas; ++linha) {
+            for (int coluna = 0; coluna < nrColunas; ++coluna) {
+                var botao = botoes[linha][coluna] = new JButton();
+                pnlConfiguracaoSala.add(botoes[linha][coluna]);
+                botao.setText((char) ('A' + linha) + "" + (coluna + 1));
+            }
+        }
+    }
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent e) {
+        dispose();
+    }
 }

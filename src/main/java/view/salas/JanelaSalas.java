@@ -4,6 +4,7 @@ import model.DadosApp;
 import model.Sala;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class JanelaSalas extends JFrame {
     private JFrame parentFrame;
@@ -28,6 +29,8 @@ public class JanelaSalas extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
+        btnSair.addActionListener(this::btnSairActionPerformed);
+
         preencherListaSalas();
 
         setVisible(true);
@@ -40,5 +43,9 @@ public class JanelaSalas extends JFrame {
         for (Sala sala : DadosApp.INSTANCIA.getSalas()) {
             modeloLista.addElement(sala);
         }
+    }
+
+    private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
     }
 }

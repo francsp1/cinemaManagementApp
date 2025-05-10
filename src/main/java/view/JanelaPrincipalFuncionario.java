@@ -9,6 +9,7 @@ public class JanelaPrincipalFuncionario {
     private JButton vendaBilhetesButton;
     private JButton vendaBarButton;
     private JButton adicionarSessaoButton;
+    private JButton procurarSessoesButton;
 
 
 }
