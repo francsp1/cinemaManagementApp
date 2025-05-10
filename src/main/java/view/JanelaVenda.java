@@ -50,7 +50,7 @@ public class JanelaVenda extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Stock Bar");
+            JFrame frame = new JFrame("Registar Venda");
             frame.setSize(800, 400);
             frame.setContentPane(new JanelaVenda().getMainPanel());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
