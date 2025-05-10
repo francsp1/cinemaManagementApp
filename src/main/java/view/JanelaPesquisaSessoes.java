@@ -9,4 +9,5 @@ public class JanelaPesquisaSessoes extends JFrame{
     private JComboBox comboBox2;
     private JComboBox comboBox3;
     private JComboBox comboBox4;
+    private JTextField textField1;
 }
