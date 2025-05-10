@@ -8,6 +8,7 @@ public class JanelaPrincipalGestor extends JFrame {
     private JButton adicionarSessaoButton;
     private JButton vendasBilhetesButton;
     private JButton procurarSessoesButton;
+    private JButton gerirBundlesButton;
 
     public static void main(String[] args) {
         JanelaPrincipalGestor janela = new JanelaPrincipalGestor();
