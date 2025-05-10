@@ -43,11 +43,11 @@ public class JanelaStockBar extends JFrame{
                 {"Bina"}
         };
 
-        String[] colunasVendaProdutos = {"Produto", "Quantidade", "Total (€)"};
+        String[] colunasVendaProdutos = {"Produto", "Quantidade","Data", "Total (€)"};
         Object[][] vendaProdutos = {
-                {"Coca-Cola", 2, 3.00},
-                {"Pepsi", 1, 1.50},
-                {"Fanta", 3, 4.50}
+                {"Coca-Cola", 2,"30/04/2025",3.00},
+                {"Pepsi", 1,"30/04/2025",1.50},
+                {"Fanta", 3,"30/04/2025", 4.50}
         };
 
         DefaultTableModel model4 = new DefaultTableModel(vendaProdutos, colunasVendaProdutos) {
