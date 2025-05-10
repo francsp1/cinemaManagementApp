@@ -2,14 +2,17 @@ package view;
 
 import javax.swing.*;
 
-public class JanelaPrincipal extends JFrame {
+public class JanelaPrincipalGestor extends JFrame {
     private JPanel pnlPrincipal;
+    private JButton adicionarFilmeButton;
+    private JButton adicionarSessaoButton;
+    private JButton vendasBilhetesButton;
 
     public static void main(String[] args) {
-        JanelaPrincipal janela = new JanelaPrincipal();
+        JanelaPrincipalGestor janela = new JanelaPrincipalGestor();
     }
 
-    public JanelaPrincipal() {
+    public JanelaPrincipalGestor() {
         super("Janela Principal");
         setContentPane(pnlPrincipal);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
