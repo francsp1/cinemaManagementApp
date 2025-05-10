@@ -6,6 +6,7 @@ public class JanelaVerFilmes extends JFrame {
     private JLabel pnlPrincipal;
     private JList list1;
     private JButton verDetalhesButton;
+    private JButton removerFilmeButton;
 
     public JanelaVerFilmes() {
         super("Filmes");
