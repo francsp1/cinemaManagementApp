@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 public class JanelaPrincipalGestor extends JFrame {
     private JFrame parentFrame;
@@ -19,6 +20,7 @@ public class JanelaPrincipalGestor extends JFrame {
     private JButton btnVerFilmes;
     private JPanel pnl1;
     private JLabel lblBemVindoGestor;
+    private JButton btnSair;
 
     public static void main(String[] args) {
         JanelaPrincipalGestor janela = new JanelaPrincipalGestor(null);
@@ -33,7 +35,73 @@ public class JanelaPrincipalGestor extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
+        addActionListeners();
+
         setVisible(true);
+    }
+
+    private void addActionListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+        btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);
+        btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed);
+        btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);
+        btnVerSalas.addActionListener(this::btnVerSalasActionPerformed);
+        btnProcurarSessoes.addActionListener(this::btnProcurarSessoesActionPerformed);
+        btnVendasBar.addActionListener(this::btnVendasBarActionPerformed);
+        btnAdicionarSessao.addActionListener(this::btnAdicionarSessaoActionPerformed);
+        btnReporStocksFornecedores.addActionListener(this::btnReporStocksFornecedoresActionPerformed);
+        btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
+        btnVerFilmes.addActionListener(this::btnVerFilmesActionPerformed);
+        btnGerirBundles.addActionListener(this::btnGerirBundlesActionPerformed);
+    }
+
+    private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
+        parentFrame.setVisible(true);
+    }
+
+    private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnHistoricoVendasActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnEstatisticasFilmesActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnVerSalasActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnProcurarSessoesActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnVendasBarActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnAdicionarSessaoActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnReporStocksFornecedoresActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnAdicionarSalaActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnVerFilmesActionPerformed(ActionEvent e) {
+        //TODO
+    }
+
+    private void btnGerirBundlesActionPerformed(ActionEvent e) {
+        //TODO
     }
 
 }
