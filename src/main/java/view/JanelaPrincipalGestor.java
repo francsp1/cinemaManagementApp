@@ -1,5 +1,7 @@
 package view;
 
+import view.salas.JanelaSalas;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -56,8 +58,10 @@ public class JanelaPrincipalGestor extends JFrame {
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
         dispose();
-        parentFrame.setVisible(true);
     }
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
@@ -73,7 +77,8 @@ public class JanelaPrincipalGestor extends JFrame {
     }
 
     private void btnVerSalasActionPerformed(ActionEvent e) {
-        //TODO
+        JanelaSalas janelaSalas = new JanelaSalas(this, true);
+        setVisible(false);
     }
 
     private void btnProcurarSessoesActionPerformed(ActionEvent e) {
