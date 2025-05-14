@@ -1,8 +1,10 @@
 package view;
 
+
 import javax.swing.*;
 
-public class JanelaPrincipalFuncionario {
+public class JanelaPrincipalFuncionario extends JFrame {
+    private JFrame parentFrame;
     private JButton adicionarFilmeButton;
     private JPanel pnlPrincipal;
     private JButton verListaFilmesButton;
@@ -11,7 +13,21 @@ public class JanelaPrincipalFuncionario {
     private JButton adicionarSessaoButton;
     private JButton procurarSessoesButton;
 
+    public static void main(String[] args) {
+        JanelaPrincipalFuncionario janela = new JanelaPrincipalFuncionario(null);
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
+    public JanelaPrincipalFuncionario(JFrame parentFrame) {
+        super("Janela Principal");
+        this.parentFrame = parentFrame;
+        setContentPane(pnlPrincipal);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+
+        setVisible(true);
+    }
 }
 
 
