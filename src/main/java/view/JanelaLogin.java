@@ -43,28 +43,38 @@ public class JanelaLogin extends JFrame {
     }
 
     private void btnLoginActionPerformed(ActionEvent e) {
-        String username = lblUsername.getText();
-        String password = new String(txtPassword.getPassword());
+        String username = lblUsername.getText().trim();
+        String password = new String(txtPassword.getPassword()).trim();
 
-        boolean funcionarioValido = false;
-        for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
-            if (funcionario.getUsername().equals(username) && funcionario.getPassword().equals(password)) {
-                if (funcionario.isGestor()) {
-                    JanelaPrincipalGestor janelaPrincipalGestor = new JanelaPrincipalGestor(this);
-                } else {
-                    JanelaPrincipalFuncionario janelaPrincipalFuncionario = new JanelaPrincipalFuncionario(this);
-                }
-                funcionarioValido = true;
-                break;
-            }
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Os campos Username e Password não devem estar vazios ou conter apenas espaços", "Erro", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        if (!funcionarioValido) {
+        Funcionario funcionario = procurarFuncionario(username, password);
+
+        if (funcionario == null) {
             JOptionPane.showMessageDialog(this, "Username e Password inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
             lblUsername.setText("");
             txtPassword.setText("");
             return;
         }
+
+        if (funcionario.isGestor()) {
+            new JanelaPrincipalGestor(this);
+        } else {
+            new JanelaPrincipalFuncionario(this);
+        }
+
         setVisible(false);
+    }
+
+    private Funcionario procurarFuncionario(String username, String password) {
+        for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
+            if (funcionario.getUsername().equals(username) && funcionario.getPassword().equals(password)) {
+                return funcionario;
+            }
+        }
+        return null;
     }
 }
