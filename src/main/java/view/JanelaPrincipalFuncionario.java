@@ -5,13 +5,15 @@ import javax.swing.*;
 
 public class JanelaPrincipalFuncionario extends JFrame {
     private JFrame parentFrame;
-    private JButton adicionarFilmeButton;
+    private JButton btnAdicionarFilme;
     private JPanel pnlPrincipal;
-    private JButton verListaFilmesButton;
-    private JButton vendaBilhetesButton;
-    private JButton vendaBarButton;
-    private JButton adicionarSessaoButton;
-    private JButton procurarSessoesButton;
+    private JButton btnVerListaFilmes;
+    private JButton btnVendaBilhetes;
+    private JButton btnVendaBar;
+    private JButton btnAdicionarSessao;
+    private JButton btnProcurarSessoes;
+    private JPanel pnl1;
+    private JLabel lblBemVindoFuncionario;
 
     public static void main(String[] args) {
         JanelaPrincipalFuncionario janela = new JanelaPrincipalFuncionario(null);
