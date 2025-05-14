@@ -28,7 +28,7 @@ public class JanelaLogin extends JFrame {
     public JanelaLogin() {
         super("Lista de Salas");
         setContentPane(pnlLogin);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
@@ -46,8 +46,7 @@ public class JanelaLogin extends JFrame {
         String username = lblUsername.getText();
         String password = new String(txtPassword.getPassword());
 
-        //search for username in DadosApp.INSTANCIA.getFuncionarios()
-
+        boolean funcionarioValido = false;
         for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
             if (funcionario.getUsername().equals(username) && funcionario.getPassword().equals(password)) {
                 if (funcionario.isGestor()) {
@@ -55,11 +54,17 @@ public class JanelaLogin extends JFrame {
                 } else {
                     JanelaPrincipalFuncionario janelaPrincipalFuncionario = new JanelaPrincipalFuncionario(this);
                 }
+                funcionarioValido = true;
                 break;
             }
         }
 
+        if (!funcionarioValido) {
+            JOptionPane.showMessageDialog(this, "Username e Password inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
+            lblUsername.setText("");
+            txtPassword.setText("");
+            return;
+        }
         setVisible(false);
-
     }
 }

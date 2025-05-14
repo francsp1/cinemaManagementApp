@@ -20,7 +20,7 @@ public class JanelaPrincipalGestor extends JFrame {
         super("Janela Principal");
         this.parentFrame = parentFrame;
         setContentPane(pnlPrincipal);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 

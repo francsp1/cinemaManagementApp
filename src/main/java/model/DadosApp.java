@@ -76,6 +76,7 @@ public enum DadosApp {
         funcionarios.add(f5);
         funcionarios.add(f6);
         funcionarios.add(f6);
+        funcionarios.add(f7);
     }
 
     public ArrayList<Sala> getSalas() {
