@@ -35,27 +35,37 @@ public enum DadosApp {
     private void adicionarFuncionariosExemplo() {
         Funcionario f1 = new Funcionario(
                 "João Silva", "12345678", "joao.silva@email.com",
-                "Rua A, Lisboa", "912345678", "jsilva", "senha123", true
+                "Rua A, Lisboa", "912345678", "jsilva", "1234", true
         );
 
         Funcionario f2 = new Funcionario(
                 "Maria Fernandes", "87654321", "maria.fernandes@email.com",
-                "Av. B, Porto", "934567890", "mfernandes", "pass456", false
+                "Av. B, Porto", "934567890", "mfernandes", "1234", false
         );
 
         Funcionario f3 = new Funcionario(
                 "Carlos Sousa", "11223344", "carlos.sousa@email.com",
-                "Rua C, Coimbra", "965432187", "csousa", "qwerty", false
+                "Rua C, Coimbra", "965432187", "csousa", "1234", false
         );
 
         Funcionario f4 = new Funcionario(
                 "Ana Costa", "44332211", "ana.costa@email.com",
-                "Av. D, Faro", "913245678", "acosta", "abc123", true
+                "Av. D, Faro", "913245678", "acosta", "1234", true
         );
 
         Funcionario f5 = new Funcionario(
                 "Pedro Gomes", "33445566", "pedro.gomes@email.com",
-                "Rua E, Braga", "926789012", "pgomes", "zxcvbn", false
+                "Rua E, Braga", "926789012", "pgomes", "1234", false
+        );
+
+        Funcionario f6 = new Funcionario(
+                "gestor1", "3121432435", "gestor1@email.com",
+                "Rua da Moita 27", "926789012", "gestor1", "1234", true
+        );
+
+        Funcionario f7 = new Funcionario(
+                "funcionario1", "473264738", "funcionario1@email.com",
+                "Rua da fonte 3", "926789222", "funcionario1", "1234", false
         );
 
 
@@ -64,6 +74,8 @@ public enum DadosApp {
         funcionarios.add(f3);
         funcionarios.add(f4);
         funcionarios.add(f5);
+        funcionarios.add(f6);
+        funcionarios.add(f6);
     }
 
     public ArrayList<Sala> getSalas() {
