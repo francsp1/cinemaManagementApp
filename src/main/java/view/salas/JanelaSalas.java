@@ -35,9 +35,7 @@ public class JanelaSalas extends JFrame {
 
         setVisible(true);
     }
-
-
-
+    
     private void preencherListaSalas() {
         DefaultListModel<Sala> modeloLista = new DefaultListModel<>();
         lstSalas.setModel(modeloLista);
