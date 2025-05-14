@@ -17,11 +17,11 @@ public class JanelaSalas extends JFrame {
     private JButton btnSessoesSala;
 
     public static void main(String[] args) {
-        JanelaSalas janela = new JanelaSalas(null);
+        JanelaSalas janela = new JanelaSalas(null, true);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JanelaSalas(JFrame parentFrame) {
+    public JanelaSalas(JFrame parentFrame, boolean isGestor) {
         super("Lista de Salas");
         this.parentFrame = parentFrame;
         setContentPane(pnlSalas);
@@ -29,12 +29,14 @@ public class JanelaSalas extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        btnSair.addActionListener(this::btnSairActionPerformed);
+        addActionListeners(isGestor);
 
         preencherListaSalas();
 
         setVisible(true);
     }
+
+
 
     private void preencherListaSalas() {
         DefaultListModel<Sala> modeloLista = new DefaultListModel<>();
@@ -45,7 +47,24 @@ public class JanelaSalas extends JFrame {
         }
     }
 
+    private void addActionListeners(boolean isGestor) {
+        if (isGestor) {
+            btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
+        } else {
+            btnAdicionarSala.setVisible(false);
+        }
+
+        btnSair.addActionListener(this::btnSairActionPerformed);
+    }
+    
     private void btnSairActionPerformed(ActionEvent e) {
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
         dispose();
+    }
+
+    private void btnAdicionarSalaActionPerformed(ActionEvent e) {
+        //TODO
     }
 }

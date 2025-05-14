@@ -1,6 +1,8 @@
 package view;
 
 
+import view.salas.JanelaSalas;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -16,6 +18,7 @@ public class JanelaPrincipalFuncionario extends JFrame {
     private JPanel pnl1;
     private JLabel lblBemVindoFuncionario;
     private JButton btnSair;
+    private JButton btnVerSalas;
 
     public static void main(String[] args) {
         JanelaPrincipalFuncionario janela = new JanelaPrincipalFuncionario(null);
@@ -42,11 +45,14 @@ public class JanelaPrincipalFuncionario extends JFrame {
         btnVendaBilhetes.addActionListener(this::btnVendaBilhetesActionPerformed);
         btnVendaBar.addActionListener(this::btnVendaBarActionPerformed);
         btnProcurarSessoes.addActionListener(this::btnProcurarSessoesActionPerformed);
+        btnVerSalas.addActionListener(this::btnVerSalasActionPerformed);
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
         dispose();
-        parentFrame.setVisible(true);
     }
 
     private void btnVerListaFilmesActionPerformed(ActionEvent e) {
@@ -67,6 +73,11 @@ public class JanelaPrincipalFuncionario extends JFrame {
 
     private void btnProcurarSessoesActionPerformed(ActionEvent e) {
         //TODO
+    }
+
+    private void btnVerSalasActionPerformed(ActionEvent e) {
+        JanelaSalas janelaSalas = new JanelaSalas(this, false);
+        setVisible(false);
     }
 
 }
