@@ -13,19 +13,18 @@ public class JanelaSalas extends JFrame {
     private JScrollPane sclSalas;
     private JList lstSalas;
     private JButton btnAdicionarSala;
-    private JButton btnDetalesSala;
+    private JButton btnVerDetalesSala;
     private JButton btnSessoesSala;
 
     public static void main(String[] args) {
         JanelaSalas janela = new JanelaSalas(null, true);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaSalas(JFrame parentFrame, boolean isGestor) {
         super("Lista de Salas");
         this.parentFrame = parentFrame;
         setContentPane(pnlSalas);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
@@ -46,13 +45,16 @@ public class JanelaSalas extends JFrame {
     }
 
     private void addActionListeners(boolean isGestor) {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+
         if (isGestor) {
             btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
         } else {
             btnAdicionarSala.setVisible(false);
         }
 
-        btnSair.addActionListener(this::btnSairActionPerformed);
+        btnVerDetalesSala.addActionListener(this::btnDetalesSalaActionPerformed);
+
     }
     
     private void btnSairActionPerformed(ActionEvent e) {
@@ -64,5 +66,15 @@ public class JanelaSalas extends JFrame {
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
         //TODO
+    }
+
+    private void btnDetalesSalaActionPerformed(ActionEvent e) {
+        Sala salaSelecionada = (Sala) lstSalas.getSelectedValue();
+        if (salaSelecionada != null) {
+            new JanelaDetalhesSala(parentFrame, salaSelecionada);
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma sala para ver os detalhes.", "Erro", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

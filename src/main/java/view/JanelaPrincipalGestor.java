@@ -26,7 +26,6 @@ public class JanelaPrincipalGestor extends JFrame {
 
     public static void main(String[] args) {
         JanelaPrincipalGestor janela = new JanelaPrincipalGestor(null);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaPrincipalGestor(JFrame parentFrame) {

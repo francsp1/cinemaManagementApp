@@ -22,7 +22,6 @@ public class JanelaPrincipalFuncionario extends JFrame {
 
     public static void main(String[] args) {
         JanelaPrincipalFuncionario janela = new JanelaPrincipalFuncionario(null);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaPrincipalFuncionario(JFrame parentFrame) {

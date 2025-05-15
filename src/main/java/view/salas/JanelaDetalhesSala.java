@@ -7,6 +7,7 @@ import model.TipoSistemaSom;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class JanelaDetalhesSala extends JFrame {
     private JFrame parentFrame;
@@ -39,18 +40,17 @@ public class JanelaDetalhesSala extends JFrame {
 
     public static void main(String[] args) {
         JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast());
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaDetalhesSala(JFrame parentFrame, Sala sala) {
         super("Detalhes da Sala " + sala.getNumeroSala());
         this.parentFrame = parentFrame;
         setContentPane(pnlDetalhesSala);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
-        btnSair.addActionListener(this::btnSairActionPerformed);
+        addActionListeners();
 
         preencherDetalhesSala(sala);
 
@@ -102,7 +102,14 @@ public class JanelaDetalhesSala extends JFrame {
         }
     }
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent e) {
+    private void addActionListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+    }
+
+    private void btnSairActionPerformed(ActionEvent e) {
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
         dispose();
     }
 }
