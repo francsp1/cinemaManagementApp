@@ -1,6 +1,7 @@
 package view.salas;
 
 import model.DadosApp;
+import model.Sala;
 import model.TipoSala;
 import model.TipoSistemaSom;
 
@@ -24,8 +25,6 @@ public class JanelaAdicionarSala extends JFrame {
     private JComboBox cmbTipoSala;
     private JComboBox cmbTipoSistemaSom;
     private JLabel lblTipoSistemaSom;
-    private JLabel lblEstadoSala;
-    private JComboBox cmbEstadoSala;
     private JSpinner sprNumeroSala;
     private JSpinner sprNumeroFilas;
     private JSpinner sprNumeroLugaresFIla;
@@ -94,18 +93,10 @@ public class JanelaAdicionarSala extends JFrame {
 
     private void btnAdicionarSalaActionPerformed(ActionEvent evt) {
 
-        if (validarDetalhesSala()) {
-
-        }
-
-    }
-
-    private boolean validarDetalhesSala() {
-        // Verificar Número da Sala
         String numeroSala =  sprNumeroSala.getValue().toString();
         if (numeroSala.trim().isEmpty()) {
             mostrarErro(ERRO_1);
-            return false;
+            return;
         }
 
         int numeroSalaInt;
@@ -113,31 +104,31 @@ public class JanelaAdicionarSala extends JFrame {
             numeroSalaInt = Integer.parseInt(numeroSala);
         } catch (Exception e) {
             mostrarErro(ERRO_2);
-            return false;
+            return;
         }
 
         if (numeroSalaInt < 0) {
             mostrarErro(ERRO_3);
-            return false;
+            return;
         }
 
         if (DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt)) {
             mostrarErro(ERRO_4 + numeroSalaInt);
-            return false;
+            return;
         }
 
         // Verificar Nome da Sala
         String nomeSala = txtNomeSala.getText();
         if (nomeSala.trim().isEmpty()) {
             mostrarErro(ERRO_5);
-            return false;
+            return;
         }
 
         // Verificar Número de Filas
         String numeroFilas = sprNumeroFilas.getValue().toString();
         if (numeroFilas.trim().isEmpty()) {
             mostrarErro(ERRO_6);
-            return false;
+            return;
         }
 
         int numeroFilasInt;
@@ -145,19 +136,19 @@ public class JanelaAdicionarSala extends JFrame {
             numeroFilasInt = Integer.parseInt(numeroFilas);
         } catch (Exception e) {
             mostrarErro(ERRO_7);
-            return false;
+            return;
         }
 
         if (numeroFilasInt < 0) {
             mostrarErro(ERRO_8);
-            return false;
+            return;
         }
 
         // Verificar Número de Lugares por Fila
         String numeroLugaresFila = sprNumeroLugaresFIla.getValue().toString();
         if (numeroLugaresFila.trim().isEmpty()) {
             mostrarErro(ERRO_9);
-            return false;
+            return;
         }
 
         int numeroLugaresFilaInt;
@@ -165,16 +156,25 @@ public class JanelaAdicionarSala extends JFrame {
             numeroLugaresFilaInt = Integer.parseInt(numeroLugaresFila);
         } catch (Exception e) {
             mostrarErro(ERRO_10);
-            return false;
+            return;
         }
 
         if (numeroLugaresFilaInt < 0) {
             mostrarErro(ERRO_11);
-            return false;
+            return;
         }
 
-        return true;
+        Sala sala = new Sala(
+                numeroFilasInt,
+                numeroLugaresFilaInt,
+                numeroSalaInt,
+                (TipoSala) cmbTipoSala.getSelectedItem(),
+                (TipoSistemaSom) cmbTipoSistemaSom.getSelectedItem(),
+                nomeSala
+        );
+
     }
+
 
     private void mostrarErro(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
