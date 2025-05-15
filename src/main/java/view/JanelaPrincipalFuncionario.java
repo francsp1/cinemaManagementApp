@@ -8,7 +8,10 @@ import java.awt.event.ActionEvent;
 
 public class JanelaPrincipalFuncionario extends JFrame {
     private JFrame parentFrame;
+<<<<<<< HEAD
     private JPanel pnlPrincipal;
+=======
+>>>>>>> origin/main
     private JButton btnAdicionarFilme;
     private JButton btnVerListaFilmes;
     private JButton btnVendaBilhetes;
