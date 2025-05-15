@@ -16,6 +16,10 @@ public enum DadosApp {
         adicionarFuncionariosExemplo();
     }
 
+    public void adicionarSala(Sala sala) {
+        salas.add(sala);
+    }
+
     private void adicionarSalasExemplo() {
         Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
         sala1.setEstado(false);

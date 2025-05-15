@@ -173,6 +173,8 @@ public class JanelaAdicionarSala extends JFrame {
                 nomeSala
         );
 
+        DadosApp.INSTANCIA.adicionarSala(sala);
+
     }
 
 
