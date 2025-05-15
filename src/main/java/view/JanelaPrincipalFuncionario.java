@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class JanelaPrincipalFuncionario extends JFrame {
-    private final JFrame parentFrame;
+    private JFrame parentFrame;
     private JPanel pnlPrincipal;
     private JButton btnAdicionarFilme;
     private JButton btnVerListaFilmes;
