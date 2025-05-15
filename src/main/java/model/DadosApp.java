@@ -32,6 +32,15 @@ public enum DadosApp {
 
     }
 
+    public boolean existeNumeroSala(int numeroSala) {
+        for (Sala sala : salas) {
+            if (sala.getNumeroSala() == numeroSala) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void adicionarFuncionariosExemplo() {
         Funcionario f1 = new Funcionario(
                 "João Silva", "12345678", "joao.silva@email.com",

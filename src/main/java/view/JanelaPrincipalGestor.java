@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class JanelaPrincipalGestor extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlPrincipal;
     private JButton btnAdicionarFilme;
     private JButton btnAdicionarSessao;
@@ -44,6 +44,7 @@ public class JanelaPrincipalGestor extends JFrame {
 
     private void addActionListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+        btnVendasBilhetes.addActionListener(this::btnVendasBilhetesActionPerformed);
         btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);
         btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed);
         btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);
@@ -62,6 +63,10 @@ public class JanelaPrincipalGestor extends JFrame {
             parentFrame.setVisible(true);
         }
         dispose();
+    }
+
+    private void btnVendasBilhetesActionPerformed(ActionEvent e) {
+        //TODO
     }
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {

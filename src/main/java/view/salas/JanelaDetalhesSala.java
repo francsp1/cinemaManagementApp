@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class JanelaDetalhesSala extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlDetalhesSala;
     private JButton btnGuardar;
     private JButton btnSair;

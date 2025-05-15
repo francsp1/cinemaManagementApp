@@ -3,7 +3,7 @@ package view.salas;
 import javax.swing.*;
 
 public class JanelaSessoesSala extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlSessoesSala;
     private JScrollPane sclSessoesSala;
     private JButton btnSair;

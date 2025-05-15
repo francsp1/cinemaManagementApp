@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JanelaSelecinarLugaresAcesseveis extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlSelecionarLugaresAcessiveis;
     private JButton btnSair;
     private JLabel lblLugaresAcessiveis;
