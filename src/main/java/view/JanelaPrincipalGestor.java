@@ -1,5 +1,6 @@
 package view;
 
+import view.salas.JanelaAdicionarSala;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
@@ -97,7 +98,6 @@ public class JanelaPrincipalGestor extends JFrame {
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
-        //TODO
     }
 
     private void btnVerFilmesActionPerformed(ActionEvent e) {
