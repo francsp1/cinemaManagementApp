@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class JanelaSalas extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlSalas;
     private JButton btnSair;
     private JScrollPane sclSalas;

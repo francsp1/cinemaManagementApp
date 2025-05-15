@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class JanelaPrincipalFuncionario extends JFrame {
-    private JFrame parentFrame;
+    private final JFrame parentFrame;
     private JButton btnAdicionarFilme;
     private JPanel pnlPrincipal;
     private JButton btnVerListaFilmes;
@@ -39,6 +39,7 @@ public class JanelaPrincipalFuncionario extends JFrame {
 
     private void addActionListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+        btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);
         btnVerListaFilmes.addActionListener(this::btnVerListaFilmesActionPerformed);
         btnAdicionarSessao.addActionListener(this::btnAdicionarSessaoActionPerformed);
         btnVendaBilhetes.addActionListener(this::btnVendaBilhetesActionPerformed);
@@ -52,6 +53,10 @@ public class JanelaPrincipalFuncionario extends JFrame {
             parentFrame.setVisible(true);
         }
         dispose();
+    }
+
+    private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
+        //TODO
     }
 
     private void btnVerListaFilmesActionPerformed(ActionEvent e) {
