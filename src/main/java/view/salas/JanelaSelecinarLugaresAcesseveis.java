@@ -1,14 +1,13 @@
 package view.salas;
 
 import model.DadosApp;
-import model.Lugar;
 import model.Sala;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class JanelaSelecinarLugaresAcesseveis extends JFrame {
-    private final JFrame parentFrame;
+    private final JanelaSalas parentFrame;
     private JPanel pnlSelecionarLugaresAcessiveis;
     private JButton btnSair;
     private JLabel lblLugaresAcessiveis;
@@ -20,7 +19,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.INSTANCIA.getSalas().getLast());
     }
 
-    public JanelaSelecinarLugaresAcesseveis(JFrame parentFrame, Sala sala) {
+    public JanelaSelecinarLugaresAcesseveis(JanelaSalas parentFrame, Sala sala) {
         super("Confuguração da Sala");
         this.parentFrame = parentFrame;
         this.sala = sala;
@@ -29,7 +28,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners();
+        addListeners();
 
         desenharConfiguracaoSala();
 
@@ -58,7 +57,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         }
     }
 
-    private void addActionListeners() {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
     }
 

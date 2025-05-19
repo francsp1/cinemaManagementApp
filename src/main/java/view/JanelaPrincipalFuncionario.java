@@ -32,12 +32,12 @@ public class JanelaPrincipalFuncionario extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners();
+        addListeners();
 
         setVisible(true);
     }
 
-    private void addActionListeners() {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
         btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);
         btnVerListaFilmes.addActionListener(this::btnVerListaFilmesActionPerformed);

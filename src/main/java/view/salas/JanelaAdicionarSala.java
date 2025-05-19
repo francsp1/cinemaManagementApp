@@ -6,11 +6,13 @@ import model.TipoSala;
 import model.TipoSistemaSom;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 
+import static model.DadosApp.*;
+
 public class JanelaAdicionarSala extends JFrame {
-    private final JFrame parentFrame;
+    private final JanelaSalas parentFrame;
     private JPanel pnlAdicionarSala;
     private JButton btnAdicionarSala;
     private JButton btnSair;
@@ -31,18 +33,21 @@ public class JanelaAdicionarSala extends JFrame {
     private JLabel lblTotalLugares;
     private JLabel lblLugaresAcessiveis;
     private JLabel lblNumeroLugaresAcessiveis;
+    private JLabel lblNumeroTotalLugares;
 
     private static final String ERRO_1 = "O campo 'Número da Sala' não pode estar vazio.";
-    private static final String ERRO_2 = "O campo 'Número da Sala' deve ser um número inteiro.";
-    private static final String ERRO_3 = "O campo 'Número da Sala' deve ser um número inteiro positivo.";
+    private static final String ERRO_2 = "Não foi possível converter o campo 'Número da Sala' para um número inteiro maior ou igual a 1.";
+    private static final String ERRO_3 = "O campo 'Número da Sala' deve ser um número inteiro maior ou igual a 1.";
     private static final String ERRO_4 = "Já existe uma sala com o número ";
     private static final String ERRO_5 = "O campo 'Nome da Sala' não pode estar vazio.";
     private static final String ERRO_6 = "O campo 'Número de Filas' não pode estar vazio.";
-    private static final String ERRO_7 = "O campo 'Número de Filas' deve ser um número inteiro.";
-    private static final String ERRO_8 = "O campo 'Número de Filas' deve ser um número inteiro positivo.";
-    private static final String ERRO_9 = "O campo 'Número de Lugares por Fila' não pode estar vazio.";
-    private static final String ERRO_10 = "O campo 'Número de Lugares por Fila' deve ser um número inteiro.";
-    private static final String ERRO_11 = "O campo 'Número de Lugares por Fila' deve ser um número inteiro positivo.";
+    private static final String ERRO_7 = "Não foi possível converter o campo 'Número de Filas' para um número inteiro maior ou igual a 1.";
+    private static final String ERRO_8 = "O campo 'Número de Filas' deve ser um número inteiro maior ou igual a 1.";
+    private static final String ERRO_9 = "Uma sala não pode ter mais de " + MAX_FILAS + " filas.";
+    private static final String ERRO_10 = "O campo 'Número de Lugares por Fila' não pode estar vazio.";
+    private static final String ERRO_11 = "Não foi possível converter o campo 'Número de Lugares por Fila' para um número inteiro maior ou igual a 1.";
+    private static final String ERRO_12 = "O campo 'Número de Lugares por Fila' deve ser um número inteiro maior ou igual a 1.";
+    private static final String ERRO_13 = "Uma fila não pode ter mais de " + MAX_LUGARES_POR_FILA + " lugares.";
 
     public static void main(String[] args) {
         JanelaAdicionarSala janela = new JanelaAdicionarSala(null);
@@ -52,7 +57,7 @@ public class JanelaAdicionarSala extends JFrame {
         janela.sprNumeroLugaresFIla.setValue(5);
     }
 
-    public JanelaAdicionarSala(JFrame parentFrame) {
+    public JanelaAdicionarSala(JanelaSalas parentFrame) {
         super("Adicionar Sala");
         this.parentFrame = parentFrame;
         setContentPane(pnlAdicionarSala);
@@ -60,7 +65,7 @@ public class JanelaAdicionarSala extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners();
+        addListeners();
 
         preencherCampos();
 
@@ -68,6 +73,11 @@ public class JanelaAdicionarSala extends JFrame {
     }
 
     private void preencherCampos() {
+
+        sprNumeroSala.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        sprNumeroFilas.setModel(new SpinnerNumberModel(5, 1, MAX_FILAS, 1));
+        sprNumeroLugaresFIla.setModel(new SpinnerNumberModel(5, 1, MAX_LUGARES_POR_FILA, 1));
+
         cmbTipoSala.removeAllItems();
         for (TipoSala tipo : TipoSala.values()) {
             cmbTipoSala.addItem(tipo);
@@ -79,9 +89,51 @@ public class JanelaAdicionarSala extends JFrame {
         }
     }
 
-    private void addActionListeners() {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
         btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
+        sprNumeroFilas.addChangeListener(this::sprChangeListener);
+        sprNumeroLugaresFIla.addChangeListener(this::sprChangeListener);
+
+        /*
+        // Add DocumentListener to the editor of sprNumeroFilas
+        ((JSpinner.DefaultEditor) sprNumeroFilas.getEditor()).getTextField().getDocument()
+                .addDocumentListener(new javax.swing.event.DocumentListener() {
+                    @Override
+                    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroFilas);
+                    }
+
+                    @Override
+                    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroFilas);
+                    }
+
+                    @Override
+                    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroFilas);
+                    }
+                });
+
+        // Add DocumentListener to the editor of sprNumeroLugaresFIla
+        ((JSpinner.DefaultEditor) sprNumeroLugaresFIla.getEditor()).getTextField().getDocument()
+                .addDocumentListener(new javax.swing.event.DocumentListener() {
+                    @Override
+                    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroLugaresFIla);
+                    }
+
+                    @Override
+                    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroLugaresFIla);
+                    }
+
+                    @Override
+                    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                        triggerSpinnerChange(sprNumeroLugaresFIla);
+                    }
+                });
+        */
     }
 
     private void btnSairActionPerformed(ActionEvent evt) {
@@ -93,7 +145,8 @@ public class JanelaAdicionarSala extends JFrame {
 
     private void btnAdicionarSalaActionPerformed(ActionEvent evt) {
 
-        String numeroSala =  sprNumeroSala.getValue().toString();
+        // Verificar Número da Sala
+        String numeroSala = sprNumeroSala.getValue().toString();
         if (numeroSala.trim().isEmpty()) {
             mostrarErro(ERRO_1);
             return;
@@ -107,7 +160,7 @@ public class JanelaAdicionarSala extends JFrame {
             return;
         }
 
-        if (numeroSalaInt < 0) {
+        if (numeroSalaInt < 1) {
             mostrarErro(ERRO_3);
             return;
         }
@@ -139,15 +192,20 @@ public class JanelaAdicionarSala extends JFrame {
             return;
         }
 
-        if (numeroFilasInt < 0) {
+        if (numeroFilasInt < 1) {
             mostrarErro(ERRO_8);
+            return;
+        }
+
+        if (numeroFilasInt > MAX_FILAS) {
+            mostrarErro(ERRO_9);
             return;
         }
 
         // Verificar Número de Lugares por Fila
         String numeroLugaresFila = sprNumeroLugaresFIla.getValue().toString();
         if (numeroLugaresFila.trim().isEmpty()) {
-            mostrarErro(ERRO_9);
+            mostrarErro(ERRO_10);
             return;
         }
 
@@ -155,14 +213,20 @@ public class JanelaAdicionarSala extends JFrame {
         try {
             numeroLugaresFilaInt = Integer.parseInt(numeroLugaresFila);
         } catch (Exception e) {
-            mostrarErro(ERRO_10);
-            return;
-        }
-
-        if (numeroLugaresFilaInt < 0) {
             mostrarErro(ERRO_11);
             return;
         }
+
+        if (numeroLugaresFilaInt < 1) {
+            mostrarErro(ERRO_12);
+            return;
+        }
+
+        if (numeroLugaresFilaInt > MAX_LUGARES_POR_FILA) {
+            mostrarErro(ERRO_13);
+            return;
+        }
+        // --
 
         Sala sala = new Sala(
                 numeroFilasInt,
@@ -173,10 +237,27 @@ public class JanelaAdicionarSala extends JFrame {
                 nomeSala
         );
 
+        /*
         DadosApp.INSTANCIA.adicionarSala(sala);
+
+        JOptionPane.showMessageDialog(this, "Sala adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
+
+        dispose();
+
+        parentFrame.preencherListaSalas();
+        */
 
     }
 
+    private void sprChangeListener(ChangeEvent evt) {
+        int totalLugares = (int) sprNumeroFilas.getValue() * (int) sprNumeroLugaresFIla.getValue();
+        lblNumeroTotalLugares.setText(Integer.toString(totalLugares));
+        lblNumeroLugaresAcessiveis.setText(Integer.toString((int) Math.ceil(totalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS)));
+    }
 
     private void mostrarErro(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);

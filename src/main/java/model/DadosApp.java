@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public enum DadosApp {
     INSTANCIA;
 
+    public static final int MAX_FILAS = 10;
+    public static final int MAX_LUGARES_POR_FILA = 10;
+    public static final float PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10f;
+
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 

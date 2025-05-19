@@ -1,6 +1,5 @@
 package view;
 
-import view.salas.JanelaAdicionarSala;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
@@ -37,12 +36,12 @@ public class JanelaPrincipalGestor extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners();
+        addListeners();
 
         setVisible(true);
     }
 
-    private void addActionListeners() {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
         btnVendasBilhetes.addActionListener(this::btnVendasBilhetesActionPerformed);
         btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);

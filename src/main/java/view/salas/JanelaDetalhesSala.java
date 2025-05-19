@@ -50,7 +50,7 @@ public class JanelaDetalhesSala extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners();
+        addListeners();
 
         preencherDetalhesSala(sala);
 
@@ -102,7 +102,7 @@ public class JanelaDetalhesSala extends JFrame {
         }
     }
 
-    private void addActionListeners() {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
     }
 

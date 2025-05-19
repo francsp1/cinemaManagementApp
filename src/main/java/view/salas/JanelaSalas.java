@@ -16,6 +16,8 @@ public class JanelaSalas extends JFrame {
     private JButton btnVerDetalesSala;
     private JButton btnSessoesSala;
 
+    private DefaultListModel<Sala> modeloLista;
+
     public static void main(String[] args) {
         JanelaSalas janela = new JanelaSalas(null, true);
     }
@@ -28,23 +30,27 @@ public class JanelaSalas extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        addActionListeners(isGestor);
+        addListeners(isGestor);
 
         preencherListaSalas();
 
         setVisible(true);
     }
-    
-    private void preencherListaSalas() {
-        DefaultListModel<Sala> modeloLista = new DefaultListModel<>();
+
+    public void preencherListaSalas() {
+        modeloLista = new DefaultListModel<>();
         lstSalas.setModel(modeloLista);
 
         for (Sala sala : DadosApp.INSTANCIA.getSalas()) {
-            modeloLista.addElement(sala);
+            adicionarElemento(sala);
         }
     }
 
-    private void addActionListeners(boolean isGestor) {
+    public void adicionarElemento(Sala sala) {
+        modeloLista.addElement(sala);
+    }
+
+    private void addListeners(boolean isGestor) {
         btnSair.addActionListener(this::btnSairActionPerformed);
 
         if (isGestor) {
