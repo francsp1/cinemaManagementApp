@@ -80,8 +80,8 @@ public class JanelaPrincipalFuncionario extends JFrame {
     }
 
     private void btnVerSalasActionPerformed(ActionEvent e) {
-        JanelaSalas janelaSalas = new JanelaSalas(this, false);
         setVisible(false);
+        JanelaSalas janelaSalas = new JanelaSalas(this, false);
     }
 
 }

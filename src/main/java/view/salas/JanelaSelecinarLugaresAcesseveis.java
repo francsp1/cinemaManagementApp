@@ -16,7 +16,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
     private JPanel pnlConfiguracaoSala;
     private JButton btnConfirmar;
     private BotaoLugar[][] botoes;
-    private Sala sala;
+    private final Sala sala;
 
     public static void main(String[] args) {
         JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.INSTANCIA.getSalas().getLast());

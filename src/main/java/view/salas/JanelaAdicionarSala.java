@@ -102,10 +102,10 @@ public class JanelaAdicionarSala extends JFrame {
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
-        this.dispose();
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {

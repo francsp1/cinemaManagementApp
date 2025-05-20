@@ -81,8 +81,8 @@ public class JanelaPrincipalGestor extends JFrame {
     }
 
     private void btnVerSalasActionPerformed(ActionEvent e) {
-        JanelaSalas janelaSalas = new JanelaSalas(this, true);
         setVisible(false);
+        JanelaSalas janelaSalas = new JanelaSalas(this, true);
     }
 
     private void btnProcurarSessoesActionPerformed(ActionEvent e) {

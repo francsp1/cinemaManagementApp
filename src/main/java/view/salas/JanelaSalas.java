@@ -77,8 +77,8 @@ public class JanelaSalas extends JFrame {
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
-        JanelaAdicionarSala janelaAdicionarSala = new JanelaAdicionarSala(this);
         setVisible(false);
+        JanelaAdicionarSala janelaAdicionarSala = new JanelaAdicionarSala(this);
     }
 
     private void btnDetalesSalaActionPerformed(ActionEvent e) {
