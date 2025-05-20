@@ -120,7 +120,7 @@ public class JanelaAdicionarSala extends JFrame {
         int numeroSalaInt;
         try {
             numeroSalaInt = Integer.parseInt(numeroSala);
-        } catch (Exception e) {
+        } catch (Exception exception) {
             mostrarErro(ERRO_2);
             return;
         }
@@ -152,7 +152,7 @@ public class JanelaAdicionarSala extends JFrame {
         int numeroFilasInt;
         try {
             numeroFilasInt = Integer.parseInt(numeroFilas);
-        } catch (Exception e) {
+        } catch (Exception exception) {
             mostrarErro(ERRO_7);
             return;
         }
@@ -177,7 +177,7 @@ public class JanelaAdicionarSala extends JFrame {
         int numeroLugaresFilaInt;
         try {
             numeroLugaresFilaInt = Integer.parseInt(numeroLugaresFila);
-        } catch (Exception e) {
+        } catch (Exception exception) {
             mostrarErro(ERRO_11);
             return;
         }
