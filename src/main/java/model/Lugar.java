@@ -30,4 +30,7 @@ public class Lugar {
         return isAcessivel;
     }
 
+    public void setAcessivel(boolean acessivel) {
+        isAcessivel = acessivel;
+    }
 }

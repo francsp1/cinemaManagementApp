@@ -78,7 +78,7 @@ public class JanelaSalas extends JFrame {
     private void btnDetalesSalaActionPerformed(ActionEvent e) {
         Sala salaSelecionada = (Sala) lstSalas.getSelectedValue();
         if (salaSelecionada != null) {
-            new JanelaDetalhesSala(parentFrame, salaSelecionada);
+            new JanelaDetalhesSala(this, salaSelecionada);
             setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma sala para ver os detalhes.", "Erro", JOptionPane.WARNING_MESSAGE);

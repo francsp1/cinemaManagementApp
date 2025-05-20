@@ -7,6 +7,8 @@ import model.TipoSistemaSom;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 
 import static model.DadosApp.*;
@@ -29,7 +31,7 @@ public class JanelaAdicionarSala extends JFrame {
     private JLabel lblTipoSistemaSom;
     private JSpinner sprNumeroSala;
     private JSpinner sprNumeroFilas;
-    private JSpinner sprNumeroLugaresFIla;
+    private JSpinner sprNumeroLugaresFila;
     private JLabel lblTotalLugares;
     private JLabel lblLugaresAcessiveis;
     private JLabel lblNumeroLugaresAcessiveis;
@@ -52,9 +54,9 @@ public class JanelaAdicionarSala extends JFrame {
     public static void main(String[] args) {
         JanelaAdicionarSala janela = new JanelaAdicionarSala(null);
 
-        janela.sprNumeroSala.setValue(2);
-        janela.sprNumeroFilas.setValue(5);
-        janela.sprNumeroLugaresFIla.setValue(5);
+//        janela.sprNumeroSala.setValue(2);
+//        janela.sprNumeroFilas.setValue(5);
+//        janela.sprNumeroLugaresFila.setValue(5);
     }
 
     public JanelaAdicionarSala(JanelaSalas parentFrame) {
@@ -75,8 +77,13 @@ public class JanelaAdicionarSala extends JFrame {
     private void preencherCampos() {
 
         sprNumeroSala.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        sprNumeroFilas.setModel(new SpinnerNumberModel(5, 1, MAX_FILAS, 1));
-        sprNumeroLugaresFIla.setModel(new SpinnerNumberModel(5, 1, MAX_LUGARES_POR_FILA, 1));
+        sprNumeroFilas.setModel(new SpinnerNumberModel(1, 1, MAX_FILAS, 1));
+        sprNumeroLugaresFila.setModel(new SpinnerNumberModel(1, 1, MAX_LUGARES_POR_FILA, 1));
+
+        lblTotalLugares.setVisible(false);
+        lblNumeroLugaresAcessiveis.setVisible(false);
+        lblLugaresAcessiveis.setVisible(false);
+        lblNumeroTotalLugares.setVisible(false);
 
         cmbTipoSala.removeAllItems();
         for (TipoSala tipo : TipoSala.values()) {
@@ -92,48 +99,8 @@ public class JanelaAdicionarSala extends JFrame {
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
         btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
-        sprNumeroFilas.addChangeListener(this::sprChangeListener);
-        sprNumeroLugaresFIla.addChangeListener(this::sprChangeListener);
-
-        /*
-        // Add DocumentListener to the editor of sprNumeroFilas
-        ((JSpinner.DefaultEditor) sprNumeroFilas.getEditor()).getTextField().getDocument()
-                .addDocumentListener(new javax.swing.event.DocumentListener() {
-                    @Override
-                    public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroFilas);
-                    }
-
-                    @Override
-                    public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroFilas);
-                    }
-
-                    @Override
-                    public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroFilas);
-                    }
-                });
-
-        // Add DocumentListener to the editor of sprNumeroLugaresFIla
-        ((JSpinner.DefaultEditor) sprNumeroLugaresFIla.getEditor()).getTextField().getDocument()
-                .addDocumentListener(new javax.swing.event.DocumentListener() {
-                    @Override
-                    public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroLugaresFIla);
-                    }
-
-                    @Override
-                    public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroLugaresFIla);
-                    }
-
-                    @Override
-                    public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                        triggerSpinnerChange(sprNumeroLugaresFIla);
-                    }
-                });
-        */
+        //sprNumeroFilas.addChangeListener(this::sprChangeListener);
+        //sprNumeroLugaresFila.addChangeListener(this::sprChangeListener);
     }
 
     private void btnSairActionPerformed(ActionEvent evt) {
@@ -203,7 +170,7 @@ public class JanelaAdicionarSala extends JFrame {
         }
 
         // Verificar Número de Lugares por Fila
-        String numeroLugaresFila = sprNumeroLugaresFIla.getValue().toString();
+        String numeroLugaresFila = sprNumeroLugaresFila.getValue().toString();
         if (numeroLugaresFila.trim().isEmpty()) {
             mostrarErro(ERRO_10);
             return;
@@ -237,6 +204,10 @@ public class JanelaAdicionarSala extends JFrame {
                 nomeSala
         );
 
+        dispose();
+
+        JanelaSelecinarLugaresAcesseveis janelaSelecinarLugaresAcesseveis = new JanelaSelecinarLugaresAcesseveis(parentFrame, sala);
+
         /*
         DadosApp.INSTANCIA.adicionarSala(sala);
 
@@ -254,7 +225,11 @@ public class JanelaAdicionarSala extends JFrame {
     }
 
     private void sprChangeListener(ChangeEvent evt) {
-        int totalLugares = (int) sprNumeroFilas.getValue() * (int) sprNumeroLugaresFIla.getValue();
+        spinnerChange();
+    }
+
+    private void spinnerChange() {
+        int totalLugares = (int) sprNumeroFilas.getValue() * (int) sprNumeroLugaresFila.getValue();
         lblNumeroTotalLugares.setText(Integer.toString(totalLugares));
         lblNumeroLugaresAcessiveis.setText(Integer.toString((int) Math.ceil(totalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS)));
     }

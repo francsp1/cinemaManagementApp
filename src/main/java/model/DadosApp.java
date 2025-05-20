@@ -10,7 +10,7 @@ public enum DadosApp {
 
     public static final int MAX_FILAS = 10;
     public static final int MAX_LUGARES_POR_FILA = 10;
-    public static final float PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10f;
+    public static final double PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10;
 
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();

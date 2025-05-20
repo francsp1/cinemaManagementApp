@@ -24,6 +24,14 @@ public class Sala {
         this.tipoSistemaSom = tipoSistemaSom;
         this.nome = nome;
         this.isAtiva = true;
+
+        this.lugares = new Lugar[numeroFilas][numeroLugaresPorFila];
+        for (int i = 0; i < numeroFilas; i++) {
+            for (int j = 0; j < numeroLugaresPorFila; j++) {
+                this.lugares[i][j] = new Lugar(i, j);
+            }
+        }
+
     }
 
     @Override

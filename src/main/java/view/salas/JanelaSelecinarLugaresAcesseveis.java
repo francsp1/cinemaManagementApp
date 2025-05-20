@@ -5,6 +5,8 @@ import model.Sala;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class JanelaSelecinarLugaresAcesseveis extends JFrame {
     private final JanelaSalas parentFrame;
@@ -12,7 +14,8 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
     private JButton btnSair;
     private JLabel lblLugaresAcessiveis;
     private JPanel pnlConfiguracaoSala;
-    private JButton[][] botoes;
+    private JButton btnConfirmar;
+    private BotaoLugar[][] botoes;
     private Sala sala;
 
     public static void main(String[] args) {
@@ -59,6 +62,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
 
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
     }
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,5 +70,43 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
             parentFrame.setVisible(true);
         }
         this.dispose();
+    }
+
+    private void btnConfirmarActionPerformed(ActionEvent actionEvent) {
+
+        var nrLinhas = sala.getNumeroFilas();
+        var nrColunas = sala.getNumeroLugaresPorFila();
+
+        var botoesSelecionados = new ArrayList<BotaoLugar>();
+
+        for (int linha = 0; linha < nrLinhas; ++linha) {
+            for (int coluna = 0; coluna < nrColunas; ++coluna) {
+                if (botoes[linha][coluna].isAcessivel()) {
+                    botoesSelecionados.add(botoes[linha][coluna]);
+                }
+            }
+        }
+
+        int numeroLugaresAcessiveis = sala.getNumeroLugaresAcessiveis();
+        if (botoesSelecionados.size() != numeroLugaresAcessiveis) {
+            JOptionPane.showMessageDialog(this, "Deve selecionar " + numeroLugaresAcessiveis + " lugares acessíveis.", "Erro", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        for (BotaoLugar botao : botoesSelecionados) {
+            botao.getLugar().setAcessivel(true);
+        }
+
+        DadosApp.INSTANCIA.adicionarSala(sala);
+
+        parentFrame.adicionarElemento(sala);
+
+        JOptionPane.showMessageDialog(this, "Sala adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        parentFrame.setVisible(true);
+
+        dispose();
+
+
     }
 }
