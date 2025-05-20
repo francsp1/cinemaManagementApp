@@ -101,14 +101,14 @@ public class JanelaAdicionarSala extends JFrame {
         //sprNumeroLugaresFila.addChangeListener(this::sprChangeListener);
     }
 
-    private void btnSairActionPerformed(ActionEvent evt) {
+    private void btnSairActionPerformed(ActionEvent e) {
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
         this.dispose();
     }
 
-    private void btnAdicionarSalaActionPerformed(ActionEvent evt) {
+    private void btnAdicionarSalaActionPerformed(ActionEvent e) {
 
         // Verificar Número da Sala
         String numeroSala = sprNumeroSala.getValue().toString();
@@ -222,7 +222,7 @@ public class JanelaAdicionarSala extends JFrame {
 
     }
 
-    private void sprChangeListener(ChangeEvent evt) {
+    private void sprChangeListener(ChangeEvent e) {
         spinnerChange();
     }
 

@@ -65,7 +65,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
     }
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnSairActionPerformed(java.awt.event.ActionEvent e) {
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
