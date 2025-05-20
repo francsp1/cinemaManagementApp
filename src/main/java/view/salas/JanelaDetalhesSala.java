@@ -38,13 +38,16 @@ public class JanelaDetalhesSala extends JFrame {
     private JButton btnSessoesSala;
     private JLabel lblConfiguracaoSala;
 
+    private final boolean isGestor;
+
     public static void main(String[] args) {
-        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast());
+        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast(), true);
     }
 
-    public JanelaDetalhesSala(JFrame parentFrame, Sala sala) {
+    public JanelaDetalhesSala(JFrame parentFrame, Sala sala, boolean isGestor) {
         super("Detalhes da Sala " + sala.getNumeroSala());
         this.parentFrame = parentFrame;
+        this.isGestor = isGestor;
         setContentPane(pnlDetalhesSala);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -52,9 +55,32 @@ public class JanelaDetalhesSala extends JFrame {
 
         addListeners();
 
+        configurarCampos();
+
         preencherDetalhesSala(sala);
 
         setVisible(true);
+    }
+
+    private void configurarCampos() {
+        cmbTipoSala.removeAllItems();
+        for (TipoSala tipo : TipoSala.values()) {
+            cmbTipoSala.addItem(tipo);
+        }
+
+        for (TipoSistemaSom tipo : TipoSistemaSom.values()) {
+            cmbTipoSistemaSom.addItem(tipo);
+        }
+
+        if (!isGestor) {
+            btnGuardar.setVisible(false);
+            txtNumeroSala.setEditable(false);
+            txtNomeSala.setEditable(false);
+            cmbTipoSistemaSom.setEnabled(false);
+            cmbTipoSala.setEnabled(false);
+            cmbEstadoSala.setEnabled(false);
+        }
+
     }
 
     private void preencherDetalhesSala(Sala sala) {
@@ -64,19 +90,9 @@ public class JanelaDetalhesSala extends JFrame {
         lblNumeroLugaresFila.setText(sala.getNumeroLugaresPorFila() + "");
         lblNumeroTotalLugares.setText(sala.getNumeroTotalLugares() + "");
         lblNumeroLugaresAcessiveis.setText(sala.getNumeroLugaresAcessiveis() + "");
-
-        cmbTipoSala.removeAllItems();
-        for (TipoSala tipo : TipoSala.values()) {
-            cmbTipoSala.addItem(tipo);
-        }
         cmbTipoSala.setSelectedItem(sala.getTipoSala());
-
         cmbTipoSistemaSom.removeAllItems();
-        for (TipoSistemaSom tipo : TipoSistemaSom.values()) {
-            cmbTipoSistemaSom.addItem(tipo);
-        }
         cmbTipoSistemaSom.setSelectedItem(sala.getTipoSistemaSom());
-
         cmbEstadoSala.setSelectedItem(sala.isAtiva() ? "Ativa" : "Inativa");
 
         desenharConfiguracaoSala(sala);
@@ -104,6 +120,10 @@ public class JanelaDetalhesSala extends JFrame {
 
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+
+        if (isGestor) {
+            btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        }
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
@@ -111,5 +131,10 @@ public class JanelaDetalhesSala extends JFrame {
             parentFrame.setVisible(true);
         }
         dispose();
+    }
+
+    private void btnGuardarActionPerformed(ActionEvent e) {
+        //TODO
+        JOptionPane.showMessageDialog(this, "TO DO", "", JOptionPane.INFORMATION_MESSAGE);
     }
 }

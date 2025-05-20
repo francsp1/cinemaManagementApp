@@ -32,10 +32,14 @@ public class JanelaLogin extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        btnSair.addActionListener(this::btnSairActionPerformed);
-        btnLogin.addActionListener(this::btnLoginActionPerformed);
+        addListeners();
 
         setVisible(true);
+    }
+
+    private void addListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+        btnLogin.addActionListener(this::btnLoginActionPerformed);
     }
 
     private void btnSairActionPerformed(ActionEvent e) {

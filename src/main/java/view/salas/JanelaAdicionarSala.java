@@ -7,8 +7,6 @@ import model.TipoSistemaSom;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 
 import static model.DadosApp.*;
@@ -69,12 +67,12 @@ public class JanelaAdicionarSala extends JFrame {
 
         addListeners();
 
-        preencherCampos();
+        configurarCampos();
 
         setVisible(true);
     }
 
-    private void preencherCampos() {
+    private void configurarCampos() {
 
         sprNumeroSala.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
         sprNumeroFilas.setModel(new SpinnerNumberModel(1, 1, MAX_FILAS, 1));

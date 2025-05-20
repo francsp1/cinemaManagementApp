@@ -29,6 +29,7 @@ public class JanelaSessoesSala extends JFrame {
     }
 
     private void preencherListaSessoes() {
-
+        //TODO
+        JOptionPane.showMessageDialog(this, "TO DO");
     }
 }

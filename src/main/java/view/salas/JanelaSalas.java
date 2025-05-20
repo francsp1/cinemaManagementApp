@@ -16,6 +16,8 @@ public class JanelaSalas extends JFrame {
     private JButton btnVerDetalesSala;
     private JButton btnSessoesSala;
 
+    private final boolean isGestor;
+
     private DefaultListModel<Sala> modeloLista;
 
     public static void main(String[] args) {
@@ -25,16 +27,25 @@ public class JanelaSalas extends JFrame {
     public JanelaSalas(JFrame parentFrame, boolean isGestor) {
         super("Lista de Salas");
         this.parentFrame = parentFrame;
+        this.isGestor = isGestor;
         setContentPane(pnlSalas);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
-        addListeners(isGestor);
+        addListeners();
+
+        configurarCampos();
 
         preencherListaSalas();
 
         setVisible(true);
+    }
+
+    private void configurarCampos() {
+        if (!isGestor) {
+            btnAdicionarSala.setVisible(false);
+        }
     }
 
     public void preencherListaSalas() {
@@ -42,25 +53,20 @@ public class JanelaSalas extends JFrame {
         lstSalas.setModel(modeloLista);
 
         for (Sala sala : DadosApp.INSTANCIA.getSalas()) {
-            adicionarElemento(sala);
+            adicionar(sala);
         }
     }
 
-    public void adicionarElemento(Sala sala) {
+    public void adicionar(Sala sala) {
         modeloLista.addElement(sala);
     }
 
-    private void addListeners(boolean isGestor) {
+    private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
-
         if (isGestor) {
             btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
-        } else {
-            btnAdicionarSala.setVisible(false);
         }
-
         btnVerDetalesSala.addActionListener(this::btnDetalesSalaActionPerformed);
-
     }
     
     private void btnSairActionPerformed(ActionEvent e) {
@@ -78,7 +84,7 @@ public class JanelaSalas extends JFrame {
     private void btnDetalesSalaActionPerformed(ActionEvent e) {
         Sala salaSelecionada = (Sala) lstSalas.getSelectedValue();
         if (salaSelecionada != null) {
-            new JanelaDetalhesSala(this, salaSelecionada);
+            new JanelaDetalhesSala(this, salaSelecionada, isGestor);
             setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma sala para ver os detalhes.", "Erro", JOptionPane.WARNING_MESSAGE);

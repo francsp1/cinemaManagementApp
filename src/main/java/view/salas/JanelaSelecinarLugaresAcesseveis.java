@@ -99,14 +99,12 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
 
         DadosApp.INSTANCIA.adicionarSala(sala);
 
-        parentFrame.adicionarElemento(sala);
+        parentFrame.adicionar(sala);
 
         JOptionPane.showMessageDialog(this, "Sala adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 
         parentFrame.setVisible(true);
 
         dispose();
-
-
     }
 }
