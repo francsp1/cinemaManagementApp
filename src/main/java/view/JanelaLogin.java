@@ -64,11 +64,7 @@ public class JanelaLogin extends JFrame {
             return;
         }
 
-        if (funcionario.isGestor()) {
-            new JanelaPrincipalGestor(this);
-        } else {
-            new JanelaPrincipalFuncionario(this);
-        }
+        new JanelaPrincipal(this, funcionario);
 
         setVisible(false);
     }

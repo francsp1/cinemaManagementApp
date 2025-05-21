@@ -1,5 +1,4 @@
 import view.JanelaLogin;
-import view.JanelaPrincipalGestor;
 
 public class Main {
     public static void main(String[] args) {

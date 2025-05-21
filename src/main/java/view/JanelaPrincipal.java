@@ -1,11 +1,13 @@
 package view;
 
+import model.DadosApp;
+import model.Funcionario;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaPrincipalGestor extends JFrame {
+public class JanelaPrincipal extends JFrame {
     private final JFrame parentFrame;
     private JPanel pnlPrincipal;
     private JButton btnAdicionarFilme;
@@ -24,21 +26,29 @@ public class JanelaPrincipalGestor extends JFrame {
     private JLabel lblBemVindoGestor;
     private JButton btnSair;
 
+    private Funcionario funcionario;
+
     public static void main(String[] args) {
-        JanelaPrincipalGestor janela = new JanelaPrincipalGestor(null);
+        JanelaPrincipal janela = new JanelaPrincipal(null, DadosApp.INSTANCIA.getFuncionarios().get(5));
     }
 
-    public JanelaPrincipalGestor(JFrame parentFrame) {
+    public JanelaPrincipal(JFrame parentFrame, Funcionario funcionario) {
         super("Janela Principal");
         this.parentFrame = parentFrame;
+        this.funcionario = funcionario;
         setContentPane(pnlPrincipal);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
+        configurarCampos();
+
         addListeners();
 
         setVisible(true);
+    }
+
+    private void configurarCampos() {
     }
 
     private void addListeners() {
