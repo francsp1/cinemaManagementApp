@@ -234,7 +234,7 @@ public class JanelaAdicionarSala extends JFrame {
         lblNumeroLugaresAcessiveis.setText(Integer.toString((int) Math.ceil(totalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS)));
     }
 
-    private void mostrarErro(String errorMessage) {
-        JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    private void mostrarErro(String erro) {
+        JOptionPane.showMessageDialog(this, erro, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

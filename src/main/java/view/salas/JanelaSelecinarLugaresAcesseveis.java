@@ -18,6 +18,10 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
     private BotaoLugar[][] botoes;
     private final Sala sala;
 
+    private static final String ERRO_1 = "Selecionou o número errado de lugares acessíveis.";
+
+    private static final String SUCESSO_1 = "Sala adicionada com sucesso!";
+
     public static void main(String[] args) {
         JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.INSTANCIA.getSalas().getLast());
     }
@@ -74,6 +78,28 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
 
     private void btnConfirmarActionPerformed(ActionEvent e) {
 
+        var botoesSelecionados = obterLugaresSelecionados();
+
+        int numeroLugaresAcessiveis = sala.getNumeroLugaresAcessiveis();
+        if (botoesSelecionados.size() != numeroLugaresAcessiveis) {
+            mostrarErro(ERRO_1);
+            return;
+        }
+
+        atualizarLugares(botoesSelecionados);
+
+        DadosApp.INSTANCIA.adicionarSala(sala);
+
+        parentFrame.adicionar(sala);
+
+        mostrarSucesso(SUCESSO_1);
+
+        dispose();
+
+        parentFrame.setVisible(true);
+    }
+
+    private ArrayList<BotaoLugar> obterLugaresSelecionados() {
         var nrLinhas = sala.getNumeroFilas();
         var nrColunas = sala.getNumeroLugaresPorFila();
 
@@ -86,25 +112,20 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
                 }
             }
         }
+        return botoesSelecionados;
+    }
 
-        int numeroLugaresAcessiveis = sala.getNumeroLugaresAcessiveis();
-        if (botoesSelecionados.size() != numeroLugaresAcessiveis) {
-            JOptionPane.showMessageDialog(this, "Deve selecionar " + numeroLugaresAcessiveis + " lugares acessíveis.", "Erro", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
+    private static void atualizarLugares(ArrayList<BotaoLugar> botoesSelecionados) {
         for (BotaoLugar botao : botoesSelecionados) {
             botao.getLugar().setAcessivel(true);
         }
+    }
 
-        DadosApp.INSTANCIA.adicionarSala(sala);
+    private void mostrarErro(String erro) {
+        JOptionPane.showMessageDialog(this, erro, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
 
-        parentFrame.adicionar(sala);
-
-        JOptionPane.showMessageDialog(this, "Sala adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        parentFrame.setVisible(true);
-
-        dispose();
+    private void mostrarSucesso(String sucesso) {
+        JOptionPane.showMessageDialog(this, SUCESSO_1, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 }
