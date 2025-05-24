@@ -27,9 +27,11 @@ public class BotaoLugar extends JButton {
     private void btnLugarActionPerformed(ActionEvent e) {
         if (isAcessivel) {
             setBackground(null);
+            setText(designacao);
             isAcessivel = false;
         } else {
             setBackground(java.awt.Color.GREEN);
+            setText(designacao + " (Acessível)");
             isAcessivel = true;
         }
     }

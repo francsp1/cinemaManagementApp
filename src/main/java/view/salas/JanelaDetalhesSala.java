@@ -1,9 +1,6 @@
 package view.salas;
 
-import model.DadosApp;
-import model.Sala;
-import model.TipoSala;
-import model.TipoSistemaSom;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +37,8 @@ public class JanelaDetalhesSala extends JFrame {
 
     private final boolean isGestor;
 
+    private final Sala sala;
+
     public static void main(String[] args) {
         JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast(), true);
     }
@@ -47,6 +46,7 @@ public class JanelaDetalhesSala extends JFrame {
     public JanelaDetalhesSala(JFrame parentFrame, Sala sala, boolean isGestor) {
         super("Detalhes da Sala " + sala.getNumeroSala());
         this.parentFrame = parentFrame;
+        this.sala = sala;
         this.isGestor = isGestor;
         setContentPane(pnlDetalhesSala);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +57,7 @@ public class JanelaDetalhesSala extends JFrame {
 
         configurarCampos();
 
-        preencherDetalhesSala(sala);
+        preencherDetalhesSala();
 
         setVisible(true);
     }
@@ -68,9 +68,15 @@ public class JanelaDetalhesSala extends JFrame {
             cmbTipoSala.addItem(tipo);
         }
 
+        cmbTipoSistemaSom.removeAllItems();
         for (TipoSistemaSom tipo : TipoSistemaSom.values()) {
             cmbTipoSistemaSom.addItem(tipo);
         }
+
+        cmbEstadoSala.removeAllItems();
+        cmbEstadoSala.addItem("Ativa");
+        cmbEstadoSala.addItem("Inativa");
+
 
         if (!isGestor) {
             btnGuardar.setVisible(false);
@@ -83,7 +89,7 @@ public class JanelaDetalhesSala extends JFrame {
 
     }
 
-    private void preencherDetalhesSala(Sala sala) {
+    private void preencherDetalhesSala() {
         txtNumeroSala.setText(sala.getNumeroSala() + "");
         txtNomeSala.setText(sala.getNome());
         lblNumeroFIlas.setText(sala.getNumeroFilas() + "");
@@ -91,14 +97,13 @@ public class JanelaDetalhesSala extends JFrame {
         lblNumeroTotalLugares.setText(sala.getNumeroTotalLugares() + "");
         lblNumeroLugaresAcessiveis.setText(sala.getNumeroLugaresAcessiveis() + "");
         cmbTipoSala.setSelectedItem(sala.getTipoSala());
-        cmbTipoSistemaSom.removeAllItems();
         cmbTipoSistemaSom.setSelectedItem(sala.getTipoSistemaSom());
         cmbEstadoSala.setSelectedItem(sala.isAtiva() ? "Ativa" : "Inativa");
 
-        desenharConfiguracaoSala(sala);
+        desenharConfiguracaoSala();
     }
 
-    private void desenharConfiguracaoSala(Sala sala) {
+    private void desenharConfiguracaoSala() {
         //pnlConfiguracaoSala.removeAll();
 
         var nrLinhas = sala.getNumeroFilas();
@@ -106,16 +111,32 @@ public class JanelaDetalhesSala extends JFrame {
 
         var botoes = new JButton[nrLinhas][nrColunas];
 
+        var lugares = sala.getLugares();
+
         pnlConfiguracaoSala.setLayout(new GridLayout(nrLinhas, nrColunas));
 
         // Criar e adicionar os botões à janela
+
         for (int linha = 0; linha < nrLinhas; ++linha) {
             for (int coluna = 0; coluna < nrColunas; ++coluna) {
                 var botao = botoes[linha][coluna] = new JButton();
-                pnlConfiguracaoSala.add(botoes[linha][coluna]);
-                botao.setText((char) ('A' + linha) + "" + (coluna + 1));
+
+                Lugar lugar = lugares[linha][coluna];
+
+                botao.setText(lugar.getDesignacao());
+
+                if (lugar.isAcessivel()) {
+                    botao.setBackground(Color.GREEN);
+                    botao.setText(lugar.getDesignacao() + " (Acessível)");
+                }else {
+                    botao.setText(lugar.getDesignacao());
+                }
+
+                pnlConfiguracaoSala.add(botao);
             }
         }
+
+
     }
 
     private void addListeners() {

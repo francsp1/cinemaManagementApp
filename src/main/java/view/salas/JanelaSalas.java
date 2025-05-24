@@ -18,6 +18,8 @@ public class JanelaSalas extends JFrame {
 
     private final boolean isGestor;
 
+    private static final String ERRO_1 = "Selecione uma sala para ver os detalhes.";
+
     private DefaultListModel<Sala> modeloLista;
 
     public static void main(String[] args) {
@@ -42,6 +44,14 @@ public class JanelaSalas extends JFrame {
         setVisible(true);
     }
 
+    private void addListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+        if (isGestor) {
+            btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
+        }
+        btnVerDetalesSala.addActionListener(this::btnDetalesSalaActionPerformed);
+    }
+
     private void configurarCampos() {
         if (!isGestor) {
             btnAdicionarSala.setVisible(false);
@@ -60,14 +70,6 @@ public class JanelaSalas extends JFrame {
     public void adicionar(Sala sala) {
         modeloLista.addElement(sala);
     }
-
-    private void addListeners() {
-        btnSair.addActionListener(this::btnSairActionPerformed);
-        if (isGestor) {
-            btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
-        }
-        btnVerDetalesSala.addActionListener(this::btnDetalesSalaActionPerformed);
-    }
     
     private void btnSairActionPerformed(ActionEvent e) {
         if (parentFrame != null) {
@@ -83,11 +85,15 @@ public class JanelaSalas extends JFrame {
 
     private void btnDetalesSalaActionPerformed(ActionEvent e) {
         Sala salaSelecionada = (Sala) lstSalas.getSelectedValue();
-        if (salaSelecionada != null) {
-            new JanelaDetalhesSala(this, salaSelecionada, isGestor);
-            setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione uma sala para ver os detalhes.", "Erro", JOptionPane.WARNING_MESSAGE);
+        if (salaSelecionada == null) {
+            mostrarErro(ERRO_1);
+            return;
         }
+        setVisible(false);
+        new JanelaDetalhesSala(this, salaSelecionada, isGestor);
+    }
+
+    private void mostrarErro(String erro) {
+        JOptionPane.showMessageDialog(this,erro , "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
