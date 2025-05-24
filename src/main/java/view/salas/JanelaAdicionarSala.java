@@ -193,6 +193,8 @@ public class JanelaAdicionarSala extends JFrame {
         }
         // --
 
+        dispose();
+
         Sala sala = new Sala(
                 numeroFilasInt,
                 numeroLugaresFilaInt,
@@ -202,7 +204,7 @@ public class JanelaAdicionarSala extends JFrame {
                 nomeSala
         );
 
-        dispose();
+
 
         JanelaSelecinarLugaresAcesseveis janelaSelecinarLugaresAcesseveis = new JanelaSelecinarLugaresAcesseveis(parentFrame, sala);
 

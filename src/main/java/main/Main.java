@@ -1,3 +1,5 @@
+package main;
+
 import view.JanelaLogin;
 
 public class Main {

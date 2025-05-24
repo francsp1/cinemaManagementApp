@@ -65,14 +65,14 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
     }
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent e) {
+    private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
-        this.dispose();
     }
 
-    private void btnConfirmarActionPerformed(ActionEvent actionEvent) {
+    private void btnConfirmarActionPerformed(ActionEvent e) {
 
         var nrLinhas = sala.getNumeroFilas();
         var nrColunas = sala.getNumeroLugaresPorFila();

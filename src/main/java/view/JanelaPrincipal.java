@@ -2,6 +2,7 @@ package view;
 
 import model.DadosApp;
 import model.Funcionario;
+import view.salas.JanelaAdicionarSala;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
@@ -88,10 +89,10 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
-        dispose();
     }
 
     private void btnVendasBilhetesActionPerformed(ActionEvent e) {
@@ -132,6 +133,7 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
+        //TODO
     }
 
     private void btnVerFilmesActionPerformed(ActionEvent e) {
