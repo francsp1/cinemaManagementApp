@@ -17,7 +17,7 @@ public class JanelaDetalhesSala extends JFrame {
     private JTextField txtNomeSala;
     private JLabel lblFilas;
     private JLabel lblLugaresFila;
-    private JLabel lblNumeroFIlas;
+    private JLabel lblNumeroFilas;
     private JLabel lblNumeroLugaresFila;
     private JLabel lblNomeSala;
     private JLabel lblTotalLugares;
@@ -59,7 +59,17 @@ public class JanelaDetalhesSala extends JFrame {
 
         preencherDetalhesSala();
 
+        desenharConfiguracaoSala();
+
         setVisible(true);
+    }
+
+    private void addListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
+
+        if (isGestor) {
+            btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        }
     }
 
     private void configurarCampos() {
@@ -92,15 +102,13 @@ public class JanelaDetalhesSala extends JFrame {
     private void preencherDetalhesSala() {
         txtNumeroSala.setText(sala.getNumeroSala() + "");
         txtNomeSala.setText(sala.getNome());
-        lblNumeroFIlas.setText(sala.getNumeroFilas() + "");
+        lblNumeroFilas.setText(sala.getNumeroFilas() + "");
         lblNumeroLugaresFila.setText(sala.getNumeroLugaresPorFila() + "");
         lblNumeroTotalLugares.setText(sala.getNumeroTotalLugares() + "");
         lblNumeroLugaresAcessiveis.setText(sala.getNumeroLugaresAcessiveis() + "");
         cmbTipoSala.setSelectedItem(sala.getTipoSala());
         cmbTipoSistemaSom.setSelectedItem(sala.getTipoSistemaSom());
         cmbEstadoSala.setSelectedItem(sala.isAtiva() ? "Ativa" : "Inativa");
-
-        desenharConfiguracaoSala();
     }
 
     private void desenharConfiguracaoSala() {
@@ -139,19 +147,11 @@ public class JanelaDetalhesSala extends JFrame {
 
     }
 
-    private void addListeners() {
-        btnSair.addActionListener(this::btnSairActionPerformed);
-
-        if (isGestor) {
-            btnGuardar.addActionListener(this::btnGuardarActionPerformed);
-        }
-    }
-
     private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
-        dispose();
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {

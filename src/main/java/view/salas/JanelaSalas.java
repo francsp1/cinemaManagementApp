@@ -18,7 +18,7 @@ public class JanelaSalas extends JFrame {
 
     private final boolean isGestor;
 
-    private static final String ERRO_1 = "Selecione uma sala para ver os detalhes.";
+    private static final String ERRO_1 = "Deve selecionar uma sala para poder ver os detalhes.";
 
     private DefaultListModel<Sala> modeloLista;
 
@@ -49,7 +49,7 @@ public class JanelaSalas extends JFrame {
         if (isGestor) {
             btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);
         }
-        btnVerDetalesSala.addActionListener(this::btnDetalesSalaActionPerformed);
+        btnVerDetalesSala.addActionListener(this::btnVerEditarDetalesSalaActionPerformed);
     }
 
     private void configurarCampos() {
@@ -72,10 +72,10 @@ public class JanelaSalas extends JFrame {
     }
     
     private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
-        dispose();
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
@@ -83,7 +83,7 @@ public class JanelaSalas extends JFrame {
         JanelaAdicionarSala janelaAdicionarSala = new JanelaAdicionarSala(this);
     }
 
-    private void btnDetalesSalaActionPerformed(ActionEvent e) {
+    private void btnVerEditarDetalesSalaActionPerformed(ActionEvent e) {
         Sala salaSelecionada = (Sala) lstSalas.getSelectedValue();
         if (salaSelecionada == null) {
             mostrarErro(ERRO_1);
