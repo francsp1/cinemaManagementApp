@@ -126,6 +126,6 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
     }
 
     private void mostrarSucesso(String sucesso) {
-        JOptionPane.showMessageDialog(this, SUCESSO_1, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, sucesso, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 }

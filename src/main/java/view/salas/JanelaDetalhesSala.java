@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import static model.DadosApp.MAX_FILAS;
+import static model.DadosApp.MAX_LUGARES_POR_FILA;
+
 public class JanelaDetalhesSala extends JFrame {
     private final JFrame parentFrame;
     private JPanel pnlDetalhesSala;
@@ -38,6 +41,14 @@ public class JanelaDetalhesSala extends JFrame {
     private final boolean isGestor;
 
     private final Sala sala;
+
+    private static final String ERRO_1 = "O campo 'Número da Sala' não pode estar vazio.";
+    private static final String ERRO_2 = "Não foi possível converter o campo 'Número da Sala' para um número inteiro maior ou igual a 1.";
+    private static final String ERRO_3 = "O campo 'Número da Sala' deve ser um número inteiro maior ou igual a 1.";
+    private static final String ERRO_4 = "Já existe uma sala com o número ";
+    private static final String ERRO_5 = "O campo 'Nome da Sala' não pode estar vazio.";
+
+    private static final String SUCESSO_1 = "Sala atualizada com sucesso!";
 
     public static void main(String[] args) {
         JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast(), true);
@@ -157,6 +168,61 @@ public class JanelaDetalhesSala extends JFrame {
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {
+        // Verificar Número da Sala
+        String numeroSala = sprNumeroSala.getValue().toString();
+        if (numeroSala.trim().isEmpty()) {
+            mostrarErro(ERRO_1);
+            return;
+        }
 
+        int numeroSalaInt;
+        try {
+            numeroSalaInt = Integer.parseInt(numeroSala);
+        } catch (Exception exception) {
+            mostrarErro(ERRO_2);
+            return;
+        }
+
+        if (numeroSalaInt < 1) {
+            mostrarErro(ERRO_3);
+            return;
+        }
+
+        if (DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt) && sala.getNumeroSala() != numeroSalaInt) {
+            mostrarErro(ERRO_4 + numeroSalaInt);
+            return;
+        }
+
+
+        // Verificar Nome da Sala
+        String nomeSala = txtNomeSala.getText();
+        if (nomeSala.trim().isEmpty()) {
+            mostrarErro(ERRO_5);
+            return;
+        }
+
+        atualizarSala(numeroSalaInt, nomeSala);
+        
+        mostrarSucesso(SUCESSO_1);
+    }
+
+    private void atualizarSala(int numeroSalaInt, String nomeSala) {
+        sala.setNumeroSala(numeroSalaInt);
+        sala.setNome(nomeSala);
+        sala.setTipoSala((TipoSala) cmbTipoSala.getSelectedItem());
+        sala.setTipoSistemaSom((TipoSistemaSom) cmbTipoSistemaSom.getSelectedItem());
+        if (cmbEstadoSala.getSelectedItem().equals("Ativa")) {
+            sala.setAtiva(true);
+        } else {
+            sala.setAtiva(false);
+        }
+    }
+
+    private void mostrarErro(String erro) {
+        JOptionPane.showMessageDialog(this, erro, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void mostrarSucesso(String sucesso) {
+        JOptionPane.showMessageDialog(this, sucesso, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 }
