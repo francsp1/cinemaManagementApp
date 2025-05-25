@@ -13,7 +13,6 @@ public class JanelaDetalhesSala extends JFrame {
     private JButton btnSair;
     private JScrollPane sclPnDetalhesSala;
     private JLabel lblNumeroSala;
-    private JTextField txtNumeroSala;
     private JTextField txtNomeSala;
     private JLabel lblFilas;
     private JLabel lblLugaresFila;
@@ -34,6 +33,7 @@ public class JanelaDetalhesSala extends JFrame {
     private JPanel pnlConfiguracaoSala;
     private JButton btnSessoesSala;
     private JLabel lblConfiguracaoSala;
+    private JSpinner sprNumeroSala;
 
     private final boolean isGestor;
 
@@ -73,6 +73,8 @@ public class JanelaDetalhesSala extends JFrame {
     }
 
     private void configurarCampos() {
+        sprNumeroSala.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+
         cmbTipoSala.removeAllItems();
         for (TipoSala tipo : TipoSala.values()) {
             cmbTipoSala.addItem(tipo);
@@ -90,7 +92,7 @@ public class JanelaDetalhesSala extends JFrame {
 
         if (!isGestor) {
             btnGuardar.setVisible(false);
-            txtNumeroSala.setEditable(false);
+            sprNumeroSala.setEnabled(false);
             txtNomeSala.setEditable(false);
             cmbTipoSistemaSom.setEnabled(false);
             cmbTipoSala.setEnabled(false);
@@ -100,7 +102,7 @@ public class JanelaDetalhesSala extends JFrame {
     }
 
     private void preencherDetalhesSala() {
-        txtNumeroSala.setText(sala.getNumeroSala() + "");
+        sprNumeroSala.setValue(sala.getNumeroSala());
         txtNomeSala.setText(sala.getNome());
         lblNumeroFilas.setText(sala.getNumeroFilas() + "");
         lblNumeroLugaresFila.setText(sala.getNumeroLugaresPorFila() + "");
@@ -155,7 +157,6 @@ public class JanelaDetalhesSala extends JFrame {
     }
 
     private void btnGuardarActionPerformed(ActionEvent e) {
-        //TODO
-        JOptionPane.showMessageDialog(this, "TO DO", "", JOptionPane.INFORMATION_MESSAGE);
+
     }
 }
