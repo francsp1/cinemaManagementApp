@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import static model.DadosApp.MAX_FILAS;
-import static model.DadosApp.MAX_LUGARES_POR_FILA;
-
 public class JanelaDetalhesSala extends JFrame {
     private final JFrame parentFrame;
     private JPanel pnlDetalhesSala;
