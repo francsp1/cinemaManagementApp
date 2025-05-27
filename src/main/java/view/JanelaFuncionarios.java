@@ -28,7 +28,7 @@ public class JanelaFuncionarios extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        btnSair.addActionListener(this::btnSairActionPerformed);
+        addListeners();
 
         preencherListaFuncionarios();
 
@@ -44,6 +44,10 @@ public class JanelaFuncionarios extends JFrame {
         for (Funcionario funcionario : lista) {
             modeloLista.addElement(funcionario);
         }
+    }
+
+    private void addListeners() {
+        btnSair.addActionListener(this::btnSairActionPerformed);
     }
 
     private void btnSairActionPerformed(ActionEvent e) {

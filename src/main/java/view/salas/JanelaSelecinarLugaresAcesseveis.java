@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class JanelaSelecinarLugaresAcesseveis extends JFrame {
-    private final JanelaSalas parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlSelecionarLugaresAcessiveis;
     private JButton btnSair;
     private JLabel lblLugaresAcessiveis;
@@ -26,7 +26,7 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.INSTANCIA.getSalas().getLast());
     }
 
-    public JanelaSelecinarLugaresAcesseveis(JanelaSalas parentFrame, Sala sala) {
+    public JanelaSelecinarLugaresAcesseveis(JFrame parentFrame, Sala sala) {
         super("Confuguração da Sala");
         this.parentFrame = parentFrame;
         this.sala = sala;
@@ -90,7 +90,9 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
 
         DadosApp.INSTANCIA.adicionarSala(sala);
 
-        parentFrame.adicionar(sala);
+        if (parentFrame instanceof JanelaSalas) {
+            ((JanelaSalas) parentFrame).adicionar(sala);
+        }
 
         mostrarSucesso(SUCESSO_1);
 

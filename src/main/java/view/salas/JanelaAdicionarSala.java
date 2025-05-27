@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import static model.DadosApp.*;
 
 public class JanelaAdicionarSala extends JFrame {
-    private final JanelaSalas parentFrame;
+    private final JFrame parentFrame;
     private JPanel pnlAdicionarSala;
     private JButton btnAdicionarSala;
     private JButton btnSair;
