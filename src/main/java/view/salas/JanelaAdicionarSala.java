@@ -7,7 +7,6 @@ import model.TipoSistemaSom;
 import view.Janela;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 
 import static model.DadosApp.*;
