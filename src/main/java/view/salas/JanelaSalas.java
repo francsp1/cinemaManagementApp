@@ -2,11 +2,12 @@ package view.salas;
 
 import model.DadosApp;
 import model.Sala;
+import view.Janela;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaSalas extends JFrame {
+public class JanelaSalas extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlSalas;
     private JButton btnSair;
@@ -91,9 +92,5 @@ public class JanelaSalas extends JFrame {
         }
         setVisible(false);
         new JanelaDetalhesSala(this, salaSelecionada, isGestor);
-    }
-
-    private void mostrarErro(String erro) {
-        JOptionPane.showMessageDialog(this,erro , "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }

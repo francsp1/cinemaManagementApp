@@ -6,7 +6,7 @@ import model.Funcionario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaLogin extends JFrame {
+public class JanelaLogin extends Janela {
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JPanel pnlLogin;
@@ -19,6 +19,9 @@ public class JanelaLogin extends JFrame {
     private JPanel pnl4;
     private JLabel lblPassword;
     private JButton btnSair;
+
+    private static final String ERRO_1 = "Os campos Username e Password não devem estar vazios ou conter apenas espaços";
+    private static final String ERRO_2 = "Username e Password inválidos";
 
     public static void main(String[] args) {
         JanelaLogin janela = new JanelaLogin();
@@ -51,14 +54,14 @@ public class JanelaLogin extends JFrame {
         String password = new String(txtPassword.getPassword()).trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Os campos Username e Password não devem estar vazios ou conter apenas espaços", "Erro", JOptionPane.WARNING_MESSAGE);
+            mostrarErro(ERRO_1);
             return;
         }
 
         Funcionario funcionario = procurarFuncionario(username, password);
 
         if (funcionario == null) {
-            JOptionPane.showMessageDialog(this, "Username e Password inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
+            mostrarErro(ERRO_2);
             lblUsername.setText("");
             txtPassword.setText("");
             return;

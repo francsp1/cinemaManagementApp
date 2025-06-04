@@ -2,13 +2,12 @@ package view;
 
 import model.DadosApp;
 import model.Funcionario;
-import view.salas.JanelaAdicionarSala;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaPrincipal extends JFrame {
+public class JanelaPrincipal extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlPrincipal;
     private JButton btnAdicionarFilme;
@@ -21,7 +20,6 @@ public class JanelaPrincipal extends JFrame {
     private JButton btnVerSalas;
     private JButton btnVendasBar;
     private JButton btnReporStocksFornecedores;
-    private JButton btnAdicionarSala;
     private JButton btnVerFilmes;
     private JPanel pnl1;
     private JLabel lblBemVindo;
@@ -62,7 +60,6 @@ public class JanelaPrincipal extends JFrame {
         btnHistoricoVendas.setEnabled(false);
         btnEstatistacasFilmes.setEnabled(false);
         btnReporStocksFornecedores.setEnabled(false);
-        btnAdicionarSala.setEnabled(false);
         btnGerirBundles.setEnabled(false);
 
     }
@@ -83,7 +80,6 @@ public class JanelaPrincipal extends JFrame {
             btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed); //
             btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);//
             btnReporStocksFornecedores.addActionListener(this::btnReporStocksFornecedoresActionPerformed);//
-            btnAdicionarSala.addActionListener(this::btnAdicionarSalaActionPerformed);//
             btnGerirBundles.addActionListener(this::btnGerirBundlesActionPerformed);//
         }
     }
@@ -129,10 +125,6 @@ public class JanelaPrincipal extends JFrame {
     }
 
     private void btnReporStocksFornecedoresActionPerformed(ActionEvent e) {
-        //TODO
-    }
-
-    private void btnAdicionarSalaActionPerformed(ActionEvent e) {
         //TODO
     }
 

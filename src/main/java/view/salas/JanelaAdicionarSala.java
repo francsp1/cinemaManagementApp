@@ -4,6 +4,7 @@ import model.DadosApp;
 import model.Sala;
 import model.TipoSala;
 import model.TipoSistemaSom;
+import view.Janela;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -11,7 +12,7 @@ import java.awt.event.ActionEvent;
 
 import static model.DadosApp.*;
 
-public class JanelaAdicionarSala extends JFrame {
+public class JanelaAdicionarSala extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlAdicionarSala;
     private JButton btnAdicionarSala;
@@ -208,22 +209,9 @@ public class JanelaAdicionarSala extends JFrame {
 
         JanelaSelecinarLugaresAcesseveis janelaSelecinarLugaresAcesseveis = new JanelaSelecinarLugaresAcesseveis(parentFrame, sala);
 
-        /*
-        DadosApp.INSTANCIA.adicionarSala(sala);
-
-        JOptionPane.showMessageDialog(this, "Sala adicionada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        if (parentFrame != null) {
-            parentFrame.setVisible(true);
-        }
-
-        dispose();
-
-        parentFrame.preencherListaSalas();
-        */
-
     }
 
+    /*
     private void sprChangeListener(ChangeEvent e) {
         spinnerChange();
     }
@@ -233,8 +221,5 @@ public class JanelaAdicionarSala extends JFrame {
         lblNumeroTotalLugares.setText(Integer.toString(totalLugares));
         lblNumeroLugaresAcessiveis.setText(Integer.toString((int) Math.ceil(totalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS)));
     }
-
-    private void mostrarErro(String erro) {
-        JOptionPane.showMessageDialog(this, erro, "Error", JOptionPane.ERROR_MESSAGE);
-    }
+     */
 }

@@ -1,12 +1,13 @@
 package view.salas;
 
 import model.*;
+import view.Janela;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaDetalhesSala extends JFrame {
+public class JanelaDetalhesSala extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlDetalhesSala;
     private JButton btnGuardar;
@@ -74,6 +75,7 @@ public class JanelaDetalhesSala extends JFrame {
 
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+        btnSessoesSala.addActionListener(this::btnSessoesSalaActionPerformed);
 
         if (isGestor) {
             btnGuardar.addActionListener(this::btnGuardarActionPerformed);
@@ -146,7 +148,7 @@ public class JanelaDetalhesSala extends JFrame {
                 if (lugar.isAcessivel()) {
                     botao.setBackground(Color.GREEN);
                     botao.setText(lugar.getDesignacao() + " (Acessível)");
-                }else {
+                } else {
                     botao.setText(lugar.getDesignacao());
                 }
 
@@ -199,7 +201,7 @@ public class JanelaDetalhesSala extends JFrame {
         }
 
         atualizarSala(numeroSalaInt, nomeSala);
-        
+
         mostrarSucesso(SUCESSO_1);
     }
 
@@ -215,11 +217,8 @@ public class JanelaDetalhesSala extends JFrame {
         }
     }
 
-    private void mostrarErro(String erro) {
-        JOptionPane.showMessageDialog(this, erro, "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void mostrarSucesso(String sucesso) {
-        JOptionPane.showMessageDialog(this, sucesso, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    private void btnSessoesSalaActionPerformed(ActionEvent e) {
+        //TODO
+        JOptionPane.showMessageDialog(null, "TODO: Implementar ações para o botão 'Sessoes Sala'.", "Ação não implementada", JOptionPane.INFORMATION_MESSAGE);
     }
 }

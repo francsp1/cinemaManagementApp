@@ -1,8 +1,10 @@
 package view.salas;
 
+import view.Janela;
+
 import javax.swing.*;
 
-public class JanelaSessoesSala extends JFrame {
+public class JanelaSessoesSala extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlSessoesSala;
     private JScrollPane sclSessoesSala;

@@ -2,13 +2,14 @@ package view.salas;
 
 import model.DadosApp;
 import model.Sala;
+import view.Janela;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class JanelaSelecinarLugaresAcesseveis extends JFrame {
+public class JanelaSelecinarLugaresAcesseveis extends Janela {
     private final JFrame parentFrame;
     private JPanel pnlSelecionarLugaresAcessiveis;
     private JButton btnSair;
@@ -121,13 +122,5 @@ public class JanelaSelecinarLugaresAcesseveis extends JFrame {
         for (BotaoLugar botao : botoesSelecionados) {
             botao.getLugar().setAcessivel(true);
         }
-    }
-
-    private void mostrarErro(String erro) {
-        JOptionPane.showMessageDialog(this, erro, "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void mostrarSucesso(String sucesso) {
-        JOptionPane.showMessageDialog(this, sucesso, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
 }
