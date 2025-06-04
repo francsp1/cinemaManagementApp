@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaVenda extends JFrame {
+public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
     private JButton finalizarCompraButton;
     private JPanel LadoVenda;
@@ -23,6 +23,7 @@ public class JanelaVenda extends JFrame {
     private JButton removerLinhaButton;
 
     public JanelaVenda() {
+        super("Venda");
         String[] columnNames = {"Produto"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
 

@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-public class JanelaAdicionarSessao extends JFrame{
+public class JanelaAdicionarSessao extends Janela {
     private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JSpinner spinner1;
@@ -13,5 +13,7 @@ public class JanelaAdicionarSessao extends JFrame{
     private JButton cancelarButton;
     private JSpinner spinner5;
 
-
+    public JanelaAdicionarSessao() {
+        super("Adicionar Sessão");
+    }
 }

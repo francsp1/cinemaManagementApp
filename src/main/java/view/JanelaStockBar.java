@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaStockBar extends JFrame{
+public class JanelaStockBar extends Janela {
     private JPanel mainPanel;
     private JTable table1;
     private JButton escolherFornecedorButton;
@@ -14,6 +14,7 @@ public class JanelaStockBar extends JFrame{
     private JTable table4;
 
     public JanelaStockBar() {
+        super("Stock Bar");
         String[] columnNames = {"Produto", "Quantidade"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
         String[] stock = {"24", "0", "100"};

@@ -6,7 +6,7 @@ import model.Funcionario;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaFuncionarios extends JFrame {
+public class JanelaFuncionarios extends Janela {
     private JFrame parentFrame;
     private JPanel pnlFuncionarios;
     private JScrollPane sclFuncionarios;

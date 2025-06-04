@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class JanelaAdicionarFuncionario extends JFrame {
+public class JanelaAdicionarFuncionario extends Janela {
     private JFrame parentFrame;
     private JPanel pnlAdicionarFuncionario;
     private JTextField txtNome;

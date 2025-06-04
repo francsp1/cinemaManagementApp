@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaFornecedores {
+public class JanelaFornecedores extends Janela {
     private JPanel mainPanel;
     private JTable table1;
     private JFormattedTextField formattedTextField1;
@@ -12,6 +12,7 @@ public class JanelaFornecedores {
     private JTable table2;
 
     public JanelaFornecedores() {
+        super("Fornecedores");
         String[] columnNames = {"Produto", "Preço unidade (€)"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
         String[] preco = {"5", "5", "3"};
