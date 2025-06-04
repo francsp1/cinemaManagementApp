@@ -15,4 +15,8 @@ public abstract class Janela extends JFrame {
     protected void mostrarSucesso(String sucesso) {
         JOptionPane.showMessageDialog(this, sucesso, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    protected void mostrarAviso(String aviso) {
+        JOptionPane.showMessageDialog(this, aviso, "Aviso", JOptionPane.WARNING_MESSAGE);
+    }
 }
