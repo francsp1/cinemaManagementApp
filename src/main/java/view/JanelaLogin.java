@@ -20,8 +20,10 @@ public class JanelaLogin extends Janela {
     private JLabel lblPassword;
     private JButton btnSair;
 
-    private static final String ERRO_1 = "Os campos Username e Password não devem estar vazios ou conter apenas espaços";
-    private static final String ERRO_2 = "Username e Password inválidos";
+    private static final String ERRO_1 = "O campo Username não deve estar vazio ou conter apenas espaços.";
+    private static final String ERRO_2 = "O campo Password não deve estar vazio.";
+    private static final String ERRO_3 = "Não existe nenhum funcionário com o username introduzido.";
+    private static final String ERRO_4 = "A password introduzida não está correta.";
 
     public static void main(String[] args) {
         JanelaLogin janela = new JanelaLogin();
@@ -29,7 +31,7 @@ public class JanelaLogin extends Janela {
     }
 
     public JanelaLogin() {
-        super("Lista de Salas");
+        super("Login");
         setContentPane(pnlLogin);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -46,35 +48,48 @@ public class JanelaLogin extends Janela {
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
+        dispose();
+        // end the application
         System.exit(0);
     }
 
     private void btnLoginActionPerformed(ActionEvent e) {
-        String username = lblUsername.getText().trim();
-        String password = new String(txtPassword.getPassword()).trim();
+        String username = lblUsername.getText();
+        String password = new String(txtPassword.getPassword());
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (username.trim().isEmpty()) {
             mostrarErro(ERRO_1);
             return;
         }
 
-        Funcionario funcionario = procurarFuncionario(username, password);
+        if (password.isEmpty()){
+            mostrarErro(ERRO_2);
+            return;
+        }
+
+        Funcionario funcionario = procurarFuncionario(username);
 
         if (funcionario == null) {
-            mostrarErro(ERRO_2);
+            mostrarErro(ERRO_3);
             lblUsername.setText("");
             txtPassword.setText("");
             return;
         }
 
-        new JanelaPrincipal(this, funcionario);
+        if (!funcionario.getPassword().equals(password)) {
+            mostrarErro(ERRO_4);
+            txtPassword.setText("");
+            return;
+        }
 
         setVisible(false);
+
+        new JanelaPrincipal(this, funcionario);
     }
 
-    private Funcionario procurarFuncionario(String username, String password) {
+    private Funcionario procurarFuncionario(String username) {
         for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
-            if (funcionario.getUsername().equals(username) && funcionario.getPassword().equals(password)) {
+            if (funcionario.getUsername().equals(username)) {
                 return funcionario;
             }
         }

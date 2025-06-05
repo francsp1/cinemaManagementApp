@@ -41,7 +41,7 @@
             </constraints>
             <properties>
               <font size="16"/>
-              <text value="Funcionário:"/>
+              <text value="Username:"/>
             </properties>
           </component>
         </children>
