@@ -21,6 +21,14 @@ public enum DadosApp {
     }
 
     public void adicionarSala(Sala sala) {
+        if (sala == null) {
+            throw new IllegalArgumentException("Sala não pode ser nula.");
+        }
+
+        if (existeNumeroSala(sala.getNumeroSala())) {
+            return;
+        }
+
         salas.add(sala);
     }
 
