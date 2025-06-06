@@ -109,21 +109,19 @@ public class JanelaAdicionarSala extends Janela {
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
+        Object numeroSala = sprNumeroSala.getValue();
 
-        // Verificar Número da Sala
-        String numeroSala = sprNumeroSala.getValue().toString();
-        if (numeroSala.trim().isEmpty()) {
+        if (numeroSala == null) {
             mostrarErro(ERRO_1);
             return;
         }
 
-        int numeroSalaInt;
-        try {
-            numeroSalaInt = Integer.parseInt(numeroSala);
-        } catch (Exception exception) {
+        if (!(numeroSala instanceof Integer)) {
             mostrarErro(ERRO_2);
             return;
         }
+
+        int numeroSalaInt = (Integer) numeroSala;
 
         if (numeroSalaInt < 1) {
             mostrarErro(ERRO_3);
@@ -143,19 +141,19 @@ public class JanelaAdicionarSala extends Janela {
         }
 
         // Verificar Número de Filas
-        String numeroFilas = sprNumeroFilas.getValue().toString();
-        if (numeroFilas.trim().isEmpty()) {
+        Object numeroFilas = sprNumeroFilas.getValue();
+
+        if (numeroFilas == null) {
             mostrarErro(ERRO_6);
             return;
         }
 
-        int numeroFilasInt;
-        try {
-            numeroFilasInt = Integer.parseInt(numeroFilas);
-        } catch (Exception exception) {
+        if (!(numeroFilas instanceof Integer)) {
             mostrarErro(ERRO_7);
             return;
         }
+
+        int numeroFilasInt = (Integer) numeroFilas;
 
         if (numeroFilasInt < 1) {
             mostrarErro(ERRO_8);
@@ -168,19 +166,19 @@ public class JanelaAdicionarSala extends Janela {
         }
 
         // Verificar Número de Lugares por Fila
-        String numeroLugaresFila = sprNumeroLugaresFila.getValue().toString();
-        if (numeroLugaresFila.trim().isEmpty()) {
+        Object numeroLugaresFila = sprNumeroLugaresFila.getValue();
+
+        if (numeroLugaresFila == null) {
             mostrarErro(ERRO_10);
             return;
         }
 
-        int numeroLugaresFilaInt;
-        try {
-            numeroLugaresFilaInt = Integer.parseInt(numeroLugaresFila);
-        } catch (Exception exception) {
+        if (!(numeroLugaresFila instanceof Integer)) {
             mostrarErro(ERRO_11);
             return;
         }
+
+        int numeroLugaresFilaInt = (Integer) numeroLugaresFila;
 
         if (numeroLugaresFilaInt < 1) {
             mostrarErro(ERRO_12);
@@ -209,16 +207,4 @@ public class JanelaAdicionarSala extends Janela {
         JanelaSelecinarLugaresAcesseveis janelaSelecinarLugaresAcesseveis = new JanelaSelecinarLugaresAcesseveis(parentFrame, sala);
 
     }
-
-    /*
-    private void sprChangeListener(ChangeEvent e) {
-        spinnerChange();
-    }
-
-    private void spinnerChange() {
-        int totalLugares = (int) sprNumeroFilas.getValue() * (int) sprNumeroLugaresFila.getValue();
-        lblNumeroTotalLugares.setText(Integer.toString(totalLugares));
-        lblNumeroLugaresAcessiveis.setText(Integer.toString((int) Math.ceil(totalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS)));
-    }
-     */
 }
