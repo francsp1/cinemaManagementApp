@@ -99,7 +99,9 @@ public class JanelaSelecinarLugaresAcesseveis extends Janela {
 
         dispose();
 
-        parentFrame.setVisible(true);
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
     }
 
     private ArrayList<BotaoLugar> obterLugaresSelecionados() {
