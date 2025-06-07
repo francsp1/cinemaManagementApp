@@ -1,7 +1,8 @@
-package view;
+package view.funcionarios;
 
 import model.DadosApp;
 import model.Funcionario;
+import view.Janela;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

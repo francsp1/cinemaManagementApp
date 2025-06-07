@@ -1,4 +1,6 @@
-package view;
+package view.funcionarios;
+
+import view.Janela;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

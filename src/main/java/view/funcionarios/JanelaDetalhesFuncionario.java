@@ -1,8 +1,10 @@
-package view;
+package view.funcionarios;
+
+import view.Janela;
 
 import javax.swing.*;
 
-public class JanelaDetalhesFuncionario extends Janela{
+public class JanelaDetalhesFuncionario extends Janela {
     private JPanel mainPanel;
     private JButton voltarButton;
 
