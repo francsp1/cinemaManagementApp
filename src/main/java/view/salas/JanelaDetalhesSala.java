@@ -168,26 +168,26 @@ public class JanelaDetalhesSala extends Janela {
 
     private void btnGuardarActionPerformed(ActionEvent e) {
         // Verificar Número da Sala
-        String numeroSala = sprNumeroSala.getValue().toString();
-        if (numeroSala.trim().isEmpty()) {
+        Object numeroSala = sprNumeroSala.getValue();
+
+        if (numeroSala == null) {
             mostrarErro(ERRO_1);
             return;
         }
 
-        int numeroSalaInt;
-        try {
-            numeroSalaInt = Integer.parseInt(numeroSala);
-        } catch (Exception exception) {
+        if (!(numeroSala instanceof Integer)) {
             mostrarErro(ERRO_2);
             return;
         }
+
+        int numeroSalaInt = (Integer) numeroSala;
 
         if (numeroSalaInt < 1) {
             mostrarErro(ERRO_3);
             return;
         }
 
-        if (DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt) && sala.getNumeroSala() != numeroSalaInt) {
+        if (numeroSalaInt != sala.getNumeroSala() && DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt)) {
             mostrarErro(ERRO_4 + numeroSalaInt);
             return;
         }

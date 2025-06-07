@@ -109,6 +109,7 @@ public class JanelaAdicionarSala extends Janela {
     }
 
     private void btnAdicionarSalaActionPerformed(ActionEvent e) {
+        // Verificar Número da Sala
         Object numeroSala = sprNumeroSala.getValue();
 
         if (numeroSala == null) {
