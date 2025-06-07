@@ -2,6 +2,7 @@ package view;
 
 import model.DadosApp;
 import model.Funcionario;
+import view.funcionarios.JanelaFuncionarios;
 import view.salas.JanelaSalas;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class JanelaPrincipal extends Janela {
     private JPanel pnl1;
     private JLabel lblBemVindo;
     private JButton btnSair;
+    private JButton btnVerFuncionarios;
 
     private Funcionario funcionario;
 
@@ -61,13 +63,12 @@ public class JanelaPrincipal extends Janela {
         btnEstatistacasFilmes.setEnabled(false);
         btnReporStocksFornecedores.setEnabled(false);
         btnGerirBundles.setEnabled(false);
+        btnVerFuncionarios.setEnabled(false);
 
     }
 
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
-
-
         btnVendasBilhetes.addActionListener(this::btnVendasBilhetesActionPerformed);
         btnAdicionarFilme.addActionListener(this::btnAdicionarFilmeActionPerformed);
         btnProcurarSessoes.addActionListener(this::btnProcurarSessoesActionPerformed);
@@ -75,12 +76,13 @@ public class JanelaPrincipal extends Janela {
         btnAdicionarSessao.addActionListener(this::btnAdicionarSessaoActionPerformed);
         btnVerFilmes.addActionListener(this::btnVerFilmesActionPerformed);
         btnVerSalas.addActionListener(this::btnVerSalasActionPerformed);
-
+        
         if (funcionario.isGestor()) {
-            btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed); //
-            btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);//
-            btnReporStocksFornecedores.addActionListener(this::btnReporStocksFornecedoresActionPerformed);//
-            btnGerirBundles.addActionListener(this::btnGerirBundlesActionPerformed);//
+            btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed);
+            btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);
+            btnReporStocksFornecedores.addActionListener(this::btnReporStocksFornecedoresActionPerformed);
+            btnGerirBundles.addActionListener(this::btnGerirBundlesActionPerformed);
+            btnVerFuncionarios.addActionListener(this::btnVerFuncionariosActionPerformed);
         }
     }
 
@@ -134,6 +136,11 @@ public class JanelaPrincipal extends Janela {
 
     private void btnGerirBundlesActionPerformed(ActionEvent e) {
         //TODO
+    }
+
+    private void btnVerFuncionariosActionPerformed(ActionEvent e) {
+        setVisible(false);
+        JanelaFuncionarios janelaFuncionarios = new JanelaFuncionarios(this);
     }
 
 }
