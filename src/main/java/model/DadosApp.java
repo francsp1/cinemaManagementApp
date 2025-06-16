@@ -16,9 +16,8 @@ public enum DadosApp {
     public static final int MAX_LUGARES_POR_FILA = 10;
     public static final double PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10;
 
-    private static final String DATA_DIR = "./data/";
-    private static final String SALAS_FILE = DATA_DIR + "salas.dat";
-    private static final String FUNCIONARIOS_FILE = DATA_DIR + "funcionarios.dat";
+    private static final String SALAS_FILE = "salas.dat";
+    private static final String FUNCIONARIOS_FILE = "funcionarios.dat";
 
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
@@ -115,7 +114,7 @@ public enum DadosApp {
 
 
     public void guardarSalas() {
-        saveToFile(SALAS_FILE, salas, DATA_DIR);
+        saveToFile(SALAS_FILE, salas);
     }
 
     public void carregarSalas() {
@@ -126,7 +125,7 @@ public enum DadosApp {
     }
 
     public void guardarFuncionarios() {
-        saveToFile(FUNCIONARIOS_FILE, funcionarios, DATA_DIR);
+        saveToFile(FUNCIONARIOS_FILE, funcionarios);
     }
 
     public void carregarFuncionarios() {

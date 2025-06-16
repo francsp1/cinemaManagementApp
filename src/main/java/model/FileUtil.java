@@ -6,18 +6,20 @@ import java.util.function.Consumer;
 
 public class FileUtil {
 
-    public static void ensureDataDirExists(String dataDir) {
-        File dir = new File(dataDir);
+    private static final String DATA_DIR = "./data/";
+
+    private static void ensureDataDirExists() {
+        File dir = new File(DATA_DIR);
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                System.err.println("Failed to create data directory: " + dataDir);
+                System.err.println("Failed to create data directory: " + DATA_DIR);
             }
         }
     }
 
-    public static <T extends Serializable> void saveToFile(String filename, ArrayList<T> list, String dataDir) {
-        ensureDataDirExists(dataDir);
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+    public static <T extends Serializable> void saveToFile(String filename, ArrayList<T> list) {
+        ensureDataDirExists();
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(DATA_DIR + filename))) {
             out.writeObject(list);
         } catch (IOException e) {
             System.err.println("Failed to save file: " + filename + " - " + e.getMessage());
@@ -26,7 +28,7 @@ public class FileUtil {
 
     @SuppressWarnings("unchecked")
     public static <T> void loadFromFile(String filename, Class<T> type, Consumer<ArrayList<T>> assignTo) {
-        File file = new File(filename);
+        File file = new File(DATA_DIR + filename);
         if (!file.exists()) {
             System.out.println("File not found: " + filename + ", skipping load.");
             return;
