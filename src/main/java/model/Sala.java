@@ -1,8 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 import static model.DadosApp.PERCENTAGEM_LUGARES_ACESSIVEIS;
 
-public class Sala {
+public class Sala implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int numeroFilas;
     private int numeroLugaresPorFila;
     private int numeroTotalLugares;

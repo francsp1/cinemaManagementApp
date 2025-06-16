@@ -26,6 +26,7 @@ public class JanelaPrincipal extends Janela {
     private JLabel lblBemVindo;
     private JButton btnSair;
     private JButton btnVerFuncionarios;
+    private JButton btnGuardarDados;
 
     private Funcionario funcionario;
 
@@ -76,7 +77,8 @@ public class JanelaPrincipal extends Janela {
         btnAdicionarSessao.addActionListener(this::btnAdicionarSessaoActionPerformed);
         btnVerFilmes.addActionListener(this::btnVerFilmesActionPerformed);
         btnVerSalas.addActionListener(this::btnVerSalasActionPerformed);
-        
+        btnGuardarDados.addActionListener(this::btnGuardarDadosActionPerformed);
+
         if (funcionario.isGestor()) {
             btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed);
             btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);
@@ -141,6 +143,11 @@ public class JanelaPrincipal extends Janela {
     private void btnVerFuncionariosActionPerformed(ActionEvent e) {
         setVisible(false);
         JanelaFuncionarios janelaFuncionarios = new JanelaFuncionarios(this);
+    }
+
+    private void btnGuardarDadosActionPerformed(ActionEvent e) {
+        DadosApp.INSTANCIA.guardarSalas();
+        mostrarSucesso("Dados guardados com sucesso!");
     }
 
 }

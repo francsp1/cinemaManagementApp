@@ -1,9 +1,13 @@
 package model;
 
-public enum TipoSala {
+import java.io.Serializable;
+
+public enum TipoSala implements Serializable {
     DOIS_D,
     TRES_D,
     IMAX;
+
+    private static final long serialVersionUID = 1L;
 
     @Override
     public String toString() {

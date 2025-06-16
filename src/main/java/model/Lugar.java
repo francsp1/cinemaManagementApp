@@ -1,6 +1,9 @@
 package model;
 
-public class Lugar {
+import java.io.Serializable;
+
+public class Lugar implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String designacao;
     private final int fila; //Linha
     private final int numeroLugar; //Coluna

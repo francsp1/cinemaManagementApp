@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+import static model.FileUtil.loadFromFile;
+import static model.FileUtil.saveToFile;
+
+
 /**
  * Singleton class to hold application data.
  */
@@ -12,12 +16,18 @@ public enum DadosApp {
     public static final int MAX_LUGARES_POR_FILA = 10;
     public static final double PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10;
 
+    private static final String DATA_DIR = "./data/";
+    private static final String SALAS_FILE = DATA_DIR + "salas.dat";
+    private static final String FUNCIONARIOS_FILE = DATA_DIR + "funcionarios.dat";
+
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     DadosApp() {
-        adicionarSalasExemplo();
+        //adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
+
+        carregarSalas();
     }
 
     public void adicionarSala(Sala sala) {
@@ -101,6 +111,29 @@ public enum DadosApp {
         funcionarios.add(f5);
         funcionarios.add(f6);
         funcionarios.add(f7);
+    }
+
+
+    public void guardarSalas() {
+        saveToFile(SALAS_FILE, salas, DATA_DIR);
+    }
+
+    public void carregarSalas() {
+        loadFromFile(SALAS_FILE, Sala.class, loaded -> {
+            salas.clear();
+            salas.addAll(loaded);
+        });
+    }
+
+    public void guardarFuncionarios() {
+        saveToFile(FUNCIONARIOS_FILE, funcionarios, DATA_DIR);
+    }
+
+    public void carregarFuncionarios() {
+        loadFromFile(FUNCIONARIOS_FILE, Funcionario.class, loaded -> {
+            funcionarios.clear();
+            funcionarios.addAll(loaded);
+        });
     }
 
     public ArrayList<Sala> getSalas() {

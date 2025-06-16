@@ -1,8 +1,12 @@
 package model;
 
-public enum TipoSistemaSom {
+import java.io.Serializable;
+
+public enum TipoSistemaSom implements Serializable {
     NORMAL,
     DOLBY_ATMOS;
+
+    private static final long serialVersionUID = 1L;
 
     @Override
     public String toString() {
