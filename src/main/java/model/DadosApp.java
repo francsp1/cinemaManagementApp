@@ -26,7 +26,7 @@ public enum DadosApp {
         //adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
 
-        carregarSalas();
+        carregarDados();
     }
 
     public void adicionarSala(Sala sala) {
@@ -133,6 +133,16 @@ public enum DadosApp {
             funcionarios.clear();
             funcionarios.addAll(loaded);
         });
+    }
+
+    public void guaradrDados() {
+        guardarSalas();
+        //guardarFuncionarios();
+    }
+
+    public void carregarDados() {
+        carregarSalas();
+        //carregarFuncionarios();
     }
 
     public ArrayList<Sala> getSalas() {
