@@ -1,9 +1,11 @@
 package view.salas;
 
+import view.Janela;
+
 import javax.swing.*;
 
-public class JanelaSessoesSala extends JFrame {
-    private JFrame parentFrame;
+public class JanelaSessoesSala extends Janela {
+    private final JFrame parentFrame;
     private JPanel pnlSessoesSala;
     private JScrollPane sclSessoesSala;
     private JButton btnSair;
@@ -29,6 +31,7 @@ public class JanelaSessoesSala extends JFrame {
     }
 
     private void preencherListaSessoes() {
-
+        //TODO
+        JOptionPane.showMessageDialog(this, "TO DO");
     }
 }

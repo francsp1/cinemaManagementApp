@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaAdicionarBundle {
+public class JanelaAdicionarBundle extends Janela{
     private JList list1;
     private JButton criarBundleButton;
     private JButton cancelarOperaçãoButton;
@@ -16,6 +16,7 @@ public class JanelaAdicionarBundle {
     private JPanel mainPanel;
 
     public JanelaAdicionarBundle() {
+        super("Adicionar Bundle");
         // Initialize the components here if needed
         String[] columnNames = {"Item"};
         String[] products = {"Bilhete Estudante","Bilhete Normal","Bilhete +65","Coca-Cola", "Pepsi", "Fanta"};

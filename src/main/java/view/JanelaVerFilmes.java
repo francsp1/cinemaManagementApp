@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-public class JanelaVerFilmes extends JFrame {
+public class JanelaVerFilmes extends Janela {
     private JLabel pnlPrincipal;
     private JList list1;
     private JButton verDetalhesButton;
@@ -15,7 +15,6 @@ public class JanelaVerFilmes extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
     public static void main(String[] args) {

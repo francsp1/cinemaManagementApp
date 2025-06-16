@@ -1,7 +1,7 @@
-import view.JanelaPrincipalGestor;
+import view.JanelaLogin;
 
 public class Main {
     public static void main(String[] args) {
-        JanelaPrincipalGestor janelaPrincipal = new JanelaPrincipalGestor();
+        JanelaLogin janelaLogin = new JanelaLogin();
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import static model.DadosApp.PERCENTAGEM_LUGARES_ACESSIVEIS;
+
 public class Sala {
     private int numeroFilas;
     private int numeroLugaresPorFila;
@@ -10,17 +12,26 @@ public class Sala {
     private TipoSistemaSom tipoSistemaSom;
     private String nome;
     private boolean isAtiva;
+    private Lugar[][] lugares;
 
     public Sala(int numeroFilas, int numeroLugaresPorFila, int numeroSala, TipoSala tipoSala, TipoSistemaSom tipoSistemaSom, String nome) {
         this.numeroFilas = numeroFilas;
         this.numeroLugaresPorFila = numeroLugaresPorFila;
         this.numeroTotalLugares = numeroFilas * numeroLugaresPorFila;
-        this.numeroLugaresAcessiveis = (int) Math.ceil(numeroTotalLugares * 0.10);
+        this.numeroLugaresAcessiveis = (int) Math.ceil(numeroTotalLugares * PERCENTAGEM_LUGARES_ACESSIVEIS);
         this.numeroSala = numeroSala;
         this.tipoSala = tipoSala;
         this.tipoSistemaSom = tipoSistemaSom;
         this.nome = nome;
         this.isAtiva = true;
+
+        this.lugares = new Lugar[numeroFilas][numeroLugaresPorFila];
+        for (int i = 0; i < numeroFilas; i++) {
+            for (int j = 0; j < numeroLugaresPorFila; j++) {
+                this.lugares[i][j] = new Lugar(i, j);
+            }
+        }
+
     }
 
     @Override
@@ -38,6 +49,10 @@ public class Sala {
 
     public boolean isAtiva() {
         return isAtiva;
+    }
+
+    public void setAtiva(boolean ativa) {
+        isAtiva = ativa;
     }
 
     public void setEstado(boolean ativa) {
@@ -98,5 +113,13 @@ public class Sala {
 
     public void setNumeroFilas(int numeroFilas) {
         this.numeroFilas = numeroFilas;
+    }
+
+    public Lugar[][] getLugares() {
+        return lugares;
+    }
+
+    public void setLugares(Lugar[][] lugares) {
+        this.lugares = lugares;
     }
 }

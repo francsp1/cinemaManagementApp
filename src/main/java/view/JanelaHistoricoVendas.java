@@ -3,13 +3,14 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaHistoricoVendas {
+public class JanelaHistoricoVendas extends Janela{
     private JTable table1;
     private JComboBox comboBox1;
     private JButton voltarButton;
     private JPanel mainPanel;
 
     public JanelaHistoricoVendas() {
+        super("Historico de Vendas");
         // Initialize the components here if needed
         String[] columnNames = {"Produtos","Vendedor","Data", "Preço"};
         String[] produtos = {"2x Bilhete +65", "Pacote Estudante"};

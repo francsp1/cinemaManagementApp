@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaEstatisticasFilmes {
+public class JanelaEstatisticasFilmes extends Janela {
 
     private JPanel mainPanel;
     private JTable table1;
@@ -13,6 +13,7 @@ public class JanelaEstatisticasFilmes {
     private JTable table2;
 
     public JanelaEstatisticasFilmes() {
+        super("Estatisticas dos Filmes");
         String[] columnNamesTabela1 = {"Posição no TOP", "Filme", "Realizador"};
         String[] filmes = {"O Senhor dos Anéis", "Matrix", "Pulp Fiction", "Interstellar", "Inception"};
         String[] realizadores = {"Peter Jackson", "Lana Wachowski", "Quentin Tarantino", "Christopher Nolan", "Christopher Nolan"};

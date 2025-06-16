@@ -11,7 +11,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <scrollpane id="aa3b7" binding="sclPnSalas">
+      <scrollpane id="aa3b7" binding="sclSalas">
         <constraints>
           <grid row="0" column="0" row-span="3" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -40,7 +40,7 @@
           <text value="Sair"/>
         </properties>
       </component>
-      <component id="5b5f4" class="javax.swing.JButton" binding="btnDetalesSala">
+      <component id="5b5f4" class="javax.swing.JButton" binding="btnVerDetalesSala">
         <constraints>
           <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

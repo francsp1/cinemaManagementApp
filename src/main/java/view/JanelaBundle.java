@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class JanelaBundle {
+public class JanelaBundle extends Janela{
     private JTable table1;
     private JButton adicionarBundleButton;
     private JButton removerBundleButton;
@@ -11,6 +11,7 @@ public class JanelaBundle {
     private JPanel mainPanel;
 
     public JanelaBundle() {
+        super("Bundles");
         // Initialize the components here if needed
         String[] columnNames = {"Nome", "Itens", "Preço"};
         String[] names = {"Pacote estudante", "Pacote familia"};

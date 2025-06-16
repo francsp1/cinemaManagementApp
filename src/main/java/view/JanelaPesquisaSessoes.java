@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-public class JanelaPesquisaSessoes extends JFrame{
+public class JanelaPesquisaSessoes extends Janela{
     private JButton sairButton;
     private JButton procurarButton;
     private JComboBox comboBox1;
@@ -11,4 +11,8 @@ public class JanelaPesquisaSessoes extends JFrame{
     private JComboBox comboBox4;
     private JTextField textField1;
     private JButton removerSessaoButton;
+
+    public JanelaPesquisaSessoes(){
+        super("Pesquisa de Sessões");
+    }
 }
