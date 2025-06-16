@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import static model.FileUtil.loadFromFile;
 import static model.FileUtil.saveToFile;
 
-
-/**
- * Singleton class to hold application data.
- */
 public enum DadosApp {
     INSTANCIA;
 
