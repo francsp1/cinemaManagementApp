@@ -21,13 +21,13 @@ public class DadosApp implements Serializable {
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     DadosApp() {
-        adicionarSalasExemplo();
-        adicionarFuncionariosExemplo();
+        //adicionarSalasExemplo();
+        //adicionarFuncionariosExemplo();
     }
 
     public static DadosApp getInstance() {
         if (instance == null) {
-            instance = new DadosApp();
+            carregarDados();
         }
         return instance;
     }
@@ -116,11 +116,33 @@ public class DadosApp implements Serializable {
     }
 
     private static void carregarDados() {
-        //TODO: Implementar a lógica de carregamento de dados do ficheiro
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            instance = new DadosApp(); // fallback to a new instance
+            return;
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            instance = (DadosApp) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            instance = new DadosApp();
+        }
     }
 
-    private static void gravarDados() {
-        //TODO: Implementar a lógica de gravação de dados no ficheiro
+    public static void gravarDados() {
+        try {
+            File dir = new File(DIR);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+                oos.writeObject(instance);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Sala> getSalas() {

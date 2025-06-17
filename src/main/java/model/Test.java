@@ -10,7 +10,6 @@ public class Test implements Serializable {
         var b = new B(a);
         var c = new C(a);
 
-
     }
 }
 

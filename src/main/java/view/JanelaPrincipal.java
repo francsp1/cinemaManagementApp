@@ -146,8 +146,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnGuardarDadosActionPerformed(ActionEvent e) {
-        //TODO
-        //mostrarSucesso("Dados guardados com sucesso!");
+        DadosApp.gravarDados();
+        mostrarSucesso("Dados guardados com sucesso!");
     }
 
 }
