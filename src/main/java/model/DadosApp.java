@@ -115,6 +115,14 @@ public class DadosApp implements Serializable {
         funcionarios.add(f7);
     }
 
+    private static void carregarDados() {
+        //TODO: Implementar a lógica de carregamento de dados do ficheiro
+    }
+
+    private static void gravarDados() {
+        //TODO: Implementar a lógica de gravação de dados no ficheiro
+    }
+
     public ArrayList<Sala> getSalas() {
         return salas;
     }
