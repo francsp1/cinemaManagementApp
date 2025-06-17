@@ -88,7 +88,7 @@ public class JanelaLogin extends Janela {
     }
 
     private Funcionario procurarFuncionario(String username) {
-        for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
+        for (Funcionario funcionario : DadosApp.getInstance().getFuncionarios()) {
             if (funcionario.getUsername().equals(username)) {
                 return funcionario;
             }

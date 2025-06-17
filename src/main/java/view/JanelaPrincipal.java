@@ -31,8 +31,8 @@ public class JanelaPrincipal extends Janela {
     private Funcionario funcionario;
 
     public static void main(String[] args) {
-        var gestor = DadosApp.INSTANCIA.getFuncionarios().get(5);
-        var funcionario = DadosApp.INSTANCIA.getFuncionarios().get(6);
+        var gestor = DadosApp.getInstance().getFuncionarios().get(5);
+        var funcionario = DadosApp.getInstance().getFuncionarios().get(6);
 
         JanelaPrincipal janela = new JanelaPrincipal(null, gestor);
     }
@@ -146,7 +146,6 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnGuardarDadosActionPerformed(ActionEvent e) {
-        DadosApp.INSTANCIA.guaradrDados();
         mostrarSucesso("Dados guardados com sucesso!");
     }
 

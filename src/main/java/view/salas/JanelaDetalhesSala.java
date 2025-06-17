@@ -49,7 +49,7 @@ public class JanelaDetalhesSala extends Janela {
     private static final String SUCESSO_1 = "Sala atualizada com sucesso!";
 
     public static void main(String[] args) {
-        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.INSTANCIA.getSalas().getLast(), true);
+        JanelaDetalhesSala janela = new JanelaDetalhesSala(null, DadosApp.getInstance().getSalas().getLast(), true);
     }
 
     public JanelaDetalhesSala(JFrame parentFrame, Sala sala, boolean isGestor) {
@@ -187,7 +187,7 @@ public class JanelaDetalhesSala extends Janela {
             return;
         }
 
-        if (numeroSalaInt != sala.getNumeroSala() && DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt)) {
+        if (numeroSalaInt != sala.getNumeroSala() && DadosApp.getInstance().existeNumeroSala(numeroSalaInt)) {
             mostrarErro(ERRO_4 + numeroSalaInt);
             return;
         }

@@ -1,28 +1,35 @@
 package model;
 
+import java.io.*;
 import java.util.ArrayList;
 
-import static model.FileUtil.loadFromFile;
-import static model.FileUtil.saveToFile;
+public class DadosApp implements Serializable {
 
-public enum DadosApp {
-    INSTANCIA;
+    private static DadosApp instance = null;
+
+    private static final long serialVersionUID = 1L;
+
+    private static final String DIR = "./data/";
+    private static final String FILE_NAME = "dadosApp.dat";
+    private static final String FILE_PATH = DIR + FILE_NAME;
 
     public static final int MAX_FILAS = 10;
     public static final int MAX_LUGARES_POR_FILA = 10;
     public static final double PERCENTAGEM_LUGARES_ACESSIVEIS = 0.10;
 
-    private static final String SALAS_FILE = "salas.dat";
-    private static final String FUNCIONARIOS_FILE = "funcionarios.dat";
-
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     DadosApp() {
-        //adicionarSalasExemplo();
+        adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
+    }
 
-        carregarDados();
+    public static DadosApp getInstance() {
+        if (instance == null) {
+            instance = new DadosApp();
+        }
+        return instance;
     }
 
     public void adicionarSala(Sala sala) {
@@ -108,39 +115,6 @@ public enum DadosApp {
         funcionarios.add(f7);
     }
 
-
-    public void guardarSalas() {
-        saveToFile(SALAS_FILE, salas);
-    }
-
-    public void carregarSalas() {
-        loadFromFile(SALAS_FILE, Sala.class, loaded -> {
-            salas.clear();
-            salas.addAll(loaded);
-        });
-    }
-
-    public void guardarFuncionarios() {
-        saveToFile(FUNCIONARIOS_FILE, funcionarios);
-    }
-
-    public void carregarFuncionarios() {
-        loadFromFile(FUNCIONARIOS_FILE, Funcionario.class, loaded -> {
-            funcionarios.clear();
-            funcionarios.addAll(loaded);
-        });
-    }
-
-    public void guaradrDados() {
-        guardarSalas();
-        //guardarFuncionarios();
-    }
-
-    public void carregarDados() {
-        carregarSalas();
-        //carregarFuncionarios();
-    }
-
     public ArrayList<Sala> getSalas() {
         return salas;
     }
@@ -148,4 +122,5 @@ public enum DadosApp {
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
 }
