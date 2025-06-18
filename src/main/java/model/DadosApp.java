@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class DadosApp implements Serializable {
 
-    private static DadosApp instance = null;
-
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private static DadosApp instance = null;
+    
     private static final String DIR = "./data/";
     private static final String FILE_NAME = "dadosApp.dat";
     private static final String FILE_PATH = DIR + FILE_NAME;
