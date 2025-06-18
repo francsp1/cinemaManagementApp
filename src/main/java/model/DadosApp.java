@@ -7,6 +7,7 @@ public class DadosApp implements Serializable {
 
     private static DadosApp instance = null;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String DIR = "./data/";

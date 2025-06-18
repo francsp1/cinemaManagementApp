@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Funcionario implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = 1L;
+
     private String nome;
     private String cartaoCidadao;
     private String email;

@@ -49,7 +49,6 @@ public class JanelaLogin extends Janela {
 
     private void btnSairActionPerformed(ActionEvent e) {
         dispose();
-        // end the application
         System.exit(0);
     }
 
