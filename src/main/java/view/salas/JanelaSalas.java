@@ -63,7 +63,7 @@ public class JanelaSalas extends Janela {
         modeloLista = new DefaultListModel<>();
         lstSalas.setModel(modeloLista);
 
-        for (Sala sala : DadosApp.INSTANCIA.getSalas()) {
+        for (Sala sala : DadosApp.getInstance().getSalas()) {
             adicionar(sala);
         }
     }

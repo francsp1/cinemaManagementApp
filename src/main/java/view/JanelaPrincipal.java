@@ -4,6 +4,8 @@ import model.DadosApp;
 import model.Funcionario;
 import view.funcionarios.JanelaFuncionarios;
 import view.salas.JanelaSalas;
+import view.JanelaStockBar;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,12 +28,13 @@ public class JanelaPrincipal extends Janela {
     private JLabel lblBemVindo;
     private JButton btnSair;
     private JButton btnVerFuncionarios;
+    private JButton btnGuardarDados;
 
     private Funcionario funcionario;
 
     public static void main(String[] args) {
-        var gestor = DadosApp.INSTANCIA.getFuncionarios().get(5);
-        var funcionario = DadosApp.INSTANCIA.getFuncionarios().get(6);
+        var gestor = DadosApp.getInstance().getFuncionarios().get(5);
+        var funcionario = DadosApp.getInstance().getFuncionarios().get(6);
 
         JanelaPrincipal janela = new JanelaPrincipal(null, gestor);
     }
@@ -76,7 +79,8 @@ public class JanelaPrincipal extends Janela {
         btnAdicionarSessao.addActionListener(this::btnAdicionarSessaoActionPerformed);
         btnVerFilmes.addActionListener(this::btnVerFilmesActionPerformed);
         btnVerSalas.addActionListener(this::btnVerSalasActionPerformed);
-        
+        btnGuardarDados.addActionListener(this::btnGuardarDadosActionPerformed);
+
         if (funcionario.isGestor()) {
             btnHistoricoVendas.addActionListener(this::btnHistoricoVendasActionPerformed);
             btnEstatistacasFilmes.addActionListener(this::btnEstatisticasFilmesActionPerformed);
@@ -127,7 +131,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnReporStocksFornecedoresActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaStockBar janelaStockBar = new JanelaStockBar(this);
     }
 
     private void btnVerFilmesActionPerformed(ActionEvent e) {
@@ -141,6 +146,11 @@ public class JanelaPrincipal extends Janela {
     private void btnVerFuncionariosActionPerformed(ActionEvent e) {
         setVisible(false);
         JanelaFuncionarios janelaFuncionarios = new JanelaFuncionarios(this);
+    }
+
+    private void btnGuardarDadosActionPerformed(ActionEvent e) {
+        DadosApp.gravarDados();
+        mostrarSucesso("Dados guardados com sucesso!");
     }
 
 }

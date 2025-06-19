@@ -40,7 +40,7 @@ public class JanelaFuncionarios extends Janela {
         DefaultListModel<Funcionario> modeloLista = new DefaultListModel<>();
         lstFuncionarios.setModel(modeloLista);
 
-        var lista = DadosApp.INSTANCIA.getFuncionarios();
+        var lista = DadosApp.getInstance().getFuncionarios();
 
         for (Funcionario funcionario : lista) {
             modeloLista.addElement(funcionario);
@@ -53,6 +53,9 @@ public class JanelaFuncionarios extends Janela {
 
     private void btnSairActionPerformed(ActionEvent e) {
         dispose();
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
     }
 
 }

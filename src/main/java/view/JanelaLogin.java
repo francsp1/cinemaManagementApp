@@ -49,7 +49,6 @@ public class JanelaLogin extends Janela {
 
     private void btnSairActionPerformed(ActionEvent e) {
         dispose();
-        // end the application
         System.exit(0);
     }
 
@@ -88,7 +87,7 @@ public class JanelaLogin extends Janela {
     }
 
     private Funcionario procurarFuncionario(String username) {
-        for (Funcionario funcionario : DadosApp.INSTANCIA.getFuncionarios()) {
+        for (Funcionario funcionario : DadosApp.getInstance().getFuncionarios()) {
             if (funcionario.getUsername().equals(username)) {
                 return funcionario;
             }

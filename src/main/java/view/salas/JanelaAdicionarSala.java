@@ -129,7 +129,7 @@ public class JanelaAdicionarSala extends Janela {
             return;
         }
 
-        if (DadosApp.INSTANCIA.existeNumeroSala(numeroSalaInt)) {
+        if (DadosApp.getInstance().existeNumeroSala(numeroSalaInt)) {
             mostrarErro(ERRO_4 + numeroSalaInt);
             return;
         }

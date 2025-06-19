@@ -1,12 +1,18 @@
 package model;
 
+import java.io.*;
 import java.util.ArrayList;
 
-/**
- * Singleton class to hold application data.
- */
-public enum DadosApp {
-    INSTANCIA;
+public class DadosApp implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private static DadosApp instance = null;
+    
+    private static final String DIR = "./data/";
+    private static final String FILE_NAME = "dadosApp.dat";
+    private static final String FILE_PATH = DIR + FILE_NAME;
 
     public static final int MAX_FILAS = 10;
     public static final int MAX_LUGARES_POR_FILA = 10;
@@ -15,9 +21,22 @@ public enum DadosApp {
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
+    private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
+
+
+
     DadosApp() {
         adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
+        adicionarFornecedoresExemplo();
+    }
+
+    public static DadosApp getInstance() {
+        if (instance == null) {
+            carregarDados();
+        }
+        return instance;
     }
 
     public void adicionarSala(Sala sala) {
@@ -103,6 +122,70 @@ public enum DadosApp {
         funcionarios.add(f7);
     }
 
+    private void adicionarFornecedoresExemplo() {
+        // Fornecedor 1
+        Fornecedor f1 = new Fornecedor("Abílio");
+        f1.adicionarProduto(new Produto("Coca-Cola 33cl"), 0.45);
+        f1.adicionarProduto(new Produto("Água 50cl"), 0.30);
+        f1.adicionarProduto(new Produto("Batatas Fritas Pequenas"), 0.60);
+
+        // Fornecedor 2
+        Fornecedor f2 = new Fornecedor("José Augusto");
+        f2.adicionarProduto(new Produto("Pepsi 33cl"), 0.40);
+        f2.adicionarProduto(new Produto("Ice Tea Limão 33cl"), 0.42);
+        f2.adicionarProduto(new Produto("Chocolates Mini"), 0.80);
+
+        // Fornecedor 3
+        Fornecedor f3 = new Fornecedor("Bina");
+        f3.adicionarProduto(new Produto("Fanta Laranja 33cl"), 0.50);
+        f3.adicionarProduto(new Produto("Sumol Ananás 33cl"), 0.48);
+        f3.adicionarProduto(new Produto("Pipocas Salgadas 500g"), 1.20);
+
+        fornecedores.add(f1);
+        fornecedores.add(f2);
+        fornecedores.add(f3);
+    }
+
+    public void adicionarFaturaFornecedor(FaturaFornecedor fatura) {
+        if (fatura != null) {
+            faturasFornecedores.add(fatura);
+        }
+    }
+
+
+
+
+
+    private static void carregarDados() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) {
+            instance = new DadosApp(); // fallback to a new instance
+            return;
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            instance = (DadosApp) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            instance = new DadosApp();
+        }
+    }
+
+    public static void gravarDados() {
+        try {
+            File dir = new File(DIR);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+                oos.writeObject(instance);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Sala> getSalas() {
         return salas;
     }
@@ -110,4 +193,15 @@ public enum DadosApp {
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
+    //GESTAO STOCK E FORNECEDORES
+
+    public ArrayList<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+    public ArrayList<FaturaFornecedor> getFaturasFornecedores() {
+        return faturasFornecedores;
+    }
+    //###########################
+
 }

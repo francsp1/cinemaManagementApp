@@ -24,7 +24,7 @@ public class JanelaSelecinarLugaresAcesseveis extends Janela {
     private static final String SUCESSO_1 = "Sala adicionada com sucesso!";
 
     public static void main(String[] args) {
-        JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.INSTANCIA.getSalas().getLast());
+        JanelaSelecinarLugaresAcesseveis janela = new JanelaSelecinarLugaresAcesseveis(null, DadosApp.getInstance().getSalas().getLast());
     }
 
     public JanelaSelecinarLugaresAcesseveis(JFrame parentFrame, Sala sala) {
@@ -89,7 +89,7 @@ public class JanelaSelecinarLugaresAcesseveis extends Janela {
 
         atualizarLugares(botoesSelecionados);
 
-        DadosApp.INSTANCIA.adicionarSala(sala);
+        DadosApp.getInstance().adicionarSala(sala);
 
         if (parentFrame instanceof JanelaSalas) {
             ((JanelaSalas) parentFrame).adicionar(sala);
