@@ -122,6 +122,27 @@ public class JanelaStockBar extends Janela {
 
     }
 
+    public void atualizarHistorico() {
+        List<model.FaturaFornecedor> faturas = model.DadosApp.getInstance().getFaturasFornecedores();
+        Object[][] historico = new Object[faturas.size()][4];
+        for (int i = 0; i < faturas.size(); i++) {
+            model.FaturaFornecedor f = faturas.get(i);
+            historico[i][0] = f.getFornecedor().getNome();
+            historico[i][1] = f.getNumeroFatura();
+            historico[i][2] = f.getData().toString();
+            historico[i][3] = String.format("%.2f", f.getValorTotal());
+        }
+        DefaultTableModel model2 = new DefaultTableModel(historico, new String[]{"Fornecedor", "Nr Fatura", "Data", "Valor (€)"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table2.setModel(model2);
+    }
+
+
+
     public JPanel getMainPanel() {
         return mainPanel;
     }

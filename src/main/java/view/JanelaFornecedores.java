@@ -13,9 +13,11 @@ public class JanelaFornecedores extends Janela {
     private JButton FInalizarComprarEGerarButton;
     private JTable table2;
     private JLabel precoTotal;
+    private JanelaStockBar janelaStockBar;
 
-    public JanelaFornecedores(JFrame parent, Fornecedor fornecedor) {
+    public JanelaFornecedores(JanelaStockBar parent, Fornecedor fornecedor) {
         super("Fornecedor: " + fornecedor.getNome());
+        this.janelaStockBar = parent;
         setContentPane(mainPanel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 400);
@@ -136,6 +138,10 @@ public class JanelaFornecedores extends Janela {
             // Limpar carrinho
             modelCarrinho.setRowCount(0);
             atualizarPrecoTotal(modelCarrinho);
+
+            if (janelaStockBar != null) {
+                janelaStockBar.atualizarHistorico();
+            }
         });
 
 
