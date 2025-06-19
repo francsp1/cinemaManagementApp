@@ -92,12 +92,12 @@ public class JanelaFornecedores extends Janela {
         double totalCarrinho = 0.0;
         for (int i = 0; i < modelCarrinho.getRowCount(); i++) {
             String valorStr = (String) modelCarrinho.getValueAt(i, 2);
-            valorStr = valorStr.replace(",", "."); // Para garantir o ponto decimal
+            valorStr = valorStr.replace(",", ".");
             try {
                 totalCarrinho += Double.parseDouble(valorStr);
             } catch (NumberFormatException ignore) {}
         }
-        precoTotal.setText("Preço total do carrinho: " + String.format("%.2f", totalCarrinho) + "€");
+        precoTotal.setText("Preço total do carrinho: " + String.format("%.2f", totalCarrinho) + " €");
     }
 
 
