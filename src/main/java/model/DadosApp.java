@@ -20,10 +20,13 @@ public class DadosApp implements Serializable {
 
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+
 
     DadosApp() {
         adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
+        adicionarFornecedoresExemplo();
     }
 
     public static DadosApp getInstance() {
@@ -116,6 +119,18 @@ public class DadosApp implements Serializable {
         funcionarios.add(f7);
     }
 
+    private void adicionarFornecedoresExemplo() {
+        Fornecedor f1 = new Fornecedor("Abílio");
+        Fornecedor f2 = new Fornecedor("José Augusto");
+        Fornecedor f3 = new Fornecedor("Bina");
+
+        fornecedores.add(f1);
+        fornecedores.add(f2);
+        fornecedores.add(f3);
+    }
+
+
+
     private static void carregarDados() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -153,5 +168,14 @@ public class DadosApp implements Serializable {
     public ArrayList<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
+    //GESTAO STOCK E FORNECEDORES
+
+    public ArrayList<Fornecedor> getFornecedores() {
+        return fornecedores;
+    }
+
+
+    //###########################
 
 }

@@ -1,5 +1,7 @@
 package view;
 
+import model.Fornecedor;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -11,8 +13,11 @@ public class JanelaFornecedores extends Janela {
     private JButton FInalizarComprarEGerarButton;
     private JTable table2;
 
-    public JanelaFornecedores() {
-        super("Fornecedores");
+    public JanelaFornecedores(JFrame parent, Fornecedor fornecedor) {
+        super("Fornecedor: " + fornecedor.getNome());
+        // código para mostrar os dados do fornecedor
+        setLocationRelativeTo(parent);
+        setVisible(true);
         String[] columnNames = {"Produto", "Preço unidade (€)"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
         String[] preco = {"5", "5", "3"};
@@ -56,13 +61,4 @@ public class JanelaFornecedores extends Janela {
            return mainPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Stock Bar");
-            frame.setSize(800, 400);
-            frame.setContentPane(new JanelaFornecedores().getMainPanel());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
-    }
 }

@@ -4,6 +4,8 @@ import model.DadosApp;
 import model.Funcionario;
 import view.funcionarios.JanelaFuncionarios;
 import view.salas.JanelaSalas;
+import view.JanelaStockBar;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -129,7 +131,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnReporStocksFornecedoresActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaStockBar janelaStockBar = new JanelaStockBar(this);
     }
 
     private void btnVerFilmesActionPerformed(ActionEvent e) {
