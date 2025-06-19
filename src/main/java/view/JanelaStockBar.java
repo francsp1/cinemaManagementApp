@@ -11,7 +11,7 @@ public class JanelaStockBar extends Janela {
     private JPanel mainPanel;
     private JTable table1;
     private JButton escolherFornecedorButton;
-    private JButton adicionarButton1;
+    private JButton adicionarButton;
     private JTextField textField1;
     private JTable table2;
     private JTable table3;
@@ -61,7 +61,7 @@ public class JanelaStockBar extends Janela {
         DefaultTableModel model4 = new DefaultTableModel(vendaProdutos, colunasVendaProdutos) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
+                return false;
             }
         };
         table4.setModel(model4);
@@ -71,7 +71,7 @@ public class JanelaStockBar extends Janela {
         DefaultTableModel model3 = new DefaultTableModel(fornecedores, colunasFornecedores) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
+                return false;
             }
         };
         table3.setModel(model3);
@@ -121,6 +121,34 @@ public class JanelaStockBar extends Janela {
             public void windowClosed(java.awt.event.WindowEvent e) {
                 parent.setVisible(true);
             }
+        });
+
+        adicionarButton.addActionListener(e -> {
+            String nomeProduto = textField1.getText().trim();
+
+            if (nomeProduto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "O nome do produto não pode estar em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            boolean existe = DadosApp.getInstance().getStockProdutos().stream()
+                    .anyMatch(sp -> sp.getProduto().getNome().equalsIgnoreCase(nomeProduto));
+            if (existe) {
+                JOptionPane.showMessageDialog(this, "Esse produto já existe no stock.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            model.Produto novoProduto = new model.Produto(nomeProduto);
+            model.StockProduto novoStock = new model.StockProduto(novoProduto, 0);
+            DadosApp.getInstance().getStockProdutos().add(novoStock);
+            DadosApp.gravarDados();
+
+            // Atualiza a tabela de stock
+            atualizarStock();
+
+            // Limpa o campo de texto
+            textField1.setText("");
+            JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE);
         });
 
     }

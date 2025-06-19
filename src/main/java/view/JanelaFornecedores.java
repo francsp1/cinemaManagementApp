@@ -134,7 +134,6 @@ public class JanelaFornecedores extends Janela {
                 if (stock != null) {
                     stock.adicionar(quantidadeComprada);
                 } else {
-                    // Produto não existe no catálogo
                     int opcao = JOptionPane.showConfirmDialog(this,
                             "O produto \"" + nomeProduto + "\" não existe no catálogo de stock.\n" +
                                     "Deseja adicionar ao catálogo?",
@@ -142,10 +141,8 @@ public class JanelaFornecedores extends Janela {
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE);
                     if (opcao == JOptionPane.YES_OPTION) {
-                        // Adiciona ao catálogo
                         DadosApp.getInstance().getStockProdutos().add(new StockProduto(entry.getKey(), quantidadeComprada));
                     } else {
-                        // Marca para remover do carrinho
                         produtosParaRemover.add(entry.getKey());
                     }
                 }
