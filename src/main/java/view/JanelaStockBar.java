@@ -116,6 +116,13 @@ public class JanelaStockBar extends Janela {
             }
         });
 
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                parent.setVisible(true);
+            }
+        });
+
     }
 
     public void atualizarHistorico() {

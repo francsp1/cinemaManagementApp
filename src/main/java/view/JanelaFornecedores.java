@@ -7,6 +7,8 @@ import model.StockProduto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class JanelaFornecedores extends Janela {
@@ -122,6 +124,60 @@ public class JanelaFornecedores extends Janela {
                 } catch (NumberFormatException ignore) {}
             }
 
+
+            List<Produto> produtosParaRemover = new ArrayList<>();
+
+            for (Map.Entry<Produto, Integer> entry : produtosFatura.entrySet()) {
+                String nomeProduto = entry.getKey().getNome();
+                int quantidadeComprada = entry.getValue();
+                StockProduto stock = DadosApp.getInstance().getStockProdutoPorNome(nomeProduto);
+                if (stock != null) {
+                    stock.adicionar(quantidadeComprada);
+                } else {
+                    // Produto não existe no catálogo
+                    int opcao = JOptionPane.showConfirmDialog(this,
+                            "O produto \"" + nomeProduto + "\" não existe no catálogo de stock.\n" +
+                                    "Deseja adicionar ao catálogo?",
+                            "Produto não encontrado",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                    if (opcao == JOptionPane.YES_OPTION) {
+                        // Adiciona ao catálogo
+                        DadosApp.getInstance().getStockProdutos().add(new StockProduto(entry.getKey(), quantidadeComprada));
+                    } else {
+                        // Marca para remover do carrinho
+                        produtosParaRemover.add(entry.getKey());
+                    }
+                }
+            }
+
+            for (Produto p : produtosParaRemover) {
+                produtosFatura.remove(p);
+
+                // Opcional: remover da tabela do carrinho (table2)
+                for (int k = 0; k < modelCarrinho.getRowCount(); k++) {
+                    String nomeProdutoCarrinho = (String) modelCarrinho.getValueAt(k, 0);
+                    if (nomeProdutoCarrinho.equals(p.getNome())) {
+                        modelCarrinho.removeRow(k);
+                        break;
+                    }
+                }
+            }
+            if (produtosFatura.isEmpty()) {
+
+                JOptionPane.showMessageDialog(this, "Nenhum produto válido no carrinho. A compra foi cancelada.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                modelCarrinho.setRowCount(0);
+                atualizarPrecoTotal(modelCarrinho);
+                return;
+            }
+
+            totalFatura = 0.0;
+            for (Map.Entry<Produto, Integer> entry : produtosFatura.entrySet()) {
+                double precoUnitario = fornecedor.getTabelaPrecos().get(entry.getKey());
+                totalFatura += precoUnitario * entry.getValue();
+            }
+
+
             model.FaturaFornecedor fatura = new model.FaturaFornecedor(fornecedor, produtosFatura, totalFatura);
 
             model.DadosApp.getInstance().adicionarFaturaFornecedor(fatura);
@@ -134,16 +190,6 @@ public class JanelaFornecedores extends Janela {
             modelCarrinho.setRowCount(0);
             atualizarPrecoTotal(modelCarrinho);
 
-            for (Map.Entry<Produto, Integer> entry : produtosFatura.entrySet()) {
-                String nomeProduto = entry.getKey().getNome();
-                int quantidadeComprada = entry.getValue();
-                StockProduto stock = DadosApp.getInstance().getStockProdutoPorNome(nomeProduto);
-                if (stock != null) {
-                    stock.adicionar(quantidadeComprada);
-                } else {
-                    DadosApp.getInstance().getStockProdutos().add(new StockProduto(entry.getKey(), quantidadeComprada));
-                }
-            }
             DadosApp.gravarDados();
             if (janelaStockBar != null) {
                 janelaStockBar.atualizarStock();
