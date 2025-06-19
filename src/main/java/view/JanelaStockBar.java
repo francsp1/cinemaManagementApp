@@ -24,15 +24,7 @@ public class JanelaStockBar extends Janela {
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
-//        String[] columnNames = {"Produto", "Quantidade"};
-//        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-//        String[] stock = {"24", "0", "100"};
-//        Object[][] data = new Object[products.length][2];
-//
-//        for (int i = 0; i < products.length; i++) {
-//            data[i][0] = products[i];
-//            data[i][1] = stock[i];
-//        }
+
 
         atualizarStock();
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
