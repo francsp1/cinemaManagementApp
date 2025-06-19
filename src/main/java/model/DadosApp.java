@@ -22,8 +22,8 @@ public class DadosApp implements Serializable {
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
     DadosApp() {
-        //adicionarSalasExemplo();
-        //adicionarFuncionariosExemplo();
+        adicionarSalasExemplo();
+        adicionarFuncionariosExemplo();
     }
 
     public static DadosApp getInstance() {
