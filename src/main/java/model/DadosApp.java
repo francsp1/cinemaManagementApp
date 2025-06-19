@@ -20,7 +20,10 @@ public class DadosApp implements Serializable {
 
     private final ArrayList<Sala> salas = new ArrayList<>();
     private final ArrayList<Funcionario> funcionarios = new ArrayList<>();
+
     private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
+
 
 
     DadosApp() {
@@ -143,6 +146,13 @@ public class DadosApp implements Serializable {
         fornecedores.add(f3);
     }
 
+    public void adicionarFaturaFornecedor(FaturaFornecedor fatura) {
+        if (fatura != null) {
+            faturasFornecedores.add(fatura);
+        }
+    }
+
+
 
 
 
@@ -189,8 +199,9 @@ public class DadosApp implements Serializable {
     public ArrayList<Fornecedor> getFornecedores() {
         return fornecedores;
     }
-
-
+    public ArrayList<FaturaFornecedor> getFaturasFornecedores() {
+        return faturasFornecedores;
+    }
     //###########################
 
 }

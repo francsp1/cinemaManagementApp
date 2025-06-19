@@ -35,16 +35,16 @@ public class JanelaStockBar extends Janela {
         }
 
         String[] colunasHistorico = {"Fornecedor", "Nr Fatura", "Data", "Valor (€)"};
-        Object[][] historico = {
-                {"Abílio", 3, "30/04/2025", 4.50},
-                {"Bina", 1, "29/04/2025", 1.20},
-                {"José Augusto", 2, "28/04/2025", 3.00},
-                {"Bina", 5, "27/04/2025", 3.50},
-                {"Bina", 10, "26/04/2025", 2.75},
-                {"Bina", 7, "25/04/2025", 3.20},
-                {"Abílio", 6, "24/04/2025", 2.50},
-                {"Abílio", 4, "23/04/2025", 2.40}
-        };
+        List<model.FaturaFornecedor> faturas = DadosApp.getInstance().getFaturasFornecedores();
+        Object[][] historico = new Object[faturas.size()][4];
+
+        for (int i = 0; i < faturas.size(); i++) {
+            model.FaturaFornecedor f = faturas.get(i);
+            historico[i][0] = f.getFornecedor().getNome();
+            historico[i][1] = f.getNumeroFatura();
+            historico[i][2] = f.getData().toString(); // ou formata como quiseres
+            historico[i][3] = String.format("%.2f", f.getValorTotal());
+        }
 
         String[] colunasFornecedores = {"Fornecedor"};
         List<Fornecedor> listaFornecedores = DadosApp.getInstance().getFornecedores();

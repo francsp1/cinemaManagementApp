@@ -86,6 +86,60 @@ public class JanelaFornecedores extends Janela {
 
             atualizarPrecoTotal(modelCarrinho);
         });
+
+        FInalizarComprarEGerarButton.addActionListener(e -> {
+            if (modelCarrinho.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "O carrinho está vazio!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // 1. Recolher os produtos e quantidades do carrinho
+            java.util.Map<model.Produto, Integer> produtosFatura = new java.util.LinkedHashMap<>();
+            double totalFatura = 0.0;
+
+            for (int j = 0; j < modelCarrinho.getRowCount(); j++) {
+                String nomeProduto = (String) modelCarrinho.getValueAt(j, 0);
+                int quantidade = (int) modelCarrinho.getValueAt(j, 1);
+
+                // Encontrar o objeto Produto correspondente ao nome
+                model.Produto produto = null;
+                for (var entry : fornecedor.getTabelaPrecos().entrySet()) {
+                    if (entry.getKey().getNome().equals(nomeProduto)) {
+                        produto = entry.getKey();
+                        break;
+                    }
+                }
+                if (produto != null) {
+                    produtosFatura.put(produto, quantidade);
+                }
+
+                String totalStr = (String) modelCarrinho.getValueAt(j, 2);
+                totalStr = totalStr.replace(",", ".");
+                try {
+                    totalFatura += Double.parseDouble(totalStr);
+                } catch (NumberFormatException ignore) {}
+            }
+
+            // 2. Criar a fatura
+            model.FaturaFornecedor fatura = new model.FaturaFornecedor(fornecedor, produtosFatura, totalFatura);
+
+            // 3. Guardar a fatura no DadosApp
+            model.DadosApp.getInstance().adicionarFaturaFornecedor(fatura);
+
+            // 4. Persistir os dados
+            model.DadosApp.gravarDados();
+
+            // 5. Feedback ao utilizador
+            JOptionPane.showMessageDialog(this, "Compra finalizada!\nFatura Nº: " + fatura.getNumeroFatura() +
+                    "\nValor total: " + String.format("%.2f", fatura.getValorTotal()) + " €");
+
+            // Limpar carrinho
+            modelCarrinho.setRowCount(0);
+            atualizarPrecoTotal(modelCarrinho);
+        });
+
+
+
     }
 
     private void atualizarPrecoTotal(DefaultTableModel modelCarrinho) {
