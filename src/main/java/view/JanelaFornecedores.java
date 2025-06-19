@@ -1,9 +1,13 @@
 package view;
 
+import model.DadosApp;
 import model.Fornecedor;
+import model.Produto;
+import model.StockProduto;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Map;
 
 public class JanelaFornecedores extends Janela {
     private JPanel mainPanel;
@@ -13,6 +17,7 @@ public class JanelaFornecedores extends Janela {
     private JButton FInalizarComprarEGerarButton;
     private JTable table2;
     private JLabel precoTotal;
+    private JLabel nomeFornecedor;
     private JanelaStockBar janelaStockBar;
 
     public JanelaFornecedores(JanelaStockBar parent, Fornecedor fornecedor) {
@@ -24,19 +29,18 @@ public class JanelaFornecedores extends Janela {
         setLocationRelativeTo(parent);
         setVisible(true);
 
-        // Colunas da tabela de produtos
+        nomeFornecedor.setText("Fornecedor: " + fornecedor.getNome());
+
         String[] columnNames = {"Produto", "Preço unidade (€)"};
 
-        // Obter os dados reais do fornecedor
         Object[][] data = new Object[fornecedor.getTabelaPrecos().size()][2];
         int i = 0;
         for (var entry : fornecedor.getTabelaPrecos().entrySet()) {
             data[i][0] = entry.getKey().getNome();
-            data[i][1] = String.format("%.2f", entry.getValue()); // formato com 2 casas decimais
+            data[i][1] = String.format("%.2f", entry.getValue());
             i++;
         }
 
-        // Criar o modelo da tabela de produtos
         DefaultTableModel modelProdutos = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -46,9 +50,8 @@ public class JanelaFornecedores extends Janela {
         table1.setModel(modelProdutos);
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Exemplo de dados do carrinho (deves substituir isto com lógica real de carrinho)
         String[] colunasCarrinho = {"Produto", "Quantidade", "Total (€)"};
-        Object[][] carrinho = {}; // inicial vazio
+        Object[][] carrinho = {};
         DefaultTableModel modelCarrinho = new DefaultTableModel(carrinho, colunasCarrinho) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -79,7 +82,6 @@ public class JanelaFornecedores extends Janela {
             double precoUnitario = Double.parseDouble(((String) table1.getValueAt(selectedRow, 1)).replace(",", "."));
             double total = precoUnitario * quantidade;
 
-            // Adiciona ao carrinho
             modelCarrinho.addRow(new Object[]{
                     nomeProduto,
                     quantidade,
@@ -95,7 +97,6 @@ public class JanelaFornecedores extends Janela {
                 return;
             }
 
-            // 1. Recolher os produtos e quantidades do carrinho
             java.util.Map<model.Produto, Integer> produtosFatura = new java.util.LinkedHashMap<>();
             double totalFatura = 0.0;
 
@@ -103,7 +104,6 @@ public class JanelaFornecedores extends Janela {
                 String nomeProduto = (String) modelCarrinho.getValueAt(j, 0);
                 int quantidade = (int) modelCarrinho.getValueAt(j, 1);
 
-                // Encontrar o objeto Produto correspondente ao nome
                 model.Produto produto = null;
                 for (var entry : fornecedor.getTabelaPrecos().entrySet()) {
                     if (entry.getKey().getNome().equals(nomeProduto)) {
@@ -122,22 +122,34 @@ public class JanelaFornecedores extends Janela {
                 } catch (NumberFormatException ignore) {}
             }
 
-            // 2. Criar a fatura
             model.FaturaFornecedor fatura = new model.FaturaFornecedor(fornecedor, produtosFatura, totalFatura);
 
-            // 3. Guardar a fatura no DadosApp
             model.DadosApp.getInstance().adicionarFaturaFornecedor(fatura);
 
-            // 4. Persistir os dados
             model.DadosApp.gravarDados();
 
-            // 5. Feedback ao utilizador
             JOptionPane.showMessageDialog(this, "Compra finalizada!\nFatura Nº: " + fatura.getNumeroFatura() +
                     "\nValor total: " + String.format("%.2f", fatura.getValorTotal()) + " €");
 
-            // Limpar carrinho
             modelCarrinho.setRowCount(0);
             atualizarPrecoTotal(modelCarrinho);
+
+            for (Map.Entry<Produto, Integer> entry : produtosFatura.entrySet()) {
+                String nomeProduto = entry.getKey().getNome();
+                int quantidadeComprada = entry.getValue();
+                StockProduto stock = DadosApp.getInstance().getStockProdutoPorNome(nomeProduto);
+                if (stock != null) {
+                    stock.adicionar(quantidadeComprada);
+                } else {
+                    DadosApp.getInstance().getStockProdutos().add(new StockProduto(entry.getKey(), quantidadeComprada));
+                }
+            }
+            DadosApp.gravarDados();
+            if (janelaStockBar != null) {
+                janelaStockBar.atualizarStock();
+                janelaStockBar.atualizarHistorico();
+            }
+
 
             if (janelaStockBar != null) {
                 janelaStockBar.atualizarHistorico();

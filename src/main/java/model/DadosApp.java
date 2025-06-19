@@ -23,6 +23,7 @@ public class DadosApp implements Serializable {
 
     private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
     private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
+    private final ArrayList<StockProduto> stockProdutos = new ArrayList<>();
 
 
 
@@ -30,6 +31,7 @@ public class DadosApp implements Serializable {
         adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
         adicionarFornecedoresExemplo();
+        inicializarStockExemplo();
     }
 
     public static DadosApp getInstance() {
@@ -146,6 +148,12 @@ public class DadosApp implements Serializable {
         fornecedores.add(f3);
     }
 
+    private void inicializarStockExemplo() {
+        stockProdutos.add(new StockProduto(new Produto("Ice Tea Limão 33cl"), 24));
+        stockProdutos.add(new StockProduto(new Produto("Fanta Laranja 33cl"), 0));
+        stockProdutos.add(new StockProduto(new Produto("Sumol Ananás 33cl"), 100));
+    }
+
     public void adicionarFaturaFornecedor(FaturaFornecedor fatura) {
         if (fatura != null) {
             faturasFornecedores.add(fatura);
@@ -201,6 +209,19 @@ public class DadosApp implements Serializable {
     }
     public ArrayList<FaturaFornecedor> getFaturasFornecedores() {
         return faturasFornecedores;
+    }
+
+    public ArrayList<StockProduto> getStockProdutos() {
+        return stockProdutos;
+    }
+
+    public StockProduto getStockProdutoPorNome(String nomeProduto) {
+        for (StockProduto sp : stockProdutos) {
+            if (sp.getProduto().getNome().equals(nomeProduto)) {
+                return sp;
+            }
+        }
+        return null;
     }
     //###########################
 

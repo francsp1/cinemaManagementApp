@@ -24,15 +24,19 @@ public class JanelaStockBar extends Janela {
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
-        String[] columnNames = {"Produto", "Quantidade"};
-        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-        String[] stock = {"24", "0", "100"};
-        Object[][] data = new Object[products.length][2];
+//        String[] columnNames = {"Produto", "Quantidade"};
+//        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
+//        String[] stock = {"24", "0", "100"};
+//        Object[][] data = new Object[products.length][2];
+//
+//        for (int i = 0; i < products.length; i++) {
+//            data[i][0] = products[i];
+//            data[i][1] = stock[i];
+//        }
 
-        for (int i = 0; i < products.length; i++) {
-            data[i][0] = products[i];
-            data[i][1] = stock[i];
-        }
+        atualizarStock();
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 
         String[] colunasHistorico = {"Fornecedor", "Nr Fatura", "Data", "Valor (€)"};
         List<model.FaturaFornecedor> faturas = DadosApp.getInstance().getFaturasFornecedores();
@@ -42,7 +46,7 @@ public class JanelaStockBar extends Janela {
             model.FaturaFornecedor f = faturas.get(i);
             historico[i][0] = f.getFornecedor().getNome();
             historico[i][1] = f.getNumeroFatura();
-            historico[i][2] = f.getData().toString(); // ou formata como quiseres
+            historico[i][2] = f.getData().toString();
             historico[i][3] = String.format("%.2f", f.getValorTotal());
         }
 
@@ -93,15 +97,15 @@ public class JanelaStockBar extends Janela {
         table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
-            }
-        };
-        table1.setModel(model);
-
-        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+//            @Override
+//            public boolean isCellEditable(int row, int column) {
+//                return false; // Nenhuma célula pode ser editada
+//            }
+//        };
+//        table1.setModel(model);
+//
+//        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         escolherFornecedorButton.addActionListener(e -> {
             int selectedRow = table3.getSelectedRow();
@@ -141,6 +145,21 @@ public class JanelaStockBar extends Janela {
         table2.setModel(model2);
     }
 
+    public void atualizarStock() {
+        List<model.StockProduto> stockProdutos = model.DadosApp.getInstance().getStockProdutos();
+        Object[][] data = new Object[stockProdutos.size()][2];
+        for (int i = 0; i < stockProdutos.size(); i++) {
+            data[i][0] = stockProdutos.get(i).getProduto().getNome();
+            data[i][1] = stockProdutos.get(i).getQuantidade();
+        }
+        DefaultTableModel model = new DefaultTableModel(data, new String[]{"Produto", "Quantidade"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table1.setModel(model);
+    }
 
 
     public JPanel getMainPanel() {
