@@ -12,6 +12,7 @@ public class JanelaFornecedores extends Janela {
     private JButton adicionarAoCarrinhoButton;
     private JButton FInalizarComprarEGerarButton;
     private JTable table2;
+    private JLabel precoTotal;
 
     public JanelaFornecedores(JFrame parent, Fornecedor fornecedor) {
         super("Fornecedor: " + fornecedor.getNome());
@@ -54,6 +55,49 @@ public class JanelaFornecedores extends Janela {
         };
         table2.setModel(modelCarrinho);
         table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        adicionarAoCarrinhoButton.addActionListener(e -> {
+            int selectedRow = table1.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Selecione um produto primeiro.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String quantidadeStr = quantidadeProduto.getText().trim();
+            int quantidade;
+            try {
+                quantidade = Integer.parseInt(quantidadeStr);
+                if (quantidade <= 0) throw new NumberFormatException();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Insira uma quantidade válida (número inteiro positivo).", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String nomeProduto = (String) table1.getValueAt(selectedRow, 0);
+            double precoUnitario = Double.parseDouble(((String) table1.getValueAt(selectedRow, 1)).replace(",", "."));
+            double total = precoUnitario * quantidade;
+
+            // Adiciona ao carrinho
+            modelCarrinho.addRow(new Object[]{
+                    nomeProduto,
+                    quantidade,
+                    String.format("%.2f", total)
+            });
+
+            atualizarPrecoTotal(modelCarrinho);
+        });
+    }
+
+    private void atualizarPrecoTotal(DefaultTableModel modelCarrinho) {
+        double totalCarrinho = 0.0;
+        for (int i = 0; i < modelCarrinho.getRowCount(); i++) {
+            String valorStr = (String) modelCarrinho.getValueAt(i, 2);
+            valorStr = valorStr.replace(",", "."); // Para garantir o ponto decimal
+            try {
+                totalCarrinho += Double.parseDouble(valorStr);
+            } catch (NumberFormatException ignore) {}
+        }
+        precoTotal.setText("Preço total do carrinho: " + String.format("%.2f", totalCarrinho) + "€");
     }
 
 
