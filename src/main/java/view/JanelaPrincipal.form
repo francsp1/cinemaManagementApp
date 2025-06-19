@@ -24,7 +24,7 @@
             </constraints>
             <properties>
               <font size="22"/>
-              <text value="Bem Vindo Sr(a).Getor(a)"/>
+              <text value="Bem Vindo Sr(a).Gestor(a)"/>
             </properties>
           </component>
         </children>
