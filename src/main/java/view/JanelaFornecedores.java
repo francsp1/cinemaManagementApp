@@ -8,54 +8,54 @@ import javax.swing.table.DefaultTableModel;
 public class JanelaFornecedores extends Janela {
     private JPanel mainPanel;
     private JTable table1;
-    private JFormattedTextField formattedTextField1;
+    private JFormattedTextField quantidadeProduto;
     private JButton adicionarAoCarrinhoButton;
     private JButton FInalizarComprarEGerarButton;
     private JTable table2;
 
     public JanelaFornecedores(JFrame parent, Fornecedor fornecedor) {
         super("Fornecedor: " + fornecedor.getNome());
-        // código para mostrar os dados do fornecedor
+        setContentPane(mainPanel);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(600, 400);
         setLocationRelativeTo(parent);
         setVisible(true);
-        String[] columnNames = {"Produto", "Preço unidade (€)"};
-        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-        String[] preco = {"5", "5", "3"};
-        Object[][] data = new Object[products.length][2];  // Inicializa com o tamanho necessário
 
-        for (int i = 0; i < products.length; i++) {
-            data[i][0] = products[i];
-            data[i][1] = preco[i];
+        // Colunas da tabela de produtos
+        String[] columnNames = {"Produto", "Preço unidade (€)"};
+
+        // Obter os dados reais do fornecedor
+        Object[][] data = new Object[fornecedor.getTabelaPrecos().size()][2];
+        int i = 0;
+        for (var entry : fornecedor.getTabelaPrecos().entrySet()) {
+            data[i][0] = entry.getKey().getNome();
+            data[i][1] = String.format("%.2f", entry.getValue()); // formato com 2 casas decimais
+            i++;
         }
 
-        String[] colunasCarrinho = {"Produto", "Quantidade", "Total (€)"};
-        Object[][] carrinho = {
-                {"Coca-Cola", 2, 10.00},
-                {"Pepsi", 1, 5.00},
-                {"Fanta", 3, 9.00},
-        };
-
-        DefaultTableModel model = new DefaultTableModel(carrinho, colunasCarrinho) {
+        // Criar o modelo da tabela de produtos
+        DefaultTableModel modelProdutos = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
+                return false;
             }
         };
-        table2.setModel(model);
-
-        table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-
-        DefaultTableModel model2 = new DefaultTableModel(data, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Nenhuma célula pode ser editada
-            }
-        };
-        table1.setModel(model2);
-
+        table1.setModel(modelProdutos);
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Exemplo de dados do carrinho (deves substituir isto com lógica real de carrinho)
+        String[] colunasCarrinho = {"Produto", "Quantidade", "Total (€)"};
+        Object[][] carrinho = {}; // inicial vazio
+        DefaultTableModel modelCarrinho = new DefaultTableModel(carrinho, colunasCarrinho) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table2.setModel(modelCarrinho);
+        table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
+
 
     public JPanel getMainPanel() {
            return mainPanel;

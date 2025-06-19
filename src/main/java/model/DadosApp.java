@@ -120,14 +120,29 @@ public class DadosApp implements Serializable {
     }
 
     private void adicionarFornecedoresExemplo() {
+        // Fornecedor 1
         Fornecedor f1 = new Fornecedor("Abílio");
+        f1.adicionarProduto(new Produto("Coca-Cola 33cl"), 0.45);
+        f1.adicionarProduto(new Produto("Água 50cl"), 0.30);
+        f1.adicionarProduto(new Produto("Batatas Fritas Pequenas"), 0.60);
+
+        // Fornecedor 2
         Fornecedor f2 = new Fornecedor("José Augusto");
+        f2.adicionarProduto(new Produto("Pepsi 33cl"), 0.40);
+        f2.adicionarProduto(new Produto("Ice Tea Limão 33cl"), 0.42);
+        f2.adicionarProduto(new Produto("Chocolates Mini"), 0.80);
+
+        // Fornecedor 3
         Fornecedor f3 = new Fornecedor("Bina");
+        f3.adicionarProduto(new Produto("Fanta Laranja 33cl"), 0.50);
+        f3.adicionarProduto(new Produto("Sumol Ananás 33cl"), 0.48);
+        f3.adicionarProduto(new Produto("Pipocas Salgadas 500g"), 1.20);
 
         fornecedores.add(f1);
         fornecedores.add(f2);
         fornecedores.add(f3);
     }
+
 
 
 
