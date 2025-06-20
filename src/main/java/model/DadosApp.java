@@ -242,7 +242,6 @@ public class DadosApp implements Serializable {
     }
 
     public HashMap<String, Double> getTicketTypes() {
-        System.out.println("Ticket Types: " + ticketTypes);
         return ticketTypes;
     }
 

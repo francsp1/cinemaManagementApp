@@ -147,7 +147,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnGerirBundlesActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaBundle janelaBundle = new JanelaBundle(this);
     }
 
     private void btnVerFuncionariosActionPerformed(ActionEvent e) {

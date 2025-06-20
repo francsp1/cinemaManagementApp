@@ -7,9 +7,9 @@ public class Bundle implements Serializable {
     private String nome;
     private double preco;
     private ArrayList<Produto> produtos;
-    private ArrayList<Bilhete> bilhetes;
+    private ArrayList<String> bilhetes;
 
-    public Bundle(String nome, double preco, ArrayList<Produto> produtos, ArrayList<Bilhete> bilhetes) {
+    public Bundle(String nome, double preco, ArrayList<Produto> produtos, ArrayList<String> bilhetes) {
         this.nome = nome;
         this.preco = preco;
         this.produtos = produtos;
@@ -28,14 +28,14 @@ public class Bundle implements Serializable {
         return produtos;
     }
 
-    public ArrayList<Bilhete> getBilhetes() {
+    public ArrayList<String> getBilhetes() {
         return bilhetes;
     }
 
     public int getQuantidadeBilhetes(String tipoBilhete) {
         int count = 0;
-        for (Bilhete bilhete : bilhetes) {
-            if (bilhete.getTipo().equals(tipoBilhete)) {
+        for (String bilhete : bilhetes) {
+            if (bilhete.equals(tipoBilhete)) {
                 count++;
             }
         }
