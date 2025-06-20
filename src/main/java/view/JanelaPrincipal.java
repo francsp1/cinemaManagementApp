@@ -103,6 +103,9 @@ public class JanelaPrincipal extends Janela {
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
         //TODO
+
+        setVisible(false); // esconde a janela atual
+        new JanelaAdicionarFilme(this, funcionario.isGestor());
     }
 
     private void btnHistoricoVendasActionPerformed(ActionEvent e) {

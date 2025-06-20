@@ -24,6 +24,7 @@ public class DadosApp implements Serializable {
     private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
     private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
     private final ArrayList<StockProduto> stockProdutos = new ArrayList<>();
+    private final ArrayList<Filme> filmes = new ArrayList<>();
 
 
 
@@ -224,5 +225,16 @@ public class DadosApp implements Serializable {
         return null;
     }
     //###########################
+
+
+    public void adicionarFilme(Filme filme) {
+        if (filme != null) {
+            filmes.add(filme);
+        }
+    }
+
+    public ArrayList<Filme> getFilmes() {
+        return filmes;
+    }
 
 }

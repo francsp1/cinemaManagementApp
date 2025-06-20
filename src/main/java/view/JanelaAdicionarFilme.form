@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="view.JanelaAdicionarFilme">
-  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="13" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="13" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="716" height="704"/>
@@ -43,13 +43,15 @@
               <text value="Titulo:"/>
             </properties>
           </component>
-          <component id="df3fe" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="df3fe" class="javax.swing.JTextField" binding="tituloField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -69,13 +71,15 @@
               <text value="Realizador:"/>
             </properties>
           </component>
-          <component id="49714" class="javax.swing.JTextField" default-binding="true">
+          <component id="49714" class="javax.swing.JTextField" binding="realizadorField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -95,13 +99,15 @@
               <text value="Actor1:"/>
             </properties>
           </component>
-          <component id="b8a5e" class="javax.swing.JTextField" default-binding="true">
+          <component id="b8a5e" class="javax.swing.JTextField" binding="ator1Field">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -121,13 +127,15 @@
               <text value="Actor2:"/>
             </properties>
           </component>
-          <component id="a8b1b" class="javax.swing.JTextField" default-binding="true">
+          <component id="a8b1b" class="javax.swing.JTextField" binding="ator2Field">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -147,13 +155,15 @@
               <text value="Actor3:"/>
             </properties>
           </component>
-          <component id="d5ce8" class="javax.swing.JTextField" default-binding="true">
+          <component id="d5ce8" class="javax.swing.JTextField" binding="ator3Field">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -173,13 +183,15 @@
               <text value="Actor4:"/>
             </properties>
           </component>
-          <component id="16de0" class="javax.swing.JTextField" default-binding="true">
+          <component id="16de0" class="javax.swing.JTextField" binding="ator4Field">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -199,7 +211,7 @@
               <text value="Categoria:"/>
             </properties>
           </component>
-          <component id="d3788" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="d3788" class="javax.swing.JComboBox" binding="categoriaCombo">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -207,7 +219,7 @@
           </component>
         </children>
       </grid>
-      <component id="d1594" class="javax.swing.JButton" binding="adicionarButton" default-binding="true">
+      <component id="d1594" class="javax.swing.JButton" binding="btnAdicionar">
         <constraints>
           <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -215,7 +227,7 @@
           <text value="Adicionar"/>
         </properties>
       </component>
-      <component id="d7e4a" class="javax.swing.JButton" binding="cancelarButton" default-binding="true">
+      <component id="d7e4a" class="javax.swing.JButton" binding="btnCancelar">
         <constraints>
           <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -223,7 +235,7 @@
           <text value="Cancelar"/>
         </properties>
       </component>
-      <grid id="babd1" layout-manager="GridLayoutManager" row-count="1" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="babd1" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -236,40 +248,18 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Duração"/>
+              <text value="Duração(min)"/>
             </properties>
           </component>
-          <component id="e43a6" class="javax.swing.JSpinner" binding="spinner1" default-binding="true">
+          <component id="29b1f" class="javax.swing.JSpinner" binding="duracaoSpinner">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-          </component>
-          <component id="1abd1" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Horas:"/>
-            </properties>
-          </component>
-          <component id="fdf6f" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Minutos:"/>
-            </properties>
-          </component>
-          <component id="29b1f" class="javax.swing.JSpinner" binding="spinner2" default-binding="true">
-            <constraints>
-              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
         </children>
       </grid>
-      <component id="23534" class="javax.swing.JTextArea" binding="Sinopse">
+      <component id="23534" class="javax.swing.JTextArea" binding="sinopseArea">
         <constraints>
           <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -296,7 +286,7 @@
               <text value="Tipo:"/>
             </properties>
           </component>
-          <component id="cb250" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="cb250" class="javax.swing.JComboBox" binding="tipoCombo">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
