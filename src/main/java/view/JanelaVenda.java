@@ -126,7 +126,7 @@ public class JanelaVenda extends Janela {
             }
 
             // Aqui você pode adicionar a lógica para finalizar a compra
-            // Por exemplo, salvar a fatura em um arquivo ou banco de dados
+            // Por exemplo, salvar a fatura em um arquivo ou banco de dado
 
             JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
             dispose(); // Fecha a janela após finalizar a venda
