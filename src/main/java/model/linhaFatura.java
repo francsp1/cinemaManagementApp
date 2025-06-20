@@ -10,22 +10,24 @@ public class linhaFatura implements Serializable {
     //TODO adicionar bilhete
     private Produto produto;
     private int quantidade;
-    private String data;
     private double precoTotal;
 
     public linhaFatura(Produto produto, int quantidade, double precoTotal) {
         this.produto = produto;
         this.quantidade = quantidade;
-
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        this.data = now.format(formatter);
-
         this.precoTotal = precoTotal;
     }
 
     public double getPrecoTotal() {
         return precoTotal;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
     }
 
     @Override
