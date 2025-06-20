@@ -2,6 +2,11 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import model.DadosApp;
+import model.Fornecedor;
+import model.StockProduto;
+
+import java.util.List;
 
 public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
@@ -10,8 +15,8 @@ public class JanelaVenda extends Janela {
     private JList Lista;
     private JScrollPane ListaScroll;
     private JPanel LadoBilhete;
+    private JComboBox opTipo;
     private JComboBox opSessao;
-    private JComboBox comboBox1;
     private JButton adicionarBilheteButton;
     private JTable tabelaProdutos;
     private JButton escolherButton;
@@ -22,40 +27,57 @@ public class JanelaVenda extends Janela {
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
 
-    public JanelaVenda() {
-        super("Venda");
+    public JanelaVenda(JFrame parent) {
+        super("Registar Venda");
+
+        setContentPane(mainPanel);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(parent);
+        setVisible(true);
+
+        // Initialize the table with stock products
         String[] columnNames = {"Produto"};
-        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-
-        // Create a 2D Object array for the rows
-        Object[][] data = new Object[products.length][1];
-        for (int i = 0; i < products.length; i++) {
-            data[i][0] = products[i]; // Set each product in the only column
+        List<StockProduto> stockProdutos = DadosApp.getInstance().getStockProdutos();
+        Object[][] data = new Object[stockProdutos.size()][1];
+        for (int i = 0; i < stockProdutos.size(); i++) {
+            data[i][0] = stockProdutos.get(i).getProduto().getNome();
         }
-
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make cells non-editable
+                return false; // Prevent editing of table cells
             }
         };
 
         tabelaProdutos.setModel(model);
-
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Opcoes de tipo de bilhete
+        DadosApp.getInstance().getTicketTypes().keySet().forEach(opTipo::addItem);
+
+        //TODO: Opcoes de sessao
+
+        // botao de adicionar produto
+        adicionarProdutoButton.addActionListener(e -> {
+            int selectedRow = tabelaProdutos.getSelectedRow();
+            if (selectedRow != -1) {
+                String produto = (String) tabelaProdutos.getValueAt(selectedRow, 0);
+                // Aqui você pode adicionar lógica para adicionar o produto à venda
+
+                double precoProduto = stockProdutos.get(selectedRow).getProduto().getPreco();
+
+                JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um produto.");
+            }
+        });
+
+
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Registar Venda");
-            frame.setSize(800, 400);
-            frame.setContentPane(new JanelaVenda().getMainPanel());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
-    }
 }
