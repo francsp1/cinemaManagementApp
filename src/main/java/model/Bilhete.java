@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Bilhete implements Serializable {
     private Sessao sessao;
@@ -11,6 +12,7 @@ public class Bilhete implements Serializable {
         this.sessao = sessao;
         this.lugar = lugar;
         this.preco = preco;
+
     }
 
     public Sessao getSessao() {
@@ -25,6 +27,10 @@ public class Bilhete implements Serializable {
         return preco;
     }
 
+
+    public Filme getFilme() {
+        return sessao.getFilme();
+    }
     @Override
     public String toString() {
         return "Bilhete{" +

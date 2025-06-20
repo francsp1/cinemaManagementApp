@@ -1,8 +1,8 @@
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class DadosApp implements Serializable {
 
@@ -25,10 +25,24 @@ public class DadosApp implements Serializable {
     private final ArrayList<Fornecedor> fornecedores = new ArrayList<>();
     private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
     private final ArrayList<StockProduto> stockProdutos = new ArrayList<>();
+
     private final ArrayList<Filme> filmes = new ArrayList<>();
 
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
     private final ArrayList<Fatura> faturas = new ArrayList<>();
+    private final ArrayList<Bilhete> bilhetes = new ArrayList<>();
+
+    private final ArrayList<VendaBilhete> vendasBilhete = new ArrayList<>();
+
+    public ArrayList<VendaBilhete> getVendasBilhete() {
+        return vendasBilhete;
+    }
+
+    public void adicionarVendaBilhete(VendaBilhete venda) {
+        if (venda != null) {
+            vendasBilhete.add(venda);
+        }
+    }
 
 
 
@@ -38,6 +52,7 @@ public class DadosApp implements Serializable {
         adicionarFornecedoresExemplo();
         inicializarStockExemplo();
         inicializarTiposBilhete();
+        adicionarFilmesEVendasExemplo();
     }
 
     public static DadosApp getInstance() {
@@ -66,6 +81,46 @@ public class DadosApp implements Serializable {
 
         salas.add(sala);
     }
+
+
+    private void adicionarFilmesEVendasExemplo() {
+        Filme f1 = new Filme(
+                "O Senhor dos Anéis",
+                "Uma aventura épica pela Terra Média.",
+                180,
+                Filme.Categoria.AVENTURA,
+                "Peter Jackson",
+                "Elijah Wood",
+                "Ian McKellen",
+                "Viggo Mortensen",
+                "Orlando Bloom",
+                Filme.Tipo._2D
+        );
+
+        Filme f2 = new Filme(
+                "Matrix",
+                "Um hacker descobre a verdade sobre sua realidade.",
+                136,
+                Filme.Categoria.AVENTURA,
+                "Lana Wachowski",
+                "Keanu Reeves",
+                "Laurence Fishburne",
+                "Carrie-Anne Moss",
+                "Hugo Weaving",
+                Filme.Tipo._2D
+        );
+
+        filmes.add(f1);
+        filmes.add(f2);
+
+        vendasBilhete.add(new VendaBilhete(f1, "Normal", LocalDate.of(2023, 1, 1), 10));
+        vendasBilhete.add(new VendaBilhete(f2, "Estudante", LocalDate.of(2025, 6, 2), 5));
+        vendasBilhete.add(new VendaBilhete(f1, "Normal", LocalDate.of(2025, 6, 3), 7));
+        vendasBilhete.add(new VendaBilhete(f1, "Estudante", LocalDate.of(2025, 6, 3), 2));
+        vendasBilhete.add(new VendaBilhete(f2, "Normal", LocalDate.of(2025, 6, 4), 8));
+    }
+
+
 
     private void adicionarSalasExemplo() {
         Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
@@ -261,6 +316,38 @@ public class DadosApp implements Serializable {
 
     public ArrayList<Filme> getFilmes() {
         return filmes;
+    }
+
+    public ArrayList<Bilhete> getBilhetes() {
+        return bilhetes;
+    }
+
+    public void adicionarBilhete(Bilhete bilhete) {
+        if (bilhete != null) {
+            bilhetes.add(bilhete);
+        }
+    }
+
+    public static Map<String, List<Map.Entry<Filme, Integer>>> filmesMaisVistosPorTipoBilhete(
+            List<VendaBilhete> vendas, LocalDate dataInicio, LocalDate dataFim) {
+        Map<String, Map<Filme, Integer>> contagem = new HashMap<>();
+
+        for (VendaBilhete v : vendas) {
+            if (v.getDataVenda().isBefore(dataInicio) || v.getDataVenda().isAfter(dataFim)) continue;
+            String tipo = v.getTipoBilhete();
+            Filme filme = v.getFilme();
+            contagem.putIfAbsent(tipo, new HashMap<>());
+            Map<Filme, Integer> filmes = contagem.get(tipo);
+            filmes.put(filme, filmes.getOrDefault(filme, 0) + v.getQuantidade());
+        }
+
+        Map<String, List<Map.Entry<Filme, Integer>>> resultado = new HashMap<>();
+        for (String tipo : contagem.keySet()) {
+            List<Map.Entry<Filme, Integer>> lista = new ArrayList<>(contagem.get(tipo).entrySet());
+            lista.sort((a, b) -> b.getValue() - a.getValue());
+            resultado.put(tipo, lista);
+        }
+        return resultado;
     }
 
 }
