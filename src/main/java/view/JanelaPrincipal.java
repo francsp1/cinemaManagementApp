@@ -4,6 +4,7 @@ import model.DadosApp;
 import model.Funcionario;
 import view.funcionarios.JanelaFuncionarios;
 import view.salas.JanelaSalas;
+import view.JanelaVenda;
 import view.JanelaStockBar;
 
 
@@ -98,7 +99,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnVendasBilhetesActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaVenda janelaVenda = new JanelaVenda(this);
     }
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {

@@ -22,8 +22,15 @@ public class JanelaVenda extends Janela {
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
 
-    public JanelaVenda() {
-        super("Venda");
+    public JanelaVenda(JFrame parent) {
+        super("Registar Venda");
+
+        setContentPane(mainPanel);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(parent);
+        setVisible(true);
+
         String[] columnNames = {"Produto"};
         String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
 
@@ -40,6 +47,9 @@ public class JanelaVenda extends Janela {
             }
         };
 
+
+
+
         tabelaProdutos.setModel(model);
 
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -49,13 +59,4 @@ public class JanelaVenda extends Janela {
         return mainPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Registar Venda");
-            frame.setSize(800, 400);
-            frame.setContentPane(new JanelaVenda().getMainPanel());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
-    }
 }
