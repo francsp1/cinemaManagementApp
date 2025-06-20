@@ -49,6 +49,7 @@ public class DadosApp implements Serializable {
         inicializarStockExemplo();
         inicializarTiposBilhete();
         inicializarSessao();
+        inicializarBundle();
         adicionarFilmesEVendasExemplo();
     }
 
@@ -249,6 +250,17 @@ public class DadosApp implements Serializable {
 
     }
 
+    private void inicializarBundle(){
+        ArrayList<Produto> produtos = new ArrayList<>();
+        produtos.add(new Produto("Ice Tea Limão 33cl",0.40));
+
+        ArrayList<String> bilhetes = new ArrayList<>();
+        bilhetes.add("Normal");
+
+        Bundle bundle = new Bundle("Combo 1", 12.0, produtos, bilhetes);
+        bundles.add(bundle);
+    }
+
     public ArrayList<Sessao> getSessoes() {
         return sessoes;
     }
@@ -346,6 +358,28 @@ public class DadosApp implements Serializable {
         if (bundle != null) {
             bundles.add(bundle);
         }
+    }
+
+    public ArrayList<Bundle> getBundles() {
+        return bundles;
+    }
+
+    public Bundle getBundlePorNome(String nome) {
+        for (Bundle b : bundles) {
+            if (b.getNome().equals(nome)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public Produto getProdutoPorNome(String nome) {
+        for (StockProduto sp : stockProdutos) {
+            if (sp.getProduto().getNome().equals(nome)) {
+                return sp.getProduto();
+            }
+        }
+        return null;
     }
 
 

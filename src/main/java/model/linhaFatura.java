@@ -37,6 +37,9 @@ public class linhaFatura implements Serializable {
     public int getQuantidade() {
         return quantidade;
     }
+    public Bilhete getBilhete() {
+        return bilhete;
+    }
 
     @Override
     public String toString() {

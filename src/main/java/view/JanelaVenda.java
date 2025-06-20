@@ -7,7 +7,9 @@ import model.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
@@ -24,7 +26,7 @@ public class JanelaVenda extends Janela {
     private JTextField txtBoxQuantidade;
     private JButton adicionarProdutoButton;
     private JPanel mainPanel;
-    private JComboBox comboBox2;
+    private JComboBox bundleBox;
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
     private JLabel valorTotal;
@@ -69,6 +71,10 @@ public class JanelaVenda extends Janela {
 
         //Opcoes de sessao
         DadosApp.getInstance().getSessoes().forEach(sessao -> opSessao.addItem(sessao.getFilme().getTitulo() + " - " + sessao.getDataHora()));
+
+        //Opcoes de Bundle
+        bundleBox.addItem("Nenhum"); // Adiciona opção de nenhum bundle
+        DadosApp.getInstance().getBundles().forEach(bundle -> bundleBox.addItem(bundle.getNome()));
 
         //botao escolher lugar
         escolherButton.addActionListener(e -> {
@@ -161,9 +167,6 @@ public class JanelaVenda extends Janela {
                 //atualizar o valor total
                 atualizarValorTotal();
 
-                //TODO: atualizar opcoes de bundle
-
-
                 JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecione um produto.");
@@ -190,6 +193,113 @@ public class JanelaVenda extends Janela {
             if (linhasFaturaProduto.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Não há produtos na venda.");
                 return;
+            }
+
+            Map<String, Integer> quantidadesPorProduto = new HashMap<>();
+            Map<String, Integer> quantidadesPorBilhete = new HashMap<>();
+
+            // Verificar se um bundle foi selecionado
+            String bundleSelecionado = (String) bundleBox.getSelectedItem();
+            if (!bundleSelecionado.equals("Nenhum")) {
+                Bundle bundle = DadosApp.getInstance().getBundlePorNome(bundleSelecionado);
+
+                if (bundle != null) {
+
+                    // Obter quantidades por produto
+                    for (linhaFatura linha : linhasFaturaProduto) {
+                        if(linha.getProduto()!=null){
+                            String nome = linha.getProduto().getNome();
+                            int quantidade = linha.getQuantidade();
+
+                            // Acumula quantidade
+                            quantidadesPorProduto.merge(nome, quantidade, Integer::sum);
+                        }else{
+                            //caso de bilhete
+                            String tipoBilhete = linha.getBilhete().getTipo();
+                            int quantidade = linha.getQuantidade();
+                            // Acumula quantidade
+                            quantidadesPorBilhete.merge(tipoBilhete, quantidade, Integer::sum);
+                        }
+
+                    }
+
+
+
+                    // Verificar se as quantidades do bundle estão corretas
+                    for (Produto produto : bundle.getProdutos()) {
+                        int quantidadeNoBundle = bundle.getQuantidadeProdutos(produto.getNome());
+                        if (quantidadesPorProduto.getOrDefault(produto.getNome(), 0) < quantidadeNoBundle) {
+                            JOptionPane.showMessageDialog(this, "Quantidade insuficiente do produto: " + produto.getNome() + " no bundle.");
+                            return;
+                        }
+                    }
+                    // Verificar se as quantidades de bilhetes estão corretas
+                    for (String tipoBilhete : bundle.getBilhetes()) {
+                        int quantidadeNoBundle = bundle.getQuantidadeBilhetes(tipoBilhete);
+                        if (quantidadesPorBilhete.getOrDefault(tipoBilhete, 0) < quantidadeNoBundle) {
+                            JOptionPane.showMessageDialog(this, "Quantidade insuficiente de bilhetes do tipo: " + tipoBilhete + " no bundle.");
+                            return;
+                        }
+                    }
+
+                    //criar fatura
+                    double valorTotalBundle = bundle.getPreco();
+                    double valorExtras = 0.0;
+
+                    for (Map.Entry<String, Integer> entry : quantidadesPorProduto.entrySet()) {
+                        String nomeProduto = entry.getKey();
+                        int quantidadeNaVenda = entry.getValue();
+
+                        int quantidadeNoBundle = bundle.getQuantidadeProdutos(nomeProduto);
+                        int quantidadeExtra = quantidadeNaVenda - quantidadeNoBundle;
+
+                        if (quantidadeExtra > 0) {
+                            Produto produto = DadosApp.getInstance().getProdutoPorNome(nomeProduto);
+                            if (produto != null) {
+                                valorExtras += quantidadeExtra * produto.getPreco();
+                            }
+                        }
+                    }
+
+                    for (Map.Entry<String, Integer> entry : quantidadesPorBilhete.entrySet()) {
+                        String tipo = entry.getKey();
+                        int quantidadeNaVenda = entry.getValue();
+
+                        int quantidadeNoBundle = bundle.getQuantidadeBilhetes(tipo);
+                        int quantidadeExtra = quantidadeNaVenda - quantidadeNoBundle;
+
+                        if (quantidadeExtra > 0) {
+                            double preco = DadosApp.getInstance().getPrecoBilhete(tipo);
+                            valorExtras += quantidadeExtra * preco;
+                        }
+                    }
+
+                    // Valor total da fatura
+                    double valorFinal = valorTotalBundle + valorExtras;
+
+                    Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal);
+
+                    //guardar fatura
+                    DadosApp.getInstance().adicionarFatura(fatura);
+
+                    //remover stock
+                    for (linhaFatura linha : linhasFaturaProduto) {
+                        StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
+                                .filter(sp -> sp.getProduto().equals(linha.getProduto()))
+                                .findFirst()
+                                .orElse(null);
+                        if (stockProduto != null) {
+                            stockProduto.remover(linha.getQuantidade());
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+                    linhasFaturaProduto.clear();
+                    listaItems.setListData(new String[0]);
+                    atualizarValorTotal();
+                    dispose(); // Fecha a janela após finalizar a venda
+                    parentFrame.setVisible(true); // Torna a janela pai visível novamente
+                }
             }
 
             //criar fatura
