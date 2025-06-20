@@ -14,18 +14,17 @@ public class JanelaFuncionarios extends Janela {
     private JList lstFuncionarios;
     private JButton btnAdicionarFuncionario;
     private JButton btnSair;
-    private JButton verDetalhesEditarFuncionarioButton;
+    private JButton btnVerDetalhesEditarFuncionario;
 
     public static void main(String[] args) {
         JanelaFuncionarios janela = new JanelaFuncionarios(null);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JanelaFuncionarios(JFrame parentFrame) {
         super("Lista de Funcionários");
         this.parentFrame = parentFrame;
         setContentPane(pnlFuncionarios);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
@@ -49,6 +48,9 @@ public class JanelaFuncionarios extends Janela {
 
     private void addListeners() {
         btnSair.addActionListener(this::btnSairActionPerformed);
+        btnAdicionarFuncionario.addActionListener(this::btnAdicionarFuncionarioActionPerformed);
+        btnVerDetalhesEditarFuncionario.addActionListener(this::btnVerDetalhesEditarFuncionarioActionPerformed);
+
     }
 
     private void btnSairActionPerformed(ActionEvent e) {
@@ -56,6 +58,16 @@ public class JanelaFuncionarios extends Janela {
         if (parentFrame != null) {
             parentFrame.setVisible(true);
         }
+    }
+
+    private void btnAdicionarFuncionarioActionPerformed(ActionEvent e) {
+        //TODO
+        mostrarAviso("Funcionalidade não implementada.");
+    }
+
+    private void btnVerDetalhesEditarFuncionarioActionPerformed(ActionEvent e) {
+        //TODO
+        mostrarAviso("Funcionalidade não implementada.");
     }
 
 }
