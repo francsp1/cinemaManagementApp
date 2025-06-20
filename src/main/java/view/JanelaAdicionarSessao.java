@@ -12,6 +12,7 @@ public class JanelaAdicionarSessao extends Janela {
     private JButton adicionarButton;
     private JButton cancelarButton;
     private JSpinner spinner5;
+    private JPanel painel1;
 
     public JanelaAdicionarSessao() {
         super("Adicionar Sessão");
