@@ -34,7 +34,7 @@ public class JanelaAdicionarFuncionario extends Janela {
         super("Adicionar Funcionário");
         this.parentFrame = parentFrame;
         setContentPane(pnlAdicionarFuncionario);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
 
@@ -45,5 +45,8 @@ public class JanelaAdicionarFuncionario extends Janela {
 
     private void btnSairActionPerformed(ActionEvent e) {
         dispose();
+        if (parentFrame != null) {
+            parentFrame.setVisible(true);
+        }
     }
 }

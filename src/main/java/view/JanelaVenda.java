@@ -3,16 +3,17 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.DadosApp;
-import model.Fornecedor;
 import model.StockProduto;
+import model.linhaFatura;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
     private JButton finalizarCompraButton;
     private JPanel LadoVenda;
-    private JList Lista;
+    private JList listaItems;
     private JScrollPane ListaScroll;
     private JPanel LadoBilhete;
     private JComboBox opTipo;
@@ -20,12 +21,16 @@ public class JanelaVenda extends Janela {
     private JButton adicionarBilheteButton;
     private JTable tabelaProdutos;
     private JButton escolherButton;
-    private JTextField textField1;
+    private JTextField txtBoxQuantidade;
     private JButton adicionarProdutoButton;
     private JPanel mainPanel;
     private JComboBox comboBox2;
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
+    private JLabel valorTotal;
+
+    //para gurdar as linhas de fatura
+    private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
 
     public JanelaVenda(JFrame parent) {
         super("Registar Venda");
@@ -63,9 +68,34 @@ public class JanelaVenda extends Janela {
             int selectedRow = tabelaProdutos.getSelectedRow();
             if (selectedRow != -1) {
                 String produto = (String) tabelaProdutos.getValueAt(selectedRow, 0);
-                // Aqui você pode adicionar lógica para adicionar o produto à venda
 
                 double precoProduto = stockProdutos.get(selectedRow).getProduto().getPreco();
+                int quantidade = Integer.parseInt(txtBoxQuantidade.getText());
+
+                if (txtBoxQuantidade.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Por favor, insira uma quantidade.");
+                    return;
+                }
+                if(quantidade <= 0) {
+                    JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que zero.");
+                    return;
+                }
+
+                double total = precoProduto * quantidade;
+
+                //Criar linhaFatura
+                linhaFatura novaLinha = new linhaFatura(stockProdutos.get(selectedRow).getProduto(), quantidade, total);
+
+                // Adicionar linhaFatura à lista
+                linhasFaturaProduto.add(novaLinha);
+
+                //adicionar linhaFatura à venda
+                listaItems.setListData(linhasFaturaProduto.stream().map(linhaFatura::toString).toArray());
+
+                //atualizar o valor total
+                atualizarValorTotal();
+
+                //TODO: atualizar opcoes de bundle
 
                 JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
             } else {
@@ -73,6 +103,47 @@ public class JanelaVenda extends Janela {
             }
         });
 
+        // Botao para remover elemento da lista de venda
+        removerLinhaButton.addActionListener(e -> {
+            int selectedIndex = listaItems.getSelectedIndex();
+            if (selectedIndex != -1) {
+                // Remover a linha selecionada da lista
+                linhasFaturaProduto.remove(selectedIndex);
+                listaItems.setListData(linhasFaturaProduto.stream().map(linhaFatura::toString).toArray());
+
+                // Atualizar o valor total
+                atualizarValorTotal();
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione uma linha para remover.");
+            }
+        });
+
+        // Botao de finalizar compra
+        finalizarCompraButton.addActionListener(e -> {
+            if (linhasFaturaProduto.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Não há produtos na venda.");
+                return;
+            }
+
+            // Aqui você pode adicionar a lógica para finalizar a compra
+            // Por exemplo, salvar a fatura em um arquivo ou banco de dado
+
+            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+            dispose(); // Fecha a janela após finalizar a venda
+        });
+
+
+    }
+
+    private void atualizarValorTotal(){
+        double valorTotal = 0;
+        for (linhaFatura linha : linhasFaturaProduto) {
+            valorTotal += linha.getPrecoTotal();
+        }
+
+        double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
+
+        this.valorTotal.setText(valorTotalRounded+ " €");
 
     }
 

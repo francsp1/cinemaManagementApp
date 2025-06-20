@@ -190,5 +190,12 @@ public class JanelaStockBar extends Janela {
     public JPanel getMainPanel() {
         return mainPanel;
     }
+    public JTextField getTextField() {
+        return this.textField1;
+    }
+
+    public JButton getAdicionarButton() {
+        return this.adicionarButton;
+    }
 
 }
