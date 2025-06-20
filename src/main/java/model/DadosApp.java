@@ -38,13 +38,6 @@ public class DadosApp implements Serializable {
         return vendasBilhete;
     }
 
-    public void adicionarVendaBilhete(VendaBilhete venda) {
-        if (venda != null) {
-            vendasBilhete.add(venda);
-        }
-    }
-
-
 
     DadosApp() {
         adicionarSalasExemplo();
@@ -318,15 +311,6 @@ public class DadosApp implements Serializable {
         return filmes;
     }
 
-    public ArrayList<Bilhete> getBilhetes() {
-        return bilhetes;
-    }
-
-    public void adicionarBilhete(Bilhete bilhete) {
-        if (bilhete != null) {
-            bilhetes.add(bilhete);
-        }
-    }
 
     public static Map<String, List<Map.Entry<Filme, Integer>>> filmesMaisVistosPorTipoBilhete(
             List<VendaBilhete> vendas, LocalDate dataInicio, LocalDate dataFim) {
