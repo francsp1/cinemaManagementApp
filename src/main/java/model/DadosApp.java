@@ -35,7 +35,7 @@ public class DadosApp implements Serializable {
         adicionarFuncionariosExemplo();
         adicionarFornecedoresExemplo();
         inicializarStockExemplo();
-        inicializarTiposBilhte();
+        inicializarTiposBilhete();
     }
 
     public static DadosApp getInstance() {
@@ -164,12 +164,11 @@ public class DadosApp implements Serializable {
         }
     }
 
-    private void inicializarTiposBilhte(){
+    private void inicializarTiposBilhete(){
         ticketTypes.put("Normal", 10.0);
         ticketTypes.put("Estudante", 7.5);
         ticketTypes.put("+65", 6.0);
     }
-
 
 
     private static void carregarDados() {
