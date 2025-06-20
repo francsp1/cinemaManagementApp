@@ -34,11 +34,12 @@ public class JanelaVenda extends Janela {
 
     private final JFrame parentFrame;
     private Lugar lugarSelecionado;
+    private Funcionario funcionario;
 
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
 
-    public JanelaVenda(JFrame parent) {
+    public JanelaVenda(JFrame parent, Funcionario funcionario) {
         super("Registar Venda");
 
         setContentPane(mainPanel);
@@ -361,7 +362,7 @@ public class JanelaVenda extends Janela {
     }
 
     private void fechar(double valorFinal){
-        Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal);
+        Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal,funcionario);
 
         //guardar fatura
         DadosApp.getInstance().adicionarFatura(fatura);
