@@ -219,6 +219,6 @@ public class JanelaDetalhesSala extends Janela {
 
     private void btnSessoesSalaActionPerformed(ActionEvent e) {
         //TODO
-        JOptionPane.showMessageDialog(null, "TODO: Implementar ações para o botão 'Sessoes Sala'.", "Ação não implementada", JOptionPane.INFORMATION_MESSAGE);
+        mostrarAviso("Ação não implementada");
     }
 }

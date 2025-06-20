@@ -45,6 +45,14 @@ public class DadosApp implements Serializable {
         return instance;
     }
 
+    //APENAS PARA OS TESTES
+    public static void resetInstance() {
+        instance = new DadosApp();
+    }
+    public static void setTestInstance(DadosApp testInstance) {
+        instance = testInstance;
+    }
+
     public void adicionarSala(Sala sala) {
         if (sala == null) {
             throw new IllegalArgumentException("Sala não pode ser nula.");

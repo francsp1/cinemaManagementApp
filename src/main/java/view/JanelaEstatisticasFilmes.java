@@ -12,8 +12,14 @@ public class JanelaEstatisticasFilmes extends Janela {
     private JComboBox comboBox2;
     private JTable table2;
 
-    public JanelaEstatisticasFilmes() {
+    public JanelaEstatisticasFilmes(JFrame parent) {
         super("Estatisticas dos Filmes");
+        setContentPane(mainPanel);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(parent);
+        setVisible(true);
+
         String[] columnNamesTabela1 = {"Posição no TOP", "Filme", "Realizador"};
         String[] filmes = {"O Senhor dos Anéis", "Matrix", "Pulp Fiction", "Interstellar", "Inception"};
         String[] realizadores = {"Peter Jackson", "Lana Wachowski", "Quentin Tarantino", "Christopher Nolan", "Christopher Nolan"};
@@ -56,15 +62,5 @@ public class JanelaEstatisticasFilmes extends Janela {
 
     public JPanel getMainPanel() {
         return mainPanel;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Estatísticas");
-            frame.setSize(800, 400);
-            frame.setContentPane(new JanelaEstatisticasFilmes().getMainPanel());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        });
     }
 }

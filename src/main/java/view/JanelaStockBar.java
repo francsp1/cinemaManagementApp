@@ -9,7 +9,7 @@ import java.util.List;
 
 public class JanelaStockBar extends Janela {
     private JPanel mainPanel;
-    private JTable table1;
+    JTable table1;
     private JButton escolherFornecedorButton;
     private JButton adicionarButton;
     private JTextField textField1;
@@ -143,10 +143,8 @@ public class JanelaStockBar extends Janela {
             DadosApp.getInstance().getStockProdutos().add(novoStock);
             DadosApp.gravarDados();
 
-            // Atualiza a tabela de stock
             atualizarStock();
 
-            // Limpa o campo de texto
             textField1.setText("");
             JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!", "Info", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -191,6 +189,13 @@ public class JanelaStockBar extends Janela {
 
     public JPanel getMainPanel() {
         return mainPanel;
+    }
+    public JTextField getTextField() {
+        return this.textField1;
+    }
+
+    public JButton getAdicionarButton() {
+        return this.adicionarButton;
     }
 
 }
