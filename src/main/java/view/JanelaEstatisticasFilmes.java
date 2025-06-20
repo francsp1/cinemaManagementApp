@@ -42,6 +42,25 @@ public class JanelaEstatisticasFilmes extends Janela {
         });
 
         btnPesquisar.addActionListener((ActionEvent e) -> atualizarTabelaEstatisticas());
+
+        String[] columnNames = {"Dia da semana", "Faturação"};
+        String[] dias = {"Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado", "Domingo"};
+        String[] faturacao = {"1000€", "4300€", "2000€", "3000€", "5000€", "6000€", "7000€"};
+        Object[][] data2 = new Object[dias.length][2];
+
+        for (int i = 0; i < dias.length; i++) {
+            data2[i][0] = dias[i];
+            data2[i][1] = faturacao[i];
+        }
+
+        DefaultTableModel model2 = new DefaultTableModel(data2, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table2.setModel(model2);
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void atualizarTabelaEstatisticas() {
