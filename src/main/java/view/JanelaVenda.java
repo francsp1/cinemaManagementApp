@@ -277,28 +277,7 @@ public class JanelaVenda extends Janela {
                     // Valor total da fatura
                     double valorFinal = valorTotalBundle + valorExtras;
 
-                    Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal);
-
-                    //guardar fatura
-                    DadosApp.getInstance().adicionarFatura(fatura);
-
-                    //remover stock
-                    for (linhaFatura linha : linhasFaturaProduto) {
-                        StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
-                                .filter(sp -> sp.getProduto().equals(linha.getProduto()))
-                                .findFirst()
-                                .orElse(null);
-                        if (stockProduto != null) {
-                            stockProduto.remover(linha.getQuantidade());
-                        }
-                    }
-
-                    JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-                    linhasFaturaProduto.clear();
-                    listaItems.setListData(new String[0]);
-                    atualizarValorTotal();
-                    dispose(); // Fecha a janela após finalizar a venda
-                    parentFrame.setVisible(true); // Torna a janela pai visível novamente
+                    fechar(valorFinal);
                 }
             }
 
@@ -309,28 +288,7 @@ public class JanelaVenda extends Janela {
             }
             double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
 
-            Fatura fatura = new Fatura(linhasFaturaProduto, valorTotalRounded);
-
-            //guardar fatura
-            DadosApp.getInstance().adicionarFatura(fatura);
-
-            //remover stock
-            for (linhaFatura linha : linhasFaturaProduto) {
-                StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
-                        .filter(sp -> sp.getProduto().equals(linha.getProduto()))
-                        .findFirst()
-                        .orElse(null);
-                if (stockProduto != null) {
-                    stockProduto.remover(linha.getQuantidade());
-                }
-            }
-
-            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-            linhasFaturaProduto.clear();
-            listaItems.setListData(new String[0]);
-            atualizarValorTotal();
-            dispose(); // Fecha a janela após finalizar a venda
-            parentFrame.setVisible(true); // Torna a janela pai visível novamente
+            fechar(valorTotalRounded);
         });
 
         // Botao de cancelar operacao
@@ -400,6 +358,31 @@ public class JanelaVenda extends Janela {
 
         this.valorTotal.setText(valorTotalRounded+ " €");
 
+    }
+
+    private void fechar(double valorFinal){
+        Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal);
+
+        //guardar fatura
+        DadosApp.getInstance().adicionarFatura(fatura);
+
+        //remover stock
+        for (linhaFatura linha : linhasFaturaProduto) {
+            StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
+                    .filter(sp -> sp.getProduto().equals(linha.getProduto()))
+                    .findFirst()
+                    .orElse(null);
+            if (stockProduto != null) {
+                stockProduto.remover(linha.getQuantidade());
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+        linhasFaturaProduto.clear();
+        listaItems.setListData(new String[0]);
+        atualizarValorTotal();
+        dispose(); // Fecha a janela após finalizar a venda
+        parentFrame.setVisible(true); // Torna a janela pai visível novamente
     }
 
     public JPanel getMainPanel() {
