@@ -50,8 +50,9 @@ public class JanelaVenda extends Janela {
         };
 
         tabelaProdutos.setModel(model);
-
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        DadosApp.getInstance().getTicketTypes().keySet().forEach(opTipo::addItem);
     }
 
     public JPanel getMainPanel() {

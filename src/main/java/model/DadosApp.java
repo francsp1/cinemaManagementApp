@@ -31,15 +31,11 @@ public class DadosApp implements Serializable {
 
 
     DadosApp() {
-
-        ticketTypes.put("Normal", 10.0);
-        ticketTypes.put("Estudante", 7.5);
-        ticketTypes.put("+65", 6.0);
-
         adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
         adicionarFornecedoresExemplo();
         inicializarStockExemplo();
+        inicializarTiposBilhte();
     }
 
     public static DadosApp getInstance() {
@@ -168,7 +164,11 @@ public class DadosApp implements Serializable {
         }
     }
 
-
+    private void inicializarTiposBilhte(){
+        ticketTypes.put("Normal", 10.0);
+        ticketTypes.put("Estudante", 7.5);
+        ticketTypes.put("+65", 6.0);
+    }
 
 
 
@@ -230,6 +230,11 @@ public class DadosApp implements Serializable {
             }
         }
         return null;
+    }
+
+    public HashMap<String, Double> getTicketTypes() {
+        System.out.println("Ticket Types: " + ticketTypes);
+        return ticketTypes;
     }
     //###########################
 
