@@ -28,9 +28,10 @@ public class JanelaVenda extends Janela {
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
     private JLabel valorTotal;
+    private JLabel textBoxLugar;
 
     private final JFrame parentFrame;
-    private String lugarSelecionado; //para guardar o lugar selecionado
+    private Lugar lugarSelecionado;
 
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
@@ -100,12 +101,28 @@ public class JanelaVenda extends Janela {
         adicionarBilheteButton.addActionListener(e -> {
             String tipoBilheteSelecionado = (String) opTipo.getSelectedItem();
             String sessaoSelecionada = (String) opSessao.getSelectedItem();
-            if (tipoBilheteSelecionado == null || sessaoSelecionada == null) {
-                JOptionPane.showMessageDialog(this, "Por favor, selecione um tipo de bilhete e uma sessão.");
+            if (tipoBilheteSelecionado == null || sessaoSelecionada == null || lugarSelecionado == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um tipo de bilhete, uma sessão e um lugar.");
                 return;
             }
 
-            //TODO: selecionar lugar e criar bilhete
+            Sessao sessao = DadosApp.getInstance().getSessaoPorTitulo(sessaoSelecionada);
+
+            //criar Bilhete
+            Bilhete bilhete = new Bilhete(sessao, lugarSelecionado, tipoBilheteSelecionado);
+
+            //Criar linha de fatura
+            linhaFatura novaLinha = new linhaFatura(bilhete);
+
+            // Adicionar linhaFatura à lista
+            linhasFaturaProduto.add(novaLinha);
+
+            //adicionar linhaFatura à venda
+            listaItems.setListData(linhasFaturaProduto.stream().map(linhaFatura::toString).toArray());
+
+            //atualizar o valor total
+            atualizarValorTotal();
+
         });
 
         // botao de adicionar produto
@@ -145,6 +162,7 @@ public class JanelaVenda extends Janela {
                 atualizarValorTotal();
 
                 //TODO: atualizar opcoes de bundle
+
 
                 JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
             } else {
@@ -242,13 +260,16 @@ public class JanelaVenda extends Janela {
                     botao.setText(nomeLugar + " (Acessível)");
                 }
 
-                // Listener para capturar o clique no botão
-                botao.addActionListener(e -> {
-                    lugarSelecionado = nomeLugar; // ou lugar.getDesignacao()
-                    System.out.println("Lugar selecionado: " + lugarSelecionado);
+                // Armazena o objeto Lugar no botão
+                botao.putClientProperty("lugar", lugar);
 
-                    // Aqui você pode fazer outra ação, ex: fechar janela ou marcar visualmente
-                    botao.setBackground(Color.YELLOW);
+                // Listener para clique
+                botao.addActionListener(e -> {
+                    JButton sourceButton = (JButton) e.getSource();
+                    lugarSelecionado = (Lugar) sourceButton.getClientProperty("lugar");
+
+                    textBoxLugar.setText(lugarSelecionado.getDesignacao());
+                    sourceButton.setBackground(Color.YELLOW); // marca visualmente
                 });
 
                 painelDestino.add(botao);

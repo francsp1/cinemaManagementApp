@@ -267,6 +267,10 @@ public class DadosApp implements Serializable {
         return null;
     }
 
+    public double getPrecoBilhete(String tipoBilhete) {
+        return ticketTypes.getOrDefault(tipoBilhete, 0.0);
+    }
+
 
     private static void carregarDados() {
         File file = new File(FILE_PATH);

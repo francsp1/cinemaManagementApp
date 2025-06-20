@@ -7,12 +7,20 @@ import java.time.format.DateTimeFormatter;
 
 public class linhaFatura implements Serializable {
 
-    //TODO adicionar bilhete
+    private Bilhete bilhete;
     private Produto produto;
     private int quantidade;
     private double precoTotal;
 
+    public linhaFatura(Bilhete bilhete) {
+        this.bilhete = bilhete;
+        this.produto = null;
+        this.quantidade = 1; // Bilhete é considerado como uma unidade
+        this.precoTotal = DadosApp.getInstance().getPrecoBilhete(bilhete.getTipo()); // Preço do bilhete
+    }
+
     public linhaFatura(Produto produto, int quantidade, double precoTotal) {
+        this.bilhete = null;
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoTotal = precoTotal;
@@ -32,7 +40,12 @@ public class linhaFatura implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(produto.getNome() + " x " + quantidade + "\n");
+        StringBuilder sb = null;
+        if (bilhete != null) {
+            sb = new StringBuilder("Bilhete" + bilhete.getTipo() + "\n");
+        } else if (produto != null) {
+            sb = new StringBuilder(produto.getNome() + " x " + quantidade + "\n");
+        }
         return sb.toString();
     }
 }
