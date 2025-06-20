@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DadosApp implements Serializable {
 
@@ -25,9 +26,16 @@ public class DadosApp implements Serializable {
     private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
     private final ArrayList<StockProduto> stockProdutos = new ArrayList<>();
 
+    private final HashMap<String, Double> ticketTypes = new HashMap<>();
+
 
 
     DadosApp() {
+
+        ticketTypes.put("Normal", 10.0);
+        ticketTypes.put("Estudante", 7.5);
+        ticketTypes.put("+65", 6.0);
+
         adicionarSalasExemplo();
         adicionarFuncionariosExemplo();
         adicionarFornecedoresExemplo();

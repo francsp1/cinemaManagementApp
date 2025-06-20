@@ -14,8 +14,8 @@ public class JanelaVenda extends Janela {
     private JList Lista;
     private JScrollPane ListaScroll;
     private JPanel LadoBilhete;
+    private JComboBox opTipo;
     private JComboBox opSessao;
-    private JComboBox comboBox1;
     private JButton adicionarBilheteButton;
     private JTable tabelaProdutos;
     private JButton escolherButton;
