@@ -31,6 +31,7 @@ public class DadosApp implements Serializable {
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
     private final ArrayList<Fatura> faturas = new ArrayList<>();
     private final ArrayList<Bundle> bundles = new ArrayList<>();
+    private final ArrayList<Sessao> sessoes = new ArrayList<>();
 
     private final ArrayList<Bilhete> bilhetes = new ArrayList<>();
 
@@ -47,6 +48,7 @@ public class DadosApp implements Serializable {
         adicionarFornecedoresExemplo();
         inicializarStockExemplo();
         inicializarTiposBilhete();
+        inicializarSessao();
         adicionarFilmesEVendasExemplo();
     }
 
@@ -228,6 +230,41 @@ public class DadosApp implements Serializable {
         ticketTypes.put("Normal", 10.0);
         ticketTypes.put("Estudante", 7.5);
         ticketTypes.put("+65", 6.0);
+    }
+
+    private void inicializarSessao(){
+        sessoes.add(new Sessao(new Sala(5, 5, 2, TipoSala.TRES_D, TipoSistemaSom.DOLBY_ATMOS, "Sala 3D")
+                , 120, LocalDate.now().atStartOfDay(),  new Filme(
+                "Matrix",
+                "Um hacker descobre a verdade sobre sua realidade.",
+                136,
+                Filme.Categoria.AVENTURA,
+                "Lana Wachowski",
+                "Keanu Reeves",
+                "Laurence Fishburne",
+                "Carrie-Anne Moss",
+                "Hugo Weaving",
+                Filme.Tipo._2D
+        )));
+
+    }
+
+    public ArrayList<Sessao> getSessoes() {
+        return sessoes;
+    }
+
+    public Sessao getSessaoPorTitulo(String tituloEDataHora) {
+        for (Sessao sessao : sessoes) {
+            String titulo = sessao.getFilme().getTitulo();
+            String dataHora = sessao.getDataHora().toString();
+
+            String chaveSessao = titulo + " - " + dataHora;
+
+            if (chaveSessao.equals(tituloEDataHora)) {
+                return sessao;
+            }
+        }
+        return null;
     }
 
 

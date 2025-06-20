@@ -2,11 +2,10 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import model.DadosApp;
-import model.Fatura;
-import model.StockProduto;
-import model.linhaFatura;
 
+import model.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,7 @@ public class JanelaVenda extends Janela {
     private JLabel valorTotal;
 
     private final JFrame parentFrame;
+    private String lugarSelecionado; //para guardar o lugar selecionado
 
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
@@ -66,7 +66,35 @@ public class JanelaVenda extends Janela {
         // Opcoes de tipo de bilhete
         DadosApp.getInstance().getTicketTypes().keySet().forEach(opTipo::addItem);
 
-        //TODO: Opcoes de sessao
+        //Opcoes de sessao
+        DadosApp.getInstance().getSessoes().forEach(sessao -> opSessao.addItem(sessao.getFilme().getTitulo() + " - " + sessao.getDataHora()));
+
+        //botao escolher lugar
+        escolherButton.addActionListener(e -> {
+
+            String objSelecionado = (String) opSessao.getSelectedItem();
+
+            Sessao sessao = DadosApp.getInstance().getSessaoPorTitulo(objSelecionado);
+
+            Sala salaSelecionada = sessao.getSala();
+
+            // Cria uma nova janela temporária
+            JFrame janelaTemporaria = new JFrame("Visualização da Sala");
+            janelaTemporaria.setSize(600, 400);
+            janelaTemporaria.setLocationRelativeTo(null); // Centraliza na tela
+
+            // Painel para desenhar a sala
+            JPanel painelSala = new JPanel();
+
+            // Adiciona o painel à janela
+            janelaTemporaria.add(new JScrollPane(painelSala));
+
+            // Chama o método de desenhar, passando o painel correto
+            desenharSalaNaJanela(salaSelecionada, painelSala);
+
+            // Exibe a janela
+            janelaTemporaria.setVisible(true);
+        });
 
         // botao adicionar bilhete
         adicionarBilheteButton.addActionListener(e -> {
@@ -190,6 +218,45 @@ public class JanelaVenda extends Janela {
         });
 
 
+    }
+
+    private void desenharSalaNaJanela(Sala sala, JPanel painelDestino) {
+        painelDestino.removeAll();
+
+        int nrLinhas = sala.getNumeroFilas();
+        int nrColunas = sala.getNumeroLugaresPorFila();
+        Lugar[][] lugares = sala.getLugares();
+
+        painelDestino.setLayout(new GridLayout(nrLinhas, nrColunas));
+
+        for (int linha = 0; linha < nrLinhas; ++linha) {
+            for (int coluna = 0; coluna < nrColunas; ++coluna) {
+                Lugar lugar = lugares[linha][coluna];
+                JButton botao = new JButton();
+
+                String nomeLugar = lugar.getDesignacao();
+                botao.setText(nomeLugar);
+
+                if (lugar.isAcessivel()) {
+                    botao.setBackground(Color.GREEN);
+                    botao.setText(nomeLugar + " (Acessível)");
+                }
+
+                // Listener para capturar o clique no botão
+                botao.addActionListener(e -> {
+                    lugarSelecionado = nomeLugar; // ou lugar.getDesignacao()
+                    System.out.println("Lugar selecionado: " + lugarSelecionado);
+
+                    // Aqui você pode fazer outra ação, ex: fechar janela ou marcar visualmente
+                    botao.setBackground(Color.YELLOW);
+                });
+
+                painelDestino.add(botao);
+            }
+        }
+
+        painelDestino.revalidate();
+        painelDestino.repaint();
     }
 
     private void atualizarValorTotal(){
