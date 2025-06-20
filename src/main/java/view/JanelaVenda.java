@@ -2,6 +2,10 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import model.DadosApp;
+import model.StockProduto;
+
+import java.util.List;
 
 public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
@@ -31,24 +35,19 @@ public class JanelaVenda extends Janela {
         setLocationRelativeTo(parent);
         setVisible(true);
 
+        // Initialize the table with stock products
         String[] columnNames = {"Produto"};
-        String[] products = {"Coca-Cola", "Pepsi", "Fanta"};
-
-        // Create a 2D Object array for the rows
-        Object[][] data = new Object[products.length][1];
-        for (int i = 0; i < products.length; i++) {
-            data[i][0] = products[i]; // Set each product in the only column
+        List<StockProduto> stockProdutos = DadosApp.getInstance().getStockProdutos();
+        Object[][] data = new Object[stockProdutos.size()][1];
+        for (int i = 0; i < stockProdutos.size(); i++) {
+            data[i][0] = stockProdutos.get(i).getProduto().getNome();
         }
-
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make cells non-editable
+                return false; // Prevent editing of table cells
             }
         };
-
-
-
 
         tabelaProdutos.setModel(model);
 
