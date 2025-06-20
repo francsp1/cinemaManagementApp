@@ -105,9 +105,7 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
-        //TODO
-
-        setVisible(false); // esconde a janela atual
+        setVisible(false);
         new JanelaAdicionarFilme(this, funcionario.isGestor());
     }
 
@@ -126,7 +124,9 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnProcurarSessoesActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        new JanelaPesquisaSessoes(this, funcionario.isGestor());
+
     }
 
     private void btnVendasBarActionPerformed(ActionEvent e) {
@@ -134,7 +134,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnAdicionarSessaoActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        new JanelaAdicionarSessao(this, funcionario.isGestor());
     }
 
     private void btnReporStocksFornecedoresActionPerformed(ActionEvent e) {

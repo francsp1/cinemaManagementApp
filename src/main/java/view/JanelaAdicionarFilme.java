@@ -32,7 +32,8 @@ public class JanelaAdicionarFilme extends Janela{
         this.isGestor = isGestor;
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800,1000);
+        setLocationRelativeTo(null);
+        setSize(900,600);
 
         duracaoSpinner.setModel(new SpinnerNumberModel(90, 1, 600, 1));
 
@@ -45,7 +46,6 @@ public class JanelaAdicionarFilme extends Janela{
         }
 
         setVisible(true);
-        pack();
 
         addListeners();
 
@@ -71,26 +71,6 @@ public class JanelaAdicionarFilme extends Janela{
 
     private void btnAdicionarActionPerformed(ActionEvent e) {
 
-      /*  ArrayList<Filme> filmes = DadosApp.getInstance().getFilmes();
-
-        if (filmes == null || filmes.isEmpty()) {
-            System.out.println("Lista de filmes está vazia ou nula.");
-        } else {
-            System.out.println("Lista de filmes:");
-            for (Filme f : filmes) {
-                System.out.println(f);
-            }
-        }
-
-
-        System.out.println("Título: " + tituloField.getText());
-        System.out.println("Sinopse: " + sinopseArea.getText());
-        System.out.println("Realizador: " + realizadorField.getText());
-        System.out.println("Ator 1: " + ator1Field.getText());
-        System.out.println("Duração: " + duracaoSpinner.getValue());
-        System.out.println("Categoria: " + categoriaCombo.getSelectedItem());
-        System.out.println("Tipo: " + tipoCombo.getSelectedItem());
-*/
         if (!validarCamposObrigatorios()) {
             JOptionPane.showMessageDialog(this,
                     "Dados Inválidos/incompletos.",
@@ -110,11 +90,11 @@ public class JanelaAdicionarFilme extends Janela{
                 ator4Field.getText(),
                 (Filme.Tipo) tipoCombo.getSelectedItem()
         );
-        System.out.println("Filme criado: " + filme);
+
 
         DadosApp.getInstance().adicionarFilme(filme);
 
-        JOptionPane.showMessageDialog(this, "Filme guardado com sucesso!");
+        showTimedDialog("Filme adicionado com sucesso!", 2000);
 
     }
 
@@ -123,6 +103,16 @@ public class JanelaAdicionarFilme extends Janela{
         if(parentFrame!=null){
             parentFrame.setVisible(true);
         }
+    }
+
+    private void showTimedDialog(String mensagem, int duracaoMillis) {
+        JOptionPane pane = new JOptionPane(mensagem, JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = pane.createDialog(this, "Info");
+        dialog.setModal(false);
+        dialog.setVisible(true);
+
+        // Fecha automaticamente após X milissegundos
+        new Timer(duracaoMillis, e -> dialog.dispose()).start();
     }
 
 }

@@ -96,21 +96,12 @@ public class Filme implements Serializable {
         }
     }
 
+
     @Override
     public String toString() {
-        return "Filme{" +
-                "titulo='" + titulo + '\'' +
-                ", sinopse='" + sinopse + '\'' +
-                ", duracao=" + duracao +
-                ", categoria=" + categoria +
-                ", realizador='" + realizador + '\'' +
-                ", ator1='" + ator1 + '\'' +
-                ", ator2='" + ator2 + '\'' +
-                ", ator3='" + ator3 + '\'' +
-                ", ator4='" + ator4 + '\'' +
-                ", tipo=" + tipo +
-                '}';
+        return titulo + " (" + duracao + " min)";
     }
+
 
 
 

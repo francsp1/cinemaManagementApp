@@ -1,6 +1,7 @@
 package model;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +27,7 @@ public class DadosApp implements Serializable {
     private final ArrayList<FaturaFornecedor> faturasFornecedores = new ArrayList<>();
     private final ArrayList<StockProduto> stockProdutos = new ArrayList<>();
     private final ArrayList<Filme> filmes = new ArrayList<>();
+    private final ArrayList<Sessao> sessoes = new ArrayList<>();
 
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
 
@@ -37,6 +39,8 @@ public class DadosApp implements Serializable {
         adicionarFornecedoresExemplo();
         inicializarStockExemplo();
         inicializarTiposBilhete();
+        adicionarFilmesExemplo();
+        adicionarSessoesExemplo();
     }
 
     public static DadosApp getInstance() {
@@ -256,5 +260,64 @@ public class DadosApp implements Serializable {
     public ArrayList<Filme> getFilmes() {
         return filmes;
     }
+
+    private void adicionarFilmesExemplo() {
+        Filme filme1 = new Filme("Inception", "Um ladrão invade sonhos para roubar segredos.", 148,
+                Filme.Categoria.THRILLER, "Christopher Nolan", "Leonardo DiCaprio", "Joseph Gordon-Levitt", "Elliot Page", "Tom Hardy",
+                Filme.Tipo._2D);
+
+        Filme filme2 = new Filme("Avatar", "Humanos colonizam Pandora.", 162,
+                Filme.Categoria.FANTASIA, "James Cameron", "Sam Worthington", "Zoe Saldana", "Sigourney Weaver", "Stephen Lang",
+                Filme.Tipo._3D);
+
+        Filme filme3 = new Filme("La La Land", "Dois artistas lutam por seus sonhos em LA.", 128,
+                Filme.Categoria.MUSICAL, "Damien Chazelle", "Ryan Gosling", "Emma Stone", "", "",
+                Filme.Tipo._2D);
+
+        Filme filme4 = new Filme("O Exorcista", "Menina possuída por demônio.", 122,
+                Filme.Categoria.TERROR, "William Friedkin", "Linda Blair", "Ellen Burstyn", "", "",
+                Filme.Tipo.IMAX);
+
+        this.filmes.add(filme1);
+        this.filmes.add(filme2);
+        this.filmes.add(filme3);
+        this.filmes.add(filme4);
+    }
+
+    private void adicionarSessoesExemplo() {
+        // Obtem as listas diretamente da instância DadosApp
+        ArrayList<Filme> filmes = this.filmes;
+        ArrayList<Sala> salas = this.salas;
+
+        // Verifica se existem filmes e salas suficientes
+        if (filmes.size() < 4 || salas.size() < 4) {
+            System.out.println("Erro: Não há filmes ou salas suficientes para adicionar sessões de exemplo.");
+            return;
+        }
+
+        // Cria sessões exemplo
+        Sessao sessao1 = new Sessao(salas.get(0), 160, LocalDateTime.of(2025, 6, 21, 15, 0), filmes.get(0));
+        Sessao sessao2 = new Sessao(salas.get(1), 170, LocalDateTime.of(2025, 6, 21, 18, 30), filmes.get(1));
+        Sessao sessao3 = new Sessao(salas.get(2), 130, LocalDateTime.of(2025, 6, 22, 14, 15), filmes.get(2));
+        Sessao sessao4 = new Sessao(salas.get(3), 125, LocalDateTime.of(2025, 6, 22, 22, 0), filmes.get(3));
+
+        // Adiciona sessões à lista de sessões
+        this.sessoes.add(sessao1);
+        this.sessoes.add(sessao2);
+        this.sessoes.add(sessao3);
+        this.sessoes.add(sessao4);
+
+    }
+
+    public ArrayList<Sessao> getSessoes() {
+        return sessoes;
+    }
+
+    public void adicionarSessao(Sessao sessao) {
+        if (sessao != null) {
+            sessoes.add(sessao);
+        }
+    }
+
 
 }

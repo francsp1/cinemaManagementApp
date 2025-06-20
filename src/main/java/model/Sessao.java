@@ -8,6 +8,7 @@ public class Sessao implements Serializable {
     private int duracao;
     private LocalDateTime dataHora;
     private Filme filme;
+    private int numeroLugaresDisponivel;
 
 
     public Sessao(Sala sala, int duracao, LocalDateTime dataHora, Filme filme) {
@@ -15,6 +16,7 @@ public class Sessao implements Serializable {
         this.duracao = duracao;
         this.dataHora = dataHora;
         this.filme = filme;
+        setNumeroLugaresDisponivel(numeroLugaresDisponivel);
     }
 
     public Sala getSala() {
@@ -39,5 +41,30 @@ public class Sessao implements Serializable {
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
+    }
+
+    public void setNumeroLugaresDisponivel(int numeroLugaresDisponivel) {
+        this.numeroLugaresDisponivel = sala.getNumeroTotalLugares();
+    }
+
+    public int getNumeroLugaresDisponivel() {
+        return numeroLugaresDisponivel;
+    }
+
+    public int diminuiNumeroLugaresDisponivel() {
+        numeroLugaresDisponivel--;
+        return numeroLugaresDisponivel;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s | Sala: %s | %s | Lugares: %d",
+                filme.getTitulo(),
+                sala.getNome(),
+                dataHora.toString(), // podes formatar se quiseres
+                numeroLugaresDisponivel
+
+        );
     }
 }
