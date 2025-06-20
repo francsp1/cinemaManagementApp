@@ -28,6 +28,7 @@ public class DadosApp implements Serializable {
     private final ArrayList<Filme> filmes = new ArrayList<>();
 
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
+    private final ArrayList<Fatura> faturas = new ArrayList<>();
 
 
 
@@ -244,7 +245,12 @@ public class DadosApp implements Serializable {
         System.out.println("Ticket Types: " + ticketTypes);
         return ticketTypes;
     }
-    //###########################
+
+    public void adicionarFatura(Fatura fatura) {
+        if (fatura != null) {
+            faturas.add(fatura);
+        }
+    }
 
 
     public void adicionarFilme(Filme filme) {

@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.DadosApp;
+import model.Fatura;
 import model.StockProduto;
 import model.linhaFatura;
 
@@ -29,6 +30,8 @@ public class JanelaVenda extends Janela {
     private JButton removerLinhaButton;
     private JLabel valorTotal;
 
+    private final JFrame parentFrame;
+
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
 
@@ -40,6 +43,8 @@ public class JanelaVenda extends Janela {
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
+
+        this.parentFrame = parent;
 
         // Initialize the table with stock products
         String[] columnNames = {"Produto"};
@@ -78,6 +83,10 @@ public class JanelaVenda extends Janela {
                 }
                 if(quantidade <= 0) {
                     JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que zero.");
+                    return;
+                }
+                if(quantidade > stockProdutos.get(selectedRow).getQuantidade()) {
+                    JOptionPane.showMessageDialog(this, "Quantidade insuficiente em stock.");
                     return;
                 }
 
@@ -125,11 +134,47 @@ public class JanelaVenda extends Janela {
                 return;
             }
 
-            // Aqui você pode adicionar a lógica para finalizar a compra
-            // Por exemplo, salvar a fatura em um arquivo ou banco de dado
+            //criar fatura
+            double valorTotal = 0;
+            for (linhaFatura linha : linhasFaturaProduto) {
+                valorTotal += linha.getPrecoTotal();
+            }
+            double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
+
+            Fatura fatura = new Fatura(linhasFaturaProduto, valorTotalRounded);
+
+            //guardar fatura
+            DadosApp.getInstance().adicionarFatura(fatura);
+
+            //remover stock
+            for (linhaFatura linha : linhasFaturaProduto) {
+                StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
+                        .filter(sp -> sp.getProduto().equals(linha.getProduto()))
+                        .findFirst()
+                        .orElse(null);
+                if (stockProduto != null) {
+                    stockProduto.remover(linha.getQuantidade());
+                }
+            }
 
             JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+            linhasFaturaProduto.clear();
+            listaItems.setListData(new String[0]);
+            atualizarValorTotal();
             dispose(); // Fecha a janela após finalizar a venda
+            parentFrame.setVisible(true); // Torna a janela pai visível novamente
+        });
+
+        // Botao de cancelar operacao
+        cancelarOperaçãoButton.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(this, "Tem a certeza que deseja cancelar a operação?", "Cancelar Operação", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                linhasFaturaProduto.clear();
+                listaItems.setListData(new String[0]);
+                atualizarValorTotal();
+                dispose(); // Fecha a janela
+                parentFrame.setVisible(true); // Torna a janela pai visível novamente
+            }
         });
 
 
