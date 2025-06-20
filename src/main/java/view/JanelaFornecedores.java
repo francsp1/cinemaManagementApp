@@ -220,4 +220,11 @@ public class JanelaFornecedores extends Janela {
            return mainPanel;
     }
 
+
+    public JTable getTable1() { return table1; }
+    public JFormattedTextField getQuantidadeProduto() { return quantidadeProduto; }
+    public JButton getAdicionarAoCarrinhoButton() { return adicionarAoCarrinhoButton; }
+    public JButton getFinalizarComprarEGerarButton() { return FInalizarComprarEGerarButton; }
+    public JTable getTable2() { return table2; }
+
 }

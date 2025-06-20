@@ -56,7 +56,7 @@ class JanelaStockBarTest {
 
     @Test
     void testNaoAdicionaProdutoRepetido() {
-        DadosApp.getInstance().getStockProdutos().add(new StockProduto(new Produto("Ice Tea Limão 33cl"), 5));
+        DadosApp.getInstance().getStockProdutos().add(new StockProduto(new Produto("Ice Tea Limão 33cl",5.0), 5));
 
         getPrivateTextField().setText("Ice Tea Limão 33cl");
         getPrivateAdicionarButton().doClick();
