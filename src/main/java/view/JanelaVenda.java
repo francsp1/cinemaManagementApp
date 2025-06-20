@@ -143,6 +143,9 @@ public class JanelaVenda extends Janela {
 
             Fatura fatura = new Fatura(linhasFaturaProduto, valorTotalRounded);
 
+            //guardar fatura
+            DadosApp.getInstance().adicionarFatura(fatura);
+
             //remover stock
             for (linhaFatura linha : linhasFaturaProduto) {
                 StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
