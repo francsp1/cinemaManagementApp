@@ -6,6 +6,7 @@ import view.funcionarios.JanelaFuncionarios;
 import view.salas.JanelaSalas;
 import view.JanelaVenda;
 import view.JanelaStockBar;
+import view.JanelaEstatisticasFilmes;
 
 
 import javax.swing.*;
@@ -112,7 +113,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnEstatisticasFilmesActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaEstatisticasFilmes janelaEstatisticasFilmes = new JanelaEstatisticasFilmes(this);
     }
 
     private void btnVerSalasActionPerformed(ActionEvent e) {
