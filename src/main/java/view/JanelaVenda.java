@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.DadosApp;
+import model.Fornecedor;
 import model.StockProduto;
 
 import java.util.List;
@@ -52,7 +53,27 @@ public class JanelaVenda extends Janela {
         tabelaProdutos.setModel(model);
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        // Opcoes de tipo de bilhete
         DadosApp.getInstance().getTicketTypes().keySet().forEach(opTipo::addItem);
+
+        //TODO: Opcoes de sessao
+
+        // botao de adicionar produto
+        adicionarProdutoButton.addActionListener(e -> {
+            int selectedRow = tabelaProdutos.getSelectedRow();
+            if (selectedRow != -1) {
+                String produto = (String) tabelaProdutos.getValueAt(selectedRow, 0);
+                // Aqui você pode adicionar lógica para adicionar o produto à venda
+
+                double precoProduto = stockProdutos.get(selectedRow).getProduto().getPreco();
+
+                JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um produto.");
+            }
+        });
+
+
     }
 
     public JPanel getMainPanel() {

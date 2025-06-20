@@ -138,7 +138,7 @@ public class JanelaStockBar extends Janela {
                 return;
             }
 
-            model.Produto novoProduto = new model.Produto(nomeProduto);
+            model.Produto novoProduto = new model.Produto(nomeProduto,0.0);
             model.StockProduto novoStock = new model.StockProduto(novoProduto, 0);
             DadosApp.getInstance().getStockProdutos().add(novoStock);
             DadosApp.gravarDados();
