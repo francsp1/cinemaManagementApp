@@ -68,6 +68,18 @@ public class JanelaVenda extends Janela {
 
         //TODO: Opcoes de sessao
 
+        // botao adicionar bilhete
+        adicionarBilheteButton.addActionListener(e -> {
+            String tipoBilheteSelecionado = (String) opTipo.getSelectedItem();
+            String sessaoSelecionada = (String) opSessao.getSelectedItem();
+            if (tipoBilheteSelecionado == null || sessaoSelecionada == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um tipo de bilhete e uma sessão.");
+                return;
+            }
+
+            //TODO: selecionar lugar e criar bilhete
+        });
+
         // botao de adicionar produto
         adicionarProdutoButton.addActionListener(e -> {
             int selectedRow = tabelaProdutos.getSelectedRow();
