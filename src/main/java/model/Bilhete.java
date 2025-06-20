@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Bilhete implements Serializable {
     private Sessao sessao;
     private Lugar lugar;
-    private double preco;
+    private String tipo;
 
-    public Bilhete(Sessao sessao, Lugar lugar, double preco) {
+    public Bilhete(Sessao sessao, Lugar lugar, String tipo) {
         this.sessao = sessao;
         this.lugar = lugar;
-        this.preco = preco;
+        this.tipo = tipo;
     }
 
     public Sessao getSessao() {
@@ -21,8 +21,8 @@ public class Bilhete implements Serializable {
         return lugar;
     }
 
-    public double getPreco() {
-        return preco;
+    public String getTipo() {
+        return tipo;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Bilhete implements Serializable {
         return "Bilhete{" +
                 "sessao=" + sessao +
                 ", lugar=" + lugar +
-                ", preco=" + preco +
+                ", tipo=" + tipo +
                 '}';
     }
 }
