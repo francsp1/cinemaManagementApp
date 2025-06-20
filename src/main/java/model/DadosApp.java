@@ -30,6 +30,8 @@ public class DadosApp implements Serializable {
 
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
     private final ArrayList<Fatura> faturas = new ArrayList<>();
+    private final ArrayList<Bundle> bundles = new ArrayList<>();
+
     private final ArrayList<Bilhete> bilhetes = new ArrayList<>();
 
     private final ArrayList<VendaBilhete> vendasBilhete = new ArrayList<>();
@@ -296,6 +298,12 @@ public class DadosApp implements Serializable {
     public void adicionarFatura(Fatura fatura) {
         if (fatura != null) {
             faturas.add(fatura);
+        }
+    }
+
+    public void adicionarBundle(Bundle bundle) {
+        if (bundle != null) {
+            bundles.add(bundle);
         }
     }
 

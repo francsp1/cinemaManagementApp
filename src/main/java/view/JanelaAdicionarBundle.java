@@ -11,12 +11,12 @@ public class JanelaAdicionarBundle extends Janela{
     private JList listaItems;
     private JButton criarBundleButton;
     private JButton cancelarOperaçãoButton;
-    private JTextField textField1;
+    private JTextField textBoxNome;
     private JTable tabelaItems;
     private JButton adicionarButton;
     private JButton removerButton;
     private JTextField textBoxQuantidade;
-    private JTextField textField3;
+    private JTextField textBoxPreco;
     private JPanel mainPanel;
     private JScrollPane scroll;
 
@@ -103,10 +103,60 @@ public class JanelaAdicionarBundle extends Janela{
                 // Atualiza a tabela para mostrar os itens adicionados
                 atualizarListaItems();
 
-
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, selecione um item para adicionar.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
+        });
+
+        //botao remover item
+        removerButton.addActionListener(e -> {
+            int selectedRow = listaItems.getSelectedIndex();
+            if (selectedRow != -1) {
+                String item = (String) listaItems.getModel().getElementAt(selectedRow);
+                if (produtos.stream().anyMatch(p -> p.getNome().equals(item))) {
+                    // É um produto - Remove apenas uma instância
+                    Produto produtoToRemove = produtos.stream()
+                            .filter(p -> p.getNome().equals(item))
+                            .findFirst()
+                            .orElse(null);
+                    if (produtoToRemove != null) {
+                        produtos.remove(produtoToRemove);
+                    }
+                } else if (bilhetes.contains(item)) {
+                    // É um bilhete - Remove apenas uma instância
+                    bilhetes.remove(item);
+                }
+                // Atualiza a tabela para mostrar os itens restantes
+                atualizarListaItems();
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um item para remover.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        //botao criar bundle
+        criarBundleButton.addActionListener(e -> {
+            String nomeBundle = textBoxNome.getText();
+            if (nomeBundle.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, insira um nome para o bundle.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (produtos.isEmpty() && bilhetes.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, adicione pelo menos um produto ou bilhete ao bundle.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if( textBoxPreco.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, insira um preço para o bundle.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double preco = Double.parseDouble(textBoxPreco.getText());
+
+            Bundle novoBundle = new Bundle(nomeBundle, preco, produtos, bilhetes);
+            DadosApp.getInstance().adicionarBundle(novoBundle);
+
+            JOptionPane.showMessageDialog(this, "Bundle criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            parentFrame.setVisible(true);
         });
 
         //botao cancelar operacao
