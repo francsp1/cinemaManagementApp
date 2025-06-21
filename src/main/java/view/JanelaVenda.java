@@ -42,6 +42,7 @@ public class JanelaVenda extends Janela {
 
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
+    Map<Sessao, Integer> quantidadePorSessao = new HashMap<>();
 
     public JanelaVenda(JFrame parent, Funcionario funcionario) {
         super("Registar Venda");
@@ -224,10 +225,10 @@ public class JanelaVenda extends Janela {
                             int quantidade = linha.getQuantidade();
                             // Acumula quantidade
                             quantidadesPorBilhete.merge(tipoBilhete, quantidade, Integer::sum);
+                            quantidadePorSessao.merge(linha.getBilhete().getSessao(), quantidade, Integer::sum);
                         }
 
                     }
-
 
 
                     // Verificar se as quantidades do bundle estão corretas
@@ -387,6 +388,17 @@ public class JanelaVenda extends Janela {
             funcionario = new Funcionario("Anónimo", "Anónimo", "Anónimo",
                     "Anónimo", "Anónimo", "Anónimo", "Anónimo", false);
         }
+
+        // Diminui a quantidade de lugares disponiveis
+        for (Map.Entry<Sessao, Integer> entry : quantidadePorSessao .entrySet()) {
+            Sessao sessao = entry.getKey();
+            int quantidadeDebilhetes = entry.getValue();
+
+            for (int i = 0; i < quantidadeDebilhetes ; i++) {
+                sessao.diminuiNumeroLugaresDisponivel();
+            }
+        }
+
         //criar fatura
         Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal,funcionario);
 
