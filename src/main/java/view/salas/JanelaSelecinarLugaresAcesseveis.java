@@ -120,7 +120,7 @@ public class JanelaSelecinarLugaresAcesseveis extends Janela {
         return botoesSelecionados;
     }
 
-    private static void atualizarLugares(ArrayList<BotaoLugar> botoesSelecionados) {
+    private void atualizarLugares(ArrayList<BotaoLugar> botoesSelecionados) {
         for (BotaoLugar botao : botoesSelecionados) {
             botao.getLugar().setAcessivel(true);
         }
