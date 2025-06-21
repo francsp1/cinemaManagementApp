@@ -295,9 +295,7 @@ public class DadosApp implements Serializable {
         bundles.add(bundle);
     }
 
-    public ArrayList<Sessao> getSessoes() {
-        return sessoes;
-    }
+
 
     public Sessao getSessaoPorTitulo(String tituloEDataHora) {
         for (Sessao sessao : sessoes) {
