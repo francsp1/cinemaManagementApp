@@ -1,3 +1,4 @@
+//Rodrigo Correia 2231856
 package view;
 
 import model.DadosApp;
@@ -139,5 +140,9 @@ public class JanelaAdicionarSessao extends Janela {
 
         // Fecha automaticamente após X milissegundos
         new Timer(duracaoMillis, e -> dialog.dispose()).start();
+    }
+
+    public JComboBox getFilmeComboBox() {
+        return filmeComboBox;
     }
 }
