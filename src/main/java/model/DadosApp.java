@@ -124,6 +124,9 @@ public class DadosApp implements Serializable {
     }
 
 
+    public void adicionarVendaBilhete(VendaBilhete venda) {
+        vendasBilhete.add(venda);
+    }
 
     private void adicionarSalasExemplo() {
         Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
@@ -507,9 +510,6 @@ public class DadosApp implements Serializable {
             bundles.add(bundle);
         }
     }
-
-
-
 
 
 }

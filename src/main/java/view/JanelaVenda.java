@@ -1,11 +1,14 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 import model.*;
 
 import java.awt.*;
+import java.sql.SQLOutput;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -278,7 +281,9 @@ public class JanelaVenda extends Janela {
                     // Valor total da fatura
                     double valorFinal = valorTotalBundle + valorExtras;
 
+
                     fechar(valorFinal);
+                    System.out.println("Venda finalizada com sucesso! Valor total: " + valorFinal + " €");
                 }
             }
 
@@ -286,6 +291,19 @@ public class JanelaVenda extends Janela {
             double valorTotal = 0;
             for (linhaFatura linha : linhasFaturaProduto) {
                 valorTotal += linha.getPrecoTotal();
+            }
+
+            for (linhaFatura linha : linhasFaturaProduto) {
+                if (linha.getBilhete() != null) {
+                    VendaBilhete venda = new VendaBilhete(
+                            linha.getBilhete().getSessao().getFilme(),
+                            linha.getBilhete().getTipo(),
+                            LocalDate.now(),
+                            linha.getQuantidade()
+                    );
+                    DadosApp.getInstance().getVendasBilhete().add(venda);
+                    DadosApp.gravarDados();
+                }
             }
             double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
 
