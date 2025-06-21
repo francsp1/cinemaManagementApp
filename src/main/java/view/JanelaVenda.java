@@ -295,18 +295,6 @@ public class JanelaVenda extends Janela {
                 valorTotal += linha.getPrecoTotal();
             }
 
-            for (linhaFatura linha : linhasFaturaProduto) {
-                if (linha.getBilhete() != null) {
-                    VendaBilhete venda = new VendaBilhete(
-                            linha.getBilhete().getSessao().getFilme(),
-                            linha.getBilhete().getTipo(),
-                            LocalDate.now(),
-                            linha.getQuantidade()
-                    );
-                    DadosApp.getInstance().getVendasBilhete().add(venda);
-                    DadosApp.gravarDados();
-                }
-            }
             double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
 
             fechar(valorTotalRounded);
@@ -396,6 +384,20 @@ public class JanelaVenda extends Janela {
 
             for (int i = 0; i < quantidadeDebilhetes ; i++) {
                 sessao.diminuiNumeroLugaresDisponivel();
+            }
+        }
+
+        // Adicionar Venda ao DadosApp para estatistica
+        for (linhaFatura linha : linhasFaturaProduto) {
+            if (linha.getBilhete() != null) {
+                VendaBilhete venda = new VendaBilhete(
+                        linha.getBilhete().getSessao().getFilme(),
+                        linha.getBilhete().getTipo(),
+                        LocalDate.now(),
+                        linha.getQuantidade()
+                );
+                DadosApp.getInstance().getVendasBilhete().add(venda);
+                DadosApp.gravarDados();
             }
         }
 
