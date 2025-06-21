@@ -208,4 +208,28 @@ public class JanelaAdicionarSala extends Janela {
         JanelaSelecinarLugaresAcesseveis janelaSelecinarLugaresAcesseveis = new JanelaSelecinarLugaresAcesseveis(parentFrame, sala);
 
     }
+
+    public JPanel getMainPanel() {
+        return pnlAdicionarSala;
+    }
+
+    public JSpinner getSprNumeroSala() {
+        return sprNumeroSala;
+    }
+
+    public JButton getBtnAdicionarSala() {
+        return btnAdicionarSala;
+    }
+
+    public JTextField getTxtNomeSala() {
+        return txtNomeSala;
+    }
+
+    public JSpinner getSprNumeroFilas() {
+        return sprNumeroFilas;
+    }
+
+    public JSpinner getSprNumeroLugaresFila() {
+        return sprNumeroLugaresFila;
+    }
 }

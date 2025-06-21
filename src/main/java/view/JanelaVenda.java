@@ -1,3 +1,4 @@
+//Tomás Santos nº2230717
 package view;
 
 import javax.swing.*;
@@ -415,4 +416,23 @@ public class JanelaVenda extends Janela {
         return mainPanel;
     }
 
+    public JTable getTabelaProdutos() {
+        return tabelaProdutos;
+    }
+
+    public JTextField getQuantidadeField() {
+        return txtBoxQuantidade;
+    }
+
+    public JButton getAdicionarButton() {
+        return adicionarProdutoButton;
+    }
+
+    public List<linhaFatura> getLinhasFatura() {
+        return linhasFaturaProduto;
+    }
+
+    public JButton getFinalizarVendaButton() {
+        return finalizarCompraButton;
+    }
 }

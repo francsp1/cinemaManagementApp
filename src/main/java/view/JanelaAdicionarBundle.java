@@ -1,3 +1,4 @@
+//Tomás Santos nº2230717
 package view;
 
 import model.*;
@@ -5,12 +6,13 @@ import model.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class JanelaAdicionarBundle extends Janela{
     private JList listaItems;
     private JButton criarBundleButton;
-    private JButton cancelarOperaçãoButton;
+    private JButton cancelarOperacaoButton;
     private JTextField textBoxNome;
     private JTable tabelaItems;
     private JButton adicionarButton;
@@ -141,7 +143,7 @@ public class JanelaAdicionarBundle extends Janela{
                 return;
             }
             if (produtos.isEmpty() && bilhetes.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, adicione pelo menos um produto ou bilhete ao bundle.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Por favor, adicione pelo menos um produto e um bilhete ao bundle.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             if( textBoxPreco.getText().isEmpty()) {
@@ -160,7 +162,7 @@ public class JanelaAdicionarBundle extends Janela{
         });
 
         //botao cancelar operacao
-        cancelarOperaçãoButton.addActionListener(e -> {
+        cancelarOperacaoButton.addActionListener(e -> {
             dispose();
             parentFrame.setVisible(true);
         });
@@ -180,6 +182,25 @@ public class JanelaAdicionarBundle extends Janela{
         return mainPanel;
     }
 
+    //Para testes
+    public JTextField getNomeField() {
+        return this.textBoxNome;
+    }
+
+    public JTextField getPrecoField() {
+        return this.textBoxPreco;
+    }
+
+    public JButton getAdicionarButton() {
+        return this.criarBundleButton;
+    }
 
 
+    public ArrayList<String> getBilhetes() {
+        return this.bilhetes;
+    }
+
+    public ArrayList<Produto> getProdutos() {
+        return this.produtos;
+    }
 }
