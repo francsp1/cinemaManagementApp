@@ -141,4 +141,8 @@ public class JanelaAdicionarSessao extends Janela {
         // Fecha automaticamente após X milissegundos
         new Timer(duracaoMillis, e -> dialog.dispose()).start();
     }
+
+    public JComboBox getFilmeComboBox() {
+        return filmeComboBox;
+    }
 }
