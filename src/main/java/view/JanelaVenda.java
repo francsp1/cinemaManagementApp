@@ -394,8 +394,9 @@ public class JanelaVenda extends Janela {
             Sessao sessao = entry.getKey();
             int quantidadeDebilhetes = entry.getValue();
 
-            //TODO
-
+            for (int i = 0; i < quantidadeDebilhetes ; i++) {
+                sessao.diminuiNumeroLugaresDisponivel();
+            }
         }
 
         //criar fatura
