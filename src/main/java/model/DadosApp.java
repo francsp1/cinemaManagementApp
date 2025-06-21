@@ -475,4 +475,41 @@ public class DadosApp implements Serializable {
         return resultado;
     }
 
+    public ArrayList<Bundle> getBundles() {
+        return bundles;
+    }
+
+    public Bundle getBundlePorNome(String nome) {
+        for (Bundle b : bundles) {
+            if (b.getNome().equals(nome)) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    public Produto getProdutoPorNome(String nome) {
+        for (StockProduto sp : stockProdutos) {
+            if (sp.getProduto().getNome().equals(nome)) {
+                return sp.getProduto();
+            }
+        }
+        return null;
+    }
+    public void adicionarFatura(Fatura fatura) {
+        if (fatura != null) {
+            faturas.add(fatura);
+        }
+    }
+
+    public void adicionarBundle(Bundle bundle) {
+        if (bundle != null) {
+            bundles.add(bundle);
+        }
+    }
+
+
+
+
+
 }
