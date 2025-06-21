@@ -8,8 +8,6 @@ import java.util.Map;
 public class FaturaFornecedor implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static int contadorFaturas = 1;
-
     private final int numeroFatura;
     private final Fornecedor fornecedor;
     private final LocalDate data;
