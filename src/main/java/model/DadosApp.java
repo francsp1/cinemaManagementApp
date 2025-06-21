@@ -73,16 +73,17 @@ public class DadosApp implements Serializable {
         instance = testInstance;
     }
 
-    public void adicionarSala(Sala sala) {
+    public boolean adicionarSala(Sala sala) {
         if (sala == null) {
             throw new IllegalArgumentException("Sala não pode ser nula.");
         }
 
         if (existeNumeroSala(sala.getNumeroSala())) {
-            return;
+            return false;
         }
 
         salas.add(sala);
+        return true;
     }
 
 

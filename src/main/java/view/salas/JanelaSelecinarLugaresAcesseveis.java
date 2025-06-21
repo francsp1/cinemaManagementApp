@@ -90,7 +90,9 @@ public class JanelaSelecinarLugaresAcesseveis extends Janela {
 
         atualizarLugares(botoesSelecionados);
 
-        DadosApp.getInstance().adicionarSala(sala);
+        if (!DadosApp.getInstance().adicionarSala(sala)) {
+            return;
+        }
 
         if (parentFrame instanceof JanelaSalas) {
             ((JanelaSalas) parentFrame).adicionar(sala);
