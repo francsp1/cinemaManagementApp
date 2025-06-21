@@ -2,12 +2,14 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import model.DadosApp;
-import model.StockProduto;
-import model.linhaFatura;
 
+import model.*;
+
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JanelaVenda extends Janela {
     private JPanel Cabecalho;
@@ -24,15 +26,20 @@ public class JanelaVenda extends Janela {
     private JTextField txtBoxQuantidade;
     private JButton adicionarProdutoButton;
     private JPanel mainPanel;
-    private JComboBox comboBox2;
+    private JComboBox bundleBox;
     private JButton cancelarOperaçãoButton;
     private JButton removerLinhaButton;
     private JLabel valorTotal;
+    private JLabel textBoxLugar;
+
+    private final JFrame parentFrame;
+    private Lugar lugarSelecionado;
+    private Funcionario funcionario;
 
     //para gurdar as linhas de fatura
     private List<linhaFatura> linhasFaturaProduto = new ArrayList<>();
 
-    public JanelaVenda(JFrame parent) {
+    public JanelaVenda(JFrame parent, Funcionario funcionario) {
         super("Registar Venda");
 
         setContentPane(mainPanel);
@@ -40,6 +47,8 @@ public class JanelaVenda extends Janela {
         pack();
         setLocationRelativeTo(parent);
         setVisible(true);
+
+        this.parentFrame = parent;
 
         // Initialize the table with stock products
         String[] columnNames = {"Produto"};
@@ -61,7 +70,67 @@ public class JanelaVenda extends Janela {
         // Opcoes de tipo de bilhete
         DadosApp.getInstance().getTicketTypes().keySet().forEach(opTipo::addItem);
 
-        //TODO: Opcoes de sessao
+        //Opcoes de sessao
+        DadosApp.getInstance().getSessoes().forEach(sessao -> opSessao.addItem(sessao.getFilme().getTitulo() + " - " + sessao.getDataHora()));
+
+        //Opcoes de Bundle
+        bundleBox.addItem("Nenhum"); // Adiciona opção de nenhum bundle
+        DadosApp.getInstance().getBundles().forEach(bundle -> bundleBox.addItem(bundle.getNome()));
+
+        //botao escolher lugar
+        escolherButton.addActionListener(e -> {
+
+            String objSelecionado = (String) opSessao.getSelectedItem();
+
+            Sessao sessao = DadosApp.getInstance().getSessaoPorTitulo(objSelecionado);
+
+            Sala salaSelecionada = sessao.getSala();
+
+            // Cria uma nova janela temporária
+            JFrame janelaTemporaria = new JFrame("Visualização da Sala");
+            janelaTemporaria.setSize(600, 400);
+            janelaTemporaria.setLocationRelativeTo(null); // Centraliza na tela
+
+            // Painel para desenhar a sala
+            JPanel painelSala = new JPanel();
+
+            // Adiciona o painel à janela
+            janelaTemporaria.add(new JScrollPane(painelSala));
+
+            // Chama o método de desenhar, passando o painel correto
+            desenharSalaNaJanela(salaSelecionada, painelSala);
+
+            // Exibe a janela
+            janelaTemporaria.setVisible(true);
+        });
+
+        // botao adicionar bilhete
+        adicionarBilheteButton.addActionListener(e -> {
+            String tipoBilheteSelecionado = (String) opTipo.getSelectedItem();
+            String sessaoSelecionada = (String) opSessao.getSelectedItem();
+            if (tipoBilheteSelecionado == null || sessaoSelecionada == null || lugarSelecionado == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um tipo de bilhete, uma sessão e um lugar.");
+                return;
+            }
+
+            Sessao sessao = DadosApp.getInstance().getSessaoPorTitulo(sessaoSelecionada);
+
+            //criar Bilhete
+            Bilhete bilhete = new Bilhete(sessao, lugarSelecionado, tipoBilheteSelecionado);
+
+            //Criar linha de fatura
+            linhaFatura novaLinha = new linhaFatura(bilhete);
+
+            // Adicionar linhaFatura à lista
+            linhasFaturaProduto.add(novaLinha);
+
+            //adicionar linhaFatura à venda
+            listaItems.setListData(linhasFaturaProduto.stream().map(linhaFatura::toString).toArray());
+
+            //atualizar o valor total
+            atualizarValorTotal();
+
+        });
 
         // botao de adicionar produto
         adicionarProdutoButton.addActionListener(e -> {
@@ -80,6 +149,10 @@ public class JanelaVenda extends Janela {
                     JOptionPane.showMessageDialog(this, "Quantidade deve ser maior que zero.");
                     return;
                 }
+                if(quantidade > stockProdutos.get(selectedRow).getQuantidade()) {
+                    JOptionPane.showMessageDialog(this, "Quantidade insuficiente em stock.");
+                    return;
+                }
 
                 double total = precoProduto * quantidade;
 
@@ -94,8 +167,6 @@ public class JanelaVenda extends Janela {
 
                 //atualizar o valor total
                 atualizarValorTotal();
-
-                //TODO: atualizar opcoes de bundle
 
                 JOptionPane.showMessageDialog(this, "Produto " + produto + " adicionado à venda.");
             } else {
@@ -125,14 +196,157 @@ public class JanelaVenda extends Janela {
                 return;
             }
 
-            // Aqui você pode adicionar a lógica para finalizar a compra
-            // Por exemplo, salvar a fatura em um arquivo ou banco de dado
+            Map<String, Integer> quantidadesPorProduto = new HashMap<>();
+            Map<String, Integer> quantidadesPorBilhete = new HashMap<>();
 
-            JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
-            dispose(); // Fecha a janela após finalizar a venda
+            // Verificar se um bundle foi selecionado
+            String bundleSelecionado = (String) bundleBox.getSelectedItem();
+            if (!bundleSelecionado.equals("Nenhum")) {
+                Bundle bundle = DadosApp.getInstance().getBundlePorNome(bundleSelecionado);
+
+                if (bundle != null) {
+
+                    // Obter quantidades por produto
+                    for (linhaFatura linha : linhasFaturaProduto) {
+                        if(linha.getProduto()!=null){
+                            String nome = linha.getProduto().getNome();
+                            int quantidade = linha.getQuantidade();
+
+                            // Acumula quantidade
+                            quantidadesPorProduto.merge(nome, quantidade, Integer::sum);
+                        }else{
+                            //caso de bilhete
+                            String tipoBilhete = linha.getBilhete().getTipo();
+                            int quantidade = linha.getQuantidade();
+                            // Acumula quantidade
+                            quantidadesPorBilhete.merge(tipoBilhete, quantidade, Integer::sum);
+                        }
+
+                    }
+
+
+
+                    // Verificar se as quantidades do bundle estão corretas
+                    for (Produto produto : bundle.getProdutos()) {
+                        int quantidadeNoBundle = bundle.getQuantidadeProdutos(produto.getNome());
+                        if (quantidadesPorProduto.getOrDefault(produto.getNome(), 0) < quantidadeNoBundle) {
+                            JOptionPane.showMessageDialog(this, "Quantidade insuficiente do produto: " + produto.getNome() + " no bundle.");
+                            return;
+                        }
+                    }
+                    // Verificar se as quantidades de bilhetes estão corretas
+                    for (String tipoBilhete : bundle.getBilhetes()) {
+                        int quantidadeNoBundle = bundle.getQuantidadeBilhetes(tipoBilhete);
+                        if (quantidadesPorBilhete.getOrDefault(tipoBilhete, 0) < quantidadeNoBundle) {
+                            JOptionPane.showMessageDialog(this, "Quantidade insuficiente de bilhetes do tipo: " + tipoBilhete + " no bundle.");
+                            return;
+                        }
+                    }
+
+                    //criar fatura
+                    double valorTotalBundle = bundle.getPreco();
+                    double valorExtras = 0.0;
+
+                    for (Map.Entry<String, Integer> entry : quantidadesPorProduto.entrySet()) {
+                        String nomeProduto = entry.getKey();
+                        int quantidadeNaVenda = entry.getValue();
+
+                        int quantidadeNoBundle = bundle.getQuantidadeProdutos(nomeProduto);
+                        int quantidadeExtra = quantidadeNaVenda - quantidadeNoBundle;
+
+                        if (quantidadeExtra > 0) {
+                            Produto produto = DadosApp.getInstance().getProdutoPorNome(nomeProduto);
+                            if (produto != null) {
+                                valorExtras += quantidadeExtra * produto.getPreco();
+                            }
+                        }
+                    }
+
+                    for (Map.Entry<String, Integer> entry : quantidadesPorBilhete.entrySet()) {
+                        String tipo = entry.getKey();
+                        int quantidadeNaVenda = entry.getValue();
+
+                        int quantidadeNoBundle = bundle.getQuantidadeBilhetes(tipo);
+                        int quantidadeExtra = quantidadeNaVenda - quantidadeNoBundle;
+
+                        if (quantidadeExtra > 0) {
+                            double preco = DadosApp.getInstance().getPrecoBilhete(tipo);
+                            valorExtras += quantidadeExtra * preco;
+                        }
+                    }
+
+                    // Valor total da fatura
+                    double valorFinal = valorTotalBundle + valorExtras;
+
+                    fechar(valorFinal);
+                }
+            }
+
+            //criar fatura
+            double valorTotal = 0;
+            for (linhaFatura linha : linhasFaturaProduto) {
+                valorTotal += linha.getPrecoTotal();
+            }
+            double valorTotalRounded = Math.round(valorTotal * 100.0) / 100.0;
+
+            fechar(valorTotalRounded);
+        });
+
+        // Botao de cancelar operacao
+        cancelarOperaçãoButton.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(this, "Tem a certeza que deseja cancelar a operação?", "Cancelar Operação", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                linhasFaturaProduto.clear();
+                listaItems.setListData(new String[0]);
+                atualizarValorTotal();
+                dispose(); // Fecha a janela
+                parentFrame.setVisible(true); // Torna a janela pai visível novamente
+            }
         });
 
 
+    }
+
+    private void desenharSalaNaJanela(Sala sala, JPanel painelDestino) {
+        painelDestino.removeAll();
+
+        int nrLinhas = sala.getNumeroFilas();
+        int nrColunas = sala.getNumeroLugaresPorFila();
+        Lugar[][] lugares = sala.getLugares();
+
+        painelDestino.setLayout(new GridLayout(nrLinhas, nrColunas));
+
+        for (int linha = 0; linha < nrLinhas; ++linha) {
+            for (int coluna = 0; coluna < nrColunas; ++coluna) {
+                Lugar lugar = lugares[linha][coluna];
+                JButton botao = new JButton();
+
+                String nomeLugar = lugar.getDesignacao();
+                botao.setText(nomeLugar);
+
+                if (lugar.isAcessivel()) {
+                    botao.setBackground(Color.GREEN);
+                    botao.setText(nomeLugar + " (Acessível)");
+                }
+
+                // Armazena o objeto Lugar no botão
+                botao.putClientProperty("lugar", lugar);
+
+                // Listener para clique
+                botao.addActionListener(e -> {
+                    JButton sourceButton = (JButton) e.getSource();
+                    lugarSelecionado = (Lugar) sourceButton.getClientProperty("lugar");
+
+                    textBoxLugar.setText(lugarSelecionado.getDesignacao());
+                    sourceButton.setBackground(Color.YELLOW); // marca visualmente
+                });
+
+                painelDestino.add(botao);
+            }
+        }
+
+        painelDestino.revalidate();
+        painelDestino.repaint();
     }
 
     private void atualizarValorTotal(){
@@ -145,6 +359,38 @@ public class JanelaVenda extends Janela {
 
         this.valorTotal.setText(valorTotalRounded+ " €");
 
+    }
+
+    private void fechar(double valorFinal){
+
+        // Verifica se o funcionário é nulo e atribui um valor padrão
+        if(funcionario == null) {
+            funcionario = new Funcionario("Anónimo", "Anónimo", "Anónimo",
+                    "Anónimo", "Anónimo", "Anónimo", "Anónimo", false);
+        }
+        //criar fatura
+        Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal,funcionario);
+
+        //guardar fatura
+        DadosApp.getInstance().adicionarFatura(fatura);
+
+        //remover stock
+        for (linhaFatura linha : linhasFaturaProduto) {
+            StockProduto stockProduto = DadosApp.getInstance().getStockProdutos().stream()
+                    .filter(sp -> sp.getProduto().equals(linha.getProduto()))
+                    .findFirst()
+                    .orElse(null);
+            if (stockProduto != null) {
+                stockProduto.remover(linha.getQuantidade());
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Venda finalizada com sucesso!");
+        linhasFaturaProduto.clear();
+        listaItems.setListData(new String[0]);
+        atualizarValorTotal();
+        dispose(); // Fecha a janela após finalizar a venda
+        parentFrame.setVisible(true); // Torna a janela pai visível novamente
     }
 
     public JPanel getMainPanel() {

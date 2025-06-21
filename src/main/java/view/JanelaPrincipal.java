@@ -101,7 +101,7 @@ public class JanelaPrincipal extends Janela {
 
     private void btnVendasBilhetesActionPerformed(ActionEvent e) {
         setVisible(false);
-        JanelaVenda janelaVenda = new JanelaVenda(this);
+        JanelaVenda janelaVenda = new JanelaVenda(this, funcionario);
     }
 
     private void btnAdicionarFilmeActionPerformed(ActionEvent e) {
@@ -110,7 +110,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnHistoricoVendasActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaHistoricoVendas janelaHistoricoVendas = new JanelaHistoricoVendas(this);
     }
 
     private void btnEstatisticasFilmesActionPerformed(ActionEvent e) {
@@ -148,7 +149,8 @@ public class JanelaPrincipal extends Janela {
     }
 
     private void btnGerirBundlesActionPerformed(ActionEvent e) {
-        //TODO
+        setVisible(false);
+        JanelaBundle janelaBundle = new JanelaBundle(this);
     }
 
     private void btnVerFuncionariosActionPerformed(ActionEvent e) {

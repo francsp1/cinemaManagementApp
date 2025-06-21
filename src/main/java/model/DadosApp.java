@@ -4,6 +4,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class DadosApp implements Serializable {
 
@@ -30,7 +32,17 @@ public class DadosApp implements Serializable {
     private final ArrayList<Sessao> sessoes = new ArrayList<>();
 
     private final HashMap<String, Double> ticketTypes = new HashMap<>();
+    private final ArrayList<Fatura> faturas = new ArrayList<>();
+    private final ArrayList<Bundle> bundles = new ArrayList<>();
 
+
+    private final ArrayList<Bilhete> bilhetes = new ArrayList<>();
+
+    private final ArrayList<VendaBilhete> vendasBilhete = new ArrayList<>();
+
+    public ArrayList<VendaBilhete> getVendasBilhete() {
+        return vendasBilhete;
+    }
 
 
     DadosApp() {
@@ -41,6 +53,9 @@ public class DadosApp implements Serializable {
         inicializarTiposBilhete();
         adicionarFilmesExemplo();
         adicionarSessoesExemplo();
+        inicializarBundle();
+        inicializarFaturas();
+        adicionarFilmesEVendasExemplo();
     }
 
     public static DadosApp getInstance() {
@@ -69,6 +84,46 @@ public class DadosApp implements Serializable {
 
         salas.add(sala);
     }
+
+
+    private void adicionarFilmesEVendasExemplo() {
+        Filme f1 = new Filme(
+                "O Senhor dos Anéis",
+                "Uma aventura épica pela Terra Média.",
+                180,
+                Filme.Categoria.AVENTURA,
+                "Peter Jackson",
+                "Elijah Wood",
+                "Ian McKellen",
+                "Viggo Mortensen",
+                "Orlando Bloom",
+                Filme.Tipo._2D
+        );
+
+        Filme f2 = new Filme(
+                "Matrix",
+                "Um hacker descobre a verdade sobre sua realidade.",
+                136,
+                Filme.Categoria.AVENTURA,
+                "Lana Wachowski",
+                "Keanu Reeves",
+                "Laurence Fishburne",
+                "Carrie-Anne Moss",
+                "Hugo Weaving",
+                Filme.Tipo._2D
+        );
+
+        filmes.add(f1);
+        filmes.add(f2);
+
+        vendasBilhete.add(new VendaBilhete(f1, "Normal", LocalDate.of(2023, 1, 1), 10));
+        vendasBilhete.add(new VendaBilhete(f2, "Estudante", LocalDate.of(2025, 6, 2), 5));
+        vendasBilhete.add(new VendaBilhete(f1, "Normal", LocalDate.of(2025, 6, 3), 7));
+        vendasBilhete.add(new VendaBilhete(f1, "Estudante", LocalDate.of(2025, 6, 3), 2));
+        vendasBilhete.add(new VendaBilhete(f2, "Normal", LocalDate.of(2025, 6, 4), 8));
+    }
+
+
 
     private void adicionarSalasExemplo() {
         Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
@@ -181,6 +236,85 @@ public class DadosApp implements Serializable {
         ticketTypes.put("Normal", 10.0);
         ticketTypes.put("Estudante", 7.5);
         ticketTypes.put("+65", 6.0);
+    }
+
+    private void inicializarSessao(){
+        sessoes.add(new Sessao(new Sala(5, 5, 2, TipoSala.TRES_D, TipoSistemaSom.DOLBY_ATMOS, "Sala 3D")
+                , 120, LocalDate.now().atStartOfDay(),  new Filme(
+                "Matrix",
+                "Um hacker descobre a verdade sobre sua realidade.",
+                136,
+                Filme.Categoria.AVENTURA,
+                "Lana Wachowski",
+                "Keanu Reeves",
+                "Laurence Fishburne",
+                "Carrie-Anne Moss",
+                "Hugo Weaving",
+                Filme.Tipo._2D
+        )));
+
+    }
+    private void inicializarFaturas(){
+        ArrayList<linhaFatura> linhasFatura = new ArrayList<>();
+        linhasFatura.add(new linhaFatura(new Produto("Ice Tea Limão 33cl",0.52), 10, 5.20));
+        linhasFatura.add(new linhaFatura(new Produto("Fanta Laranja 33cl",0.60), 5, 3.00));
+
+        Funcionario funcionario = new Funcionario(
+                "João Silva", "12345678", "joao.silva@email.com",
+                "Rua A, Lisboa", "912345678", "jsilva", "1234", true
+        );
+
+        Fatura fatura = new Fatura(linhasFatura, 8.20, funcionario);
+        faturas.add(fatura);
+
+        ArrayList<linhaFatura> linhasFatura2 = new ArrayList<>();
+        linhasFatura.add(new linhaFatura(new Produto("Ice Tea Limão 33cl",0.52), 11, 5.20));
+        linhasFatura.add(new linhaFatura(new Produto("Fanta Laranja 33cl",0.60), 6, 3.00));
+
+        Funcionario funcionario2 = new Funcionario(
+                "João Silva", "12345678", "joao.silva@email.com",
+                "Rua A, Lisboa", "912345678", "jsilva", "1234", true
+        );
+
+        Fatura fatura2 = new Fatura(linhasFatura2, 10.0, funcionario2);
+        faturas.add(fatura2);
+    }
+
+    public ArrayList<Fatura> getFaturas(){
+        return faturas;
+    }
+
+    private void inicializarBundle(){
+        ArrayList<Produto> produtos = new ArrayList<>();
+        produtos.add(new Produto("Ice Tea Limão 33cl",0.40));
+
+        ArrayList<String> bilhetes = new ArrayList<>();
+        bilhetes.add("Normal");
+
+        Bundle bundle = new Bundle("Combo 1", 12.0, produtos, bilhetes);
+        bundles.add(bundle);
+    }
+
+    public ArrayList<Sessao> getSessoes() {
+        return sessoes;
+    }
+
+    public Sessao getSessaoPorTitulo(String tituloEDataHora) {
+        for (Sessao sessao : sessoes) {
+            String titulo = sessao.getFilme().getTitulo();
+            String dataHora = sessao.getDataHora().toString();
+
+            String chaveSessao = titulo + " - " + dataHora;
+
+            if (chaveSessao.equals(tituloEDataHora)) {
+                return sessao;
+            }
+        }
+        return null;
+    }
+
+    public double getPrecoBilhete(String tipoBilhete) {
+        return ticketTypes.getOrDefault(tipoBilhete, 0.0);
     }
 
 
@@ -319,5 +453,28 @@ public class DadosApp implements Serializable {
         }
     }
 
+
+
+    public static Map<String, List<Map.Entry<Filme, Integer>>> filmesMaisVistosPorTipoBilhete(
+            List<VendaBilhete> vendas, LocalDate dataInicio, LocalDate dataFim) {
+        Map<String, Map<Filme, Integer>> contagem = new HashMap<>();
+
+        for (VendaBilhete v : vendas) {
+            if (v.getDataVenda().isBefore(dataInicio) || v.getDataVenda().isAfter(dataFim)) continue;
+            String tipo = v.getTipoBilhete();
+            Filme filme = v.getFilme();
+            contagem.putIfAbsent(tipo, new HashMap<>());
+            Map<Filme, Integer> filmes = contagem.get(tipo);
+            filmes.put(filme, filmes.getOrDefault(filme, 0) + v.getQuantidade());
+        }
+
+        Map<String, List<Map.Entry<Filme, Integer>>> resultado = new HashMap<>();
+        for (String tipo : contagem.keySet()) {
+            List<Map.Entry<Filme, Integer>> lista = new ArrayList<>(contagem.get(tipo).entrySet());
+            lista.sort((a, b) -> b.getValue() - a.getValue());
+            resultado.put(tipo, lista);
+        }
+        return resultado;
+    }
 
 }
