@@ -50,6 +50,7 @@ public class DadosApp implements Serializable {
         inicializarTiposBilhete();
         inicializarSessao();
         inicializarBundle();
+        inicializarFaturas();
         adicionarFilmesEVendasExemplo();
     }
 
@@ -248,6 +249,35 @@ public class DadosApp implements Serializable {
                 Filme.Tipo._2D
         )));
 
+    }
+    private void inicializarFaturas(){
+        ArrayList<linhaFatura> linhasFatura = new ArrayList<>();
+        linhasFatura.add(new linhaFatura(new Produto("Ice Tea Limão 33cl",0.52), 10, 5.20));
+        linhasFatura.add(new linhaFatura(new Produto("Fanta Laranja 33cl",0.60), 5, 3.00));
+
+        Funcionario funcionario = new Funcionario(
+                "João Silva", "12345678", "joao.silva@email.com",
+                "Rua A, Lisboa", "912345678", "jsilva", "1234", true
+        );
+
+        Fatura fatura = new Fatura(linhasFatura, 8.20, funcionario);
+        faturas.add(fatura);
+
+        ArrayList<linhaFatura> linhasFatura2 = new ArrayList<>();
+        linhasFatura.add(new linhaFatura(new Produto("Ice Tea Limão 33cl",0.52), 11, 5.20));
+        linhasFatura.add(new linhaFatura(new Produto("Fanta Laranja 33cl",0.60), 6, 3.00));
+
+        Funcionario funcionario2 = new Funcionario(
+                "João Silva", "12345678", "joao.silva@email.com",
+                "Rua A, Lisboa", "912345678", "jsilva", "1234", true
+        );
+
+        Fatura fatura2 = new Fatura(linhasFatura2, 10.0, funcionario2);
+        faturas.add(fatura2);
+    }
+
+    public ArrayList<Fatura> getFaturas(){
+        return faturas;
     }
 
     private void inicializarBundle(){

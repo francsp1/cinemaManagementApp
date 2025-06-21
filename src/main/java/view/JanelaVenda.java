@@ -362,6 +362,13 @@ public class JanelaVenda extends Janela {
     }
 
     private void fechar(double valorFinal){
+
+        // Verifica se o funcionário é nulo e atribui um valor padrão
+        if(funcionario == null) {
+            funcionario = new Funcionario("Anónimo", "Anónimo", "Anónimo",
+                    "Anónimo", "Anónimo", "Anónimo", "Anónimo", false);
+        }
+        //criar fatura
         Fatura fatura = new Fatura(linhasFaturaProduto, valorFinal,funcionario);
 
         //guardar fatura

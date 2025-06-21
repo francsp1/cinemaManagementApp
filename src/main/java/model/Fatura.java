@@ -19,4 +19,25 @@ public class Fatura implements Serializable {
         this.funcionario = funcionario;
     }
 
+    public Date getData() {
+        return data;
+    }
+    public List<linhaFatura> getLinhasFatura() {
+        return linhasFatura;
+    }
+    public double getValorTotal() {
+        return valorTotal;
+    }
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(linhaFatura linha: linhasFatura) {
+            sb.append(linha.toString()).append(" ");
+        }
+        return sb.toString();
+    }
 }
