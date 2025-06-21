@@ -123,11 +123,6 @@ public class DadosApp implements Serializable {
         vendasBilhete.add(new VendaBilhete(f2, "Normal", LocalDate.of(2025, 6, 4), 8));
     }
 
-
-    public void adicionarVendaBilhete(VendaBilhete venda) {
-        vendasBilhete.add(venda);
-    }
-
     private void adicionarSalasExemplo() {
         Sala sala1 = new Sala(3, 4, 1, TipoSala.DOIS_D, TipoSistemaSom.NORMAL, "Sala 2D");
         sala1.setEstado(false);
