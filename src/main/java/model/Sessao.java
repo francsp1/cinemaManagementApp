@@ -52,9 +52,8 @@ public class Sessao implements Serializable {
         return numeroLugaresDisponivel;
     }
 
-    public int diminuiNumeroLugaresDisponivel() {
+    public void diminuiNumeroLugaresDisponivel() {
         numeroLugaresDisponivel--;
-        return numeroLugaresDisponivel;
     }
 
     @Override
